@@ -22,4 +22,35 @@ contract ThreeBank {
 
     mapping(string => uint256) public balance;
     mapping(string => bool) public enrolled;
+
+    uint256 totalBalance = 0;
+
+    function enroll(
+        PersonalInformation memory personalInformation,
+        string memory panNumber
+    ) public {
+        enrolled[panNumber] = true;
+        users[panNumber] = personalInformation;
+    }
+
+    modifier onlyEnrolled(string memory panNumber) {
+        require(enrolled[panNumber], "User not enrolled");
+        _;
+    }
+
+    function deposit(
+        string memory panNumber
+    ) public payable onlyEnrolled(panNumber) {
+        balance[panNumber] += msg.value;
+        totalBalance += msg.value;
+    }
+
+    function withdraw(
+        uint256 amount,
+        string memory panNumber
+    ) public onlyEnrolled(panNumber) {
+        require(balance[panNumber] >= amount, "Insufficient Balance");
+        balance[panNumber] -= amount;
+        payable(msg.sender).transfer(amount);
+    }
 }
