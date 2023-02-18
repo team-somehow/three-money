@@ -7,64 +7,68 @@ import contractAddress from "../../constants/contractAddress";
 
 import { useAuth } from "@arcana/auth-react";
 import {
-	collection,
-	getDocs,
-	query,
-	where,
-	updateDoc,
-	doc,
+    collection,
+    getDocs,
+    query,
+    where,
+    updateDoc,
+    doc,
+    getDoc,
 } from "@firebase/firestore";
 import { db } from "../../config/firebase";
 
 function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
-	console.log(panNumber);
-	// const provider = new providers.Web3Provider(arcanaProvider.provider);
-	// const signer = provider.getSigner();
-	// const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+	const auth=useAuth()
+    // const provider = new providers.Web3Provider(arcanaProvider.provider);
+    // const signer = provider.getSigner();
+    // const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 
-	const handlePayInstallment = async () => {
-		console.log("hello");
+    const handlePayInstallment = async () => {
+        const amountInWei = utils.parseEther(payAmount.toString());
 
-		const amountInWei = utils.parseEther(payAmount.toString());
+        // await contract.deposit(panNumber, {
+        //     value: amountInWei,
+        // });
 
-		console.log("amountInWei", amountInWei);
+		const q = query(
+			collection(db, "ThreeBank"),
+			where("arcanaUid", "==", auth.user.publicKey)
+		);
 
-		// await contract.deposit(panNumber, {
-		//     value: amountInWei,
-		// });
+		const querySnapshot = await getDoc(q);
 
-		console.log("fdas", id);
+		// console.log(querySnapshot.id,querySnapshot.data())
 
-		const userDataRef = doc(db, "ThreeBank", id);
-		const getData = await getDocs(userDataRef);
+        // const q = query(
+        //     collection(db, "ThreeBank"),
+        //     where("pan", "==", panNumber)
+        // );
+        // const data = await getDoc(q);
 
-		console.log("getData", getData);
+        // data.forEach(doc=>console.log({id:doc.id,...doc.data()}))
+    };
 
-		// await updateDoc(userDataRef, {
-		//     bankDetails: {
-		//         balance: parseFloat(balance) + parseFloat(depositVal),
-		//     },
-		// });
-		setBalance(parseFloat(balance) + parseFloat(depositVal));
-	};
-
-	return (
-		<Box
-			component={Paper}
-			p={2}
-			display={"flex"}
-			alignItems={"center"}
-			justifyContent={"space-between"}
-		>
-			<Box>
-				<Typography variant="h4">{name}</Typography>
-				<Typography variant="h6">Pay for {month}</Typography>
-			</Box>
-			<Button variant="contained" onClick={handlePayInstallment} size="large">
-				Pay ₹{payAmount}
-			</Button>
-		</Box>
-	);
+    return (
+        <Box
+            component={Paper}
+            p={2}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+        >
+            <Box>
+                <Typography variant="h4">{name}</Typography>
+                <Typography variant="h6">Pay for {month}</Typography>
+            </Box>
+            <Button
+                variant="contained"
+                onClick={handlePayInstallment}
+                size="large"
+            >
+                Pay ₹{payAmount}
+            </Button>
+        </Box>
+    );
 }
 
 export default LoanPaymentListItem;
