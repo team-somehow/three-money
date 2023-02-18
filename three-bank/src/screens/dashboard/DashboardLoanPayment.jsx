@@ -6,61 +6,59 @@ import LoanPaymentListItem from "../../components/dashboard/LoanPaymentListItem"
 import { db } from "../../config/firebase";
 
 const DashboardLoanPayment = () => {
-    const auth = useAuth();
-    const [data, setData] = useState([]);
+	const auth = useAuth();
+	const [data, setData] = useState([]);
 
-    useEffect(() => {
-        (async () => {
-            if (!auth) return;
-            if (!auth?.user) return;
-            if (!auth.user?.publicKey) return;
+	useEffect(() => {
+		(async () => {
+			if (!auth) return;
+			if (!auth?.user) return;
+			if (!auth.user?.publicKey) return;
 
-            const q = query(
-                collection(db, "ThreeBank"),
-                where("arcanaUid", "==", auth.user.publicKey)
-            );
+			const q = query(
+				collection(db, "ThreeBank"),
+				where("arcanaUid", "==", auth.user.publicKey)
+			);
 
-            const querySnapshot = await getDocs(q);
-            const dataArr = [];
+			const querySnapshot = await getDocs(q);
+			const dataArr = [];
 
-            querySnapshot.forEach((doc) => {
-                dataArr.push({ id: doc.id, ...doc.data() });
-            });
+			querySnapshot.forEach((doc) => {
+				dataArr.push({ id: doc.id, ...doc.data() });
+			});
 
-            console.log(dataArr);
-            setData(dataArr);
-        })();
-    }, [auth]);
+			console.log(dataArr);
+			setData(dataArr[0]);
+		})();
+	}, [auth]);
 
-    console.log("DFAsd", data?.loanPayments);
+	return (
+		<Box p={4} width={"100%"}>
+			<Typography variant="h2" mb={4}>
+				My Loans
+			</Typography>
 
-    return (
-        <Box p={4} width={"100%"}>
-            <Typography variant="h2" mb={4}>
-                My Loans
-            </Typography>
+			{data?.loanPayments &&
+				data?.loanPayments.map((item) => {
+					{
+						console.log(item);
+					}
 
-            {data?.loanPayments &&
-                data?.loanPayments.map((item) => {
-                    {
-                        console.log(item);
-                    }
-
-                    return (
-                        <LoanPaymentListItem
-                            id={data.id}
-                            name={item.loanId}
-                            month={"February"}
-                            payAmount={
-                                parseFloat(item.loanAmmount) /
-                                parseFloat(item.loanTenure)
-                            }
-                            panNumber={data.pan}
-                        />
-                    );
-                })}
-        </Box>
-    );
+					return (
+						<LoanPaymentListItem
+                            {...item}
+							id={data.id}
+							name={item.name}
+							month={"February"}
+							payAmount={
+								parseFloat(item.loanAmmount) / parseFloat(item.loanTenure)
+							}
+							panNumber={data.pan}
+						/>
+					);
+				})}
+		</Box>
+	);
 };
 
 export default DashboardLoanPayment;

@@ -25,25 +25,22 @@ const firebaseStructure = {
     {
       timestamp: new Date(),
 
-      bankLogo:
-        "https://1000logos.net/wp-content/uploads/2021/06/HDFC-Bank-emblem.png",
+      bankLogo: "/assets/hdfc_logo.png",
       enquiryId: 69,
       enquiryBy: "three-bank",
     },
     {
       timestamp: new Date(),
 
-      bankLogo:
-        "https://1000logos.net/wp-content/uploads/2021/06/HDFC-Bank-emblem.png",
+      bankLogo: "/assets/hdfc_logo.png",
       enquiryId: 99,
-      enquiryBy: "four-bank",
+      enquiryBy: "HDFC Bank",
     },
   ],
   accounts: [
     {
       bankProvider: "three-bank",
-      bankLogo:
-        "https://1000logos.net/wp-content/uploads/2021/06/HDFC-Bank-emblem.png",
+      bankLogo: "/assets/hdfc_logo.png",
       accountStartTime: new Date("2022"),
       loans: [
         {
@@ -150,12 +147,12 @@ const CreditDataContextProvider = ({ children }) => {
     })();
   }, [auth]);
 
-  if (loading)
-    return (
-      <div className="center-container">
-        <CircularProgress />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className="center-container">
+  //       <CircularProgress />
+  //     </div>
+  //   );
 
   return (
     <CreditDataContext.Provider value={firebaseData}>

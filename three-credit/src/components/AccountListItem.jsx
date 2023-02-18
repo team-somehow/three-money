@@ -12,6 +12,7 @@ function AccountListItem({
   enquiryDate,
   onClickHandle,
 }) {
+  console.log(icon);
   return (
     <Box my={2} mx={4}>
       <Box
@@ -24,7 +25,7 @@ function AccountListItem({
             {icon ? (
               <img
                 style={{
-                  width: "60px",
+                  width: "50px",
                 }}
                 src={`${icon}`}
               />

@@ -88,7 +88,7 @@ function SummaryCard({
               width={"100%"}
               py={1}
             >
-              <Typography variant="h4" color={"#a9e1c9"} fontWeight={"bold"}>
+              <Typography variant="h4" color={"#9ab8c2"} fontWeight={"bold"}>
                 {percentValue}
               </Typography>
               <ArrowForwardIosIcon />

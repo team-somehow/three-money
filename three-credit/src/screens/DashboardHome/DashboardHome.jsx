@@ -79,7 +79,11 @@ const DashboardHome = () => {
               {JSON.stringify(creditDataCtx.userCreditRequest[0].timestamp)}
             </b>
           </Typography>
-          <Button variant="contained" onClick={updateScore}>
+          <Button
+            variant="contained"
+            sx={{ bgcolor: "#618EF6", color: "white" }}
+            onClick={updateScore}
+          >
             Update Score
           </Button>
         </Box>

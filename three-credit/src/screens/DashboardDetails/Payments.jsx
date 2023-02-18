@@ -18,7 +18,7 @@ const Payments = () => {
   };
   const accounts = [
     {
-      icon: <img src="/assets/hdfc_logo.png" width={"40px"} />,
+      icon: "/assets/hdfc_logo.png",
       bankName: "Home Loan",
       cardNumber: "**** *890",
       loanTenure: 15,
@@ -26,7 +26,7 @@ const Payments = () => {
       onClickHandle: () => activateHistoryModal(),
     },
     {
-      bankName: "No bank",
+      bankName: "SBI Bank",
       cardNumber: "**** *69",
       loanTenure: 15,
       paymentsMade: 5,
@@ -71,6 +71,7 @@ const Payments = () => {
         <Typography variant="h4">Your Loans</Typography>
         {accounts.map((acc) => (
           <AccountListItem
+            key={acc.bankName + acc.icon}
             icon={acc.icon}
             bankName={acc.bankName}
             cardNumber={acc.cardNumber}
