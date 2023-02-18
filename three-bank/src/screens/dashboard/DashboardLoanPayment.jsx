@@ -44,8 +44,8 @@ const DashboardLoanPayment = () => {
                 My Loans
             </Typography>
 
-            {data?.loanRequest &&
-                data?.loanRequest.map((item) => {
+            {data?.loanPayments &&
+                data?.loanPayments.map((item) => {
                     return (
                         <LoanPaymentListItem
                             {...item}
