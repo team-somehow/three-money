@@ -56,4 +56,13 @@ describe("ThreeBank", () => {
                 financialData.personalInformation.panNumber
             );
     });
+
+    it("Request Loan", async () => {
+        await threebank
+            .connect(account2)
+            .requestLoan(
+                financialData.personalInformation.panNumber,
+                financialData.loanDeets
+            );
+    });
 });
