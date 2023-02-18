@@ -56,6 +56,7 @@ const DashboardLoan = () => {
 
         const accountRef = doc(db, "ThreeBank", datafromfirebase[0].id);
         await updateDoc(accountRef, {
+            
             loanRequest: arrayUnion({
                 loanId: (Math.random() * 100).toString(),
                 loanAmmount: loanVal,
@@ -64,6 +65,7 @@ const DashboardLoan = () => {
                 timestamp: new Date(),
             }),
         });
+        console.log("hogaya bhai")
     };
 
     return (
