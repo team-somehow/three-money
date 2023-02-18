@@ -6,7 +6,6 @@ import { arcanaProvider } from "../../main";
 import { providers, Contract, utils, ethers } from "ethers";
 import contractAddress from "../../constants/contractAddress";
 import {
-    arrayRemove,
     arrayUnion,
     collection,
     doc,
@@ -113,7 +112,7 @@ const CustomModal = ({
         const signer = provider.getSigner();
         const contract = new Contract(contractAddress, ThreeBank.abi, signer);
         const q = query(
-            /*  */ collection(db, "ThreeBank"),
+            collection(db, "ThreeBank"),
             where("pan", "==", panCardNumber)
         );
         const arr = [];
@@ -138,6 +137,10 @@ const CustomModal = ({
 
         const accountRef = doc(db, "ThreeBank", arr[0].id);
         await updateDoc(accountRef, {
+            bankDetails: {
+                balance:
+                    parseFloat(arr[0].bankDetails.balance) + parseFloat(amount),
+            },
             loanRequest: newData,
             loanPayments: arrayUnion({
                 id: loanId,
@@ -157,11 +160,47 @@ const CustomModal = ({
             repaymentStatus: "ongoing",
         };
 
-        // console.log(await contract.requestLoan(panCardNumber, data));
+        console.log(await contract.requestLoan(panCardNumber, data));
         console.log("success");
+        setExpand(true);
+        setStatus(true);
+
+        handleClose();
+    };
+
+    const RejectLoan = async () => {
+        const q = query(
+            collection(db, "ThreeBank"),
+            where("pan", "==", panCardNumber)
+        );
+        const arr = [];
+        const datafromfirebase = await getDocs(q);
+
+        datafromfirebase.forEach((doc) => {
+            arr.push({ id: doc.id, ...doc.data() });
+        });
+
+        const loanRequest = arr[0].loanRequest;
+        let newData = [];
+        for (let i = 0; i < loanRequest.length; i++) {
+            console.log(loanRequest[i]);
+            if (loanRequest[i].loanId === loanId) {
+                let temp = loanRequest[i];
+                temp.approvedStatus = "rejected";
+                newData.push(temp);
+            } else {
+                newData.push(loanRequest[i]);
+            }
+        }
+
+        const accountRef = doc(db, "ThreeBank", arr[0].id);
+        await updateDoc(accountRef, {
+            loanRequest: newData,
+        });
 
         setExpand(true);
         setStatus(true);
+        handleClose();
     };
 
     return (
@@ -204,7 +243,7 @@ const CustomModal = ({
                             <Button onClick={() => approveLoan()}>
                                 Approve for Loan
                             </Button>
-                            <Button onClick={() => handleClose()}>
+                            <Button onClick={() => RejectLoan()}>
                                 Reject Loan
                             </Button>
                         </Box>

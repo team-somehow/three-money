@@ -13,7 +13,6 @@ import React, { createContext, useEffect, useState } from "react";
 import DashboardLoanListItem from "../../components/dashboard/DashboardLoanListItem";
 import { db } from "../../config/firebase";
 
-
 const DashboardLoan = () => {
     const [loanVal, setLoanVal] = useState(0);
     const [loanTenure, setLoanTenure] = useState(0);
@@ -55,17 +54,27 @@ const DashboardLoan = () => {
         });
 
         const accountRef = doc(db, "ThreeBank", datafromfirebase[0].id);
+        let temp = parseInt(Math.random() * 100).toString();
         await updateDoc(accountRef, {
-            
             loanRequest: arrayUnion({
-                loanId: (Math.random() * 100).toString(),
+                loanId: temp,
                 loanAmmount: loanVal,
                 loanTenure: loanTenure,
                 approvedStatus: "waiting",
                 timestamp: new Date(),
             }),
         });
-        console.log("hogaya bhai")
+        setLoanRequest((prev) => {
+            prev.push({
+                loanId: temp,
+                loanAmmount: loanVal,
+                loanTenure: loanTenure,
+                approvedStatus: "waiting",
+                timestamp: new Date(),
+            });
+            return [...prev];
+        });
+        console.log("hogaya bhai");
     };
 
     return (

@@ -24,8 +24,6 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
     const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 
     const handlePayInstallment = async () => {
-        console.log("payAmount.toString()", payAmount.toString());
-
         // return;
         if (!payAmount) return;
 
@@ -38,37 +36,58 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
             where("arcanaUid", "==", auth.user.publicKey)
         );
 
-        console.log("2");
-
         const querySnapshot = await getDocs(q);
         const data = [];
         querySnapshot.forEach((doc) => {
-            console.log("{ id: doc.id, ...doc.data() }", {
-                id: doc.id,
-                ...doc.data(),
-            });
             data.push({ id: doc.id, ...doc.data() });
         });
 
-        console.log("3");
-
-        await contract.makeLoanPayment(panNumber, amountInWei);
-
+        // await contract.makeLoanPayment(panNumber, amountInWei);
+        // const balance=
         const loanPayments = data[0].loanPayments;
+        const loanRequest = data[0].loanRequest;
         let newData = [];
         for (let i = 0; i < loanPayments.length; i++) {
-            console.log(loanPayments[i]);
             if (loanPayments[i].id === id) {
                 newData.push(loanPayments[i]);
             } else {
                 let temp = loanPayments[i];
                 temp.currentPayment = temp.currentPayment + 1;
-                temp.month = "March";
+                if (temp.currentPayment === parseInt(temp.loanTenure)) {
+                    loanRequest.map((item) => {
+                        if (item.loanId === loanPayments[i].id) {
+                            item.approvedStatus = "completed";
+                        }
+                        return item;
+                    });
+                }
+                const month = [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                ];
+
+                let x = month.findIndex((l) => l === temp.month);
+
+                temp.month = month[x + 1];
                 newData.push(temp);
             }
         }
         const accountRef = doc(db, "ThreeBank", data[0].id);
         await updateDoc(accountRef, {
+            bankDetails: {
+                balance: parseFloat(data[0].bankDetails.balance) - parseFloat(payAmount),
+            },
+            loanRequest: loanRequest,
             loanPayments: newData,
         });
     };

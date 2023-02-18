@@ -48,9 +48,10 @@ function AdminApproval() {
             if (!auth?.user) return;
             if (!auth.user?.publicKey) return;
 
-            console.log(auth?.user?.publicKey);
-
-            const q = query(collection(db, "ThreeBank"));
+            const q = query(
+                collection(db, "ThreeBank"),
+                where("isAccountApproved", "==", false)
+            );
             const querySnapshot = await getDocs(q);
 
             const dataFromFb = [];
@@ -74,7 +75,6 @@ function AdminApproval() {
                 });
             });
             setData(dataFromFb);
-            console.log(dataFromFb);
         })();
     }, [auth]);
 
