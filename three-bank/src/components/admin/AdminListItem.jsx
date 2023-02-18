@@ -24,6 +24,7 @@ const AdminApprovalListItem = (props) => {
 				panCardNumber={item.panCardNumber}
 				amount={item.loanAmmount}
 				tenure={item.loanTenure}
+				{...item}
 			/>
 
 			<Box

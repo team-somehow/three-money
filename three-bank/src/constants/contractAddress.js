@@ -1,1 +1,1 @@
-export default "";
+export default "0x8f7335D3A480FD84ebAF557506994B6A02104529";
