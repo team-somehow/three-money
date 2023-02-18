@@ -42,7 +42,7 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
             data.push({ id: doc.id, ...doc.data() });
         });
 
-        // await contract.makeLoanPayment(panNumber, amountInWei);
+        await contract.makeLoanPayment(panNumber, amountInWei);
         // const balance=
         const loanPayments = data[0].loanPayments;
         const loanRequest = data[0].loanRequest;
