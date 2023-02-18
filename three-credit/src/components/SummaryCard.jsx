@@ -37,8 +37,19 @@ function SummaryCard({
                     boxShadow: "0 4px 20px 0 rgba(0, 0, 0, 0.1)",
                     transform: "scale(1.05) !important",
                 },
+                overflow: "hidden",
             }}
         >
+            <Box
+                position={"absolute"}
+                fontSize={"280px"}
+                right={"-50px"}
+                bottom={"-140px"}
+                zIndex={"-1"}
+                color={"rgba(0, 0, 0, 0.05)"}
+            >
+                {mainIcon}
+            </Box>
             <Box
                 position={"absolute"}
                 bgcolor={tagLabelColor}
