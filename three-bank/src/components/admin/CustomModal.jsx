@@ -157,7 +157,7 @@ const CustomModal = ({
             repaymentStatus: "ongoing",
         };
 
-        // console.log(await contract.requestLoan(panCardNumber, data));
+        console.log(await contract.requestLoan(panCardNumber, data));
         console.log("success");
 
         setExpand(true);

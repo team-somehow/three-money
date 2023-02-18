@@ -20,8 +20,6 @@ const DashboardApproveStatus = () => {
             if (!auth?.user) return;
             if (!auth.user?.publicKey) return;
 
-            console.log(auth?.user?.publicKey);
-
             const q = query(
                 collection(db, "ThreeBank"),
                 where("arcanaUid", "==", auth?.user?.publicKey)
@@ -31,14 +29,12 @@ const DashboardApproveStatus = () => {
             let threeBanksUserData = null;
 
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
                 threeBanksUserData = doc.data();
             });
 
             // let approvedByBank = true;
             let approvedByBank = threeBanksUserData?.isAccountApproved;
 
-            console.log("approvedByBank", approvedByBank);
 
             if (approvedByBank) {
                 navigate("/dashboard/details");
