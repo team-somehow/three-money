@@ -1,9 +1,10 @@
 import { Button, Modal, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { arcanaProvider } from "../../main";
 import { providers, Contract, utils, ethers } from "ethers";
+import contractAddress2 from "../../constants/contractAddressCredit";
 import contractAddress from "../../constants/contractAddress";
 import {
     arrayUnion,
@@ -12,16 +13,17 @@ import {
     getDocs,
     query,
     updateDoc,
-    where,
+    where
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
+import ThreeCredit from "../../artifacts/contracts/ThreeBank.sol/ThreeCredit.json";
 const data = {
     options: {
         chart: {
             height: 350,
             type: "radialBar",
-            offsetY: -10,
+            offsetY: -10
         },
         plotOptions: {
             radialBar: {
@@ -31,18 +33,18 @@ const data = {
                     name: {
                         fontSize: "16px",
                         color: undefined,
-                        offsetY: 120,
+                        offsetY: 120
                     },
                     value: {
                         offsetY: 76,
                         fontSize: "22px",
                         color: undefined,
-                        formatter: function (val) {
+                        formatter: function(val) {
                             return val * 10;
-                        },
-                    },
-                },
-            },
+                        }
+                    }
+                }
+            }
         },
         fill: {
             type: "gradient",
@@ -52,14 +54,14 @@ const data = {
                 inverseColors: false,
                 opacityFrom: 1,
                 opacityTo: 1,
-                stops: [0, 50, 65, 91],
-            },
+                stops: [0, 50, 65, 91]
+            }
         },
         stroke: {
-            dashArray: 4,
+            dashArray: 4
         },
-        labels: ["Credit Score"],
-    },
+        labels: ["Credit Score"]
+    }
 };
 
 const ChildModal = ({ open, status, onClose }) => {
@@ -71,7 +73,7 @@ const ChildModal = ({ open, status, onClose }) => {
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    alignItems: "center"
                 }}
             >
                 <Paper
@@ -82,7 +84,7 @@ const ChildModal = ({ open, status, onClose }) => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        flexDirection: "column",
+                        flexDirection: "column"
                     }}
                 >
                     {status ? "SUCCESS" : "FAILED"}
@@ -101,11 +103,31 @@ const CustomModal = ({
     panCardNumber,
     amount,
     tenure,
-    loanId,
+    loanId
 }) => {
     const [status, setStatus] = useState(false);
     const [expand, setExpand] = useState(false);
-    const [creditScore, setCreditScore] = useState(600);
+    const [creditScore, setCreditScore] = useState(0);
+
+    useEffect(() => {
+        (async () => {
+            const provider = new providers.Web3Provider(
+                arcanaProvider.provider
+            );
+            const signer = provider.getSigner();
+            const contract = new Contract(
+                contractAddress2,
+                ThreeCredit.abi,
+                signer
+            );
+
+            const getBalance = await contract.calculateCreditScore(
+                panCardNumber
+            );
+            console.log(getBalance);
+            setCreditScore(getBalance)
+        })();
+    }, [open]);
 
     const approveLoan = async () => {
         const provider = new providers.Web3Provider(arcanaProvider.provider);
@@ -126,7 +148,7 @@ const CustomModal = ({
             const arr = [];
             const datafromfirebase = await getDocs(q);
 
-            datafromfirebase.forEach((doc) => {
+            datafromfirebase.forEach(doc => {
                 arr.push({ id: doc.id, ...doc.data() });
             });
 
@@ -148,7 +170,7 @@ const CustomModal = ({
                 bankDetails: {
                     balance:
                         parseFloat(arr[0].bankDetails.balance) +
-                        parseFloat(amount),
+                        parseFloat(amount)
                 },
                 loanRequest: newData,
                 loanPayments: arrayUnion({
@@ -158,8 +180,8 @@ const CustomModal = ({
                     loanTenure: tenure,
                     pan: panCardNumber,
                     currentPayment: 0,
-                    month: "February",
-                }),
+                    month: "February"
+                })
             });
 
             console.log("success");
@@ -178,7 +200,7 @@ const CustomModal = ({
         const arr = [];
         const datafromfirebase = await getDocs(q);
 
-        datafromfirebase.forEach((doc) => {
+        datafromfirebase.forEach(doc => {
             arr.push({ id: doc.id, ...doc.data() });
         });
 
@@ -197,7 +219,7 @@ const CustomModal = ({
 
         const accountRef = doc(db, "ThreeBank", arr[0].id);
         await updateDoc(accountRef, {
-            loanRequest: newData,
+            loanRequest: newData
         });
 
         setExpand(true);
@@ -214,7 +236,7 @@ const CustomModal = ({
                         height: "100%",
                         display: "flex",
                         justifyContent: "center",
-                        alignItems: "center",
+                        alignItems: "center"
                     }}
                 >
                     <ChildModal
@@ -229,7 +251,7 @@ const CustomModal = ({
                             display: "flex",
                             alignItems: "center",
                             flexDirection: "column",
-                            padding: "2rem",
+                            padding: "2rem"
                         }}
                     >
                         <Typography variant="h4">

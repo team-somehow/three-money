@@ -14,7 +14,7 @@ import {
     Grid,
     ListItemIcon,
     CircularProgress,
-    IconButton,
+    IconButton
 } from "@mui/material";
 import { TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -25,10 +25,10 @@ import {
     query,
     where,
     updateDoc,
-    doc,
+    doc
 } from "@firebase/firestore";
 import { db } from "../../config/firebase";
-
+import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 import { providers, Contract, utils } from "ethers";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
@@ -72,7 +72,7 @@ function DashboardDetails() {
 
             let threeBanksUserData = null;
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 console.log(doc.id, " => ", doc.data());
                 threeBanksUserData = { id: doc.id, ...doc.data() };
             });
@@ -102,7 +102,8 @@ function DashboardDetails() {
 
         const getBalData = await contract.getBalance(pan);
 
-        console.log(getBalData);
+        console.log(ethers.utils.formatEther(getBalData));
+        setBalance(ethers.utils.formatEther(getBalData))
     };
 
     const deposit = async () => {
@@ -118,14 +119,14 @@ function DashboardDetails() {
         console.log("amountInWei", amountInWei);
 
         await contract.deposit(pan, {
-            value: amountInWei,
+            value: amountInWei
         });
 
         const userDataRef = doc(db, "ThreeBank", docId);
         await updateDoc(userDataRef, {
             bankDetails: {
-                balance: parseFloat(balance) + parseFloat(depositVal),
-            },
+                balance: parseFloat(balance) + parseFloat(depositVal)
+            }
         });
         setBalance(parseFloat(balance) + parseFloat(depositVal));
         setDepositVal(0);
@@ -142,8 +143,8 @@ function DashboardDetails() {
         const userDataRef = doc(db, "ThreeBank", docId);
         await updateDoc(userDataRef, {
             bankDetails: {
-                balance: parseFloat(balance) - parseFloat(withdrawVal),
-            },
+                balance: parseFloat(balance) - parseFloat(withdrawVal)
+            }
         });
         setBalance(parseFloat(balance) - parseFloat(withdrawVal));
         setDepositVal(0);
@@ -162,7 +163,7 @@ function DashboardDetails() {
             mx={"auto"}
             my={4}
             sx={{
-                display: "flex",
+                display: "flex"
             }}
         >
             <Box width={"40%"}>
@@ -193,14 +194,14 @@ function DashboardDetails() {
                         my: 2,
                         p: 2,
                         display: "flex",
-                        flexDirection: "column",
+                        flexDirection: "column"
                     }}
                     component={Paper}
                 >
                     <TextField
                         type="number"
                         value={depositVal}
-                        onChange={(e) => setDepositVal(e.target.value)}
+                        onChange={e => setDepositVal(e.target.value)}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -209,7 +210,7 @@ function DashboardDetails() {
                                         width={"40px"}
                                     />
                                 </InputAdornment>
-                            ),
+                            )
                         }}
                         fullWidth
                     />
@@ -221,7 +222,7 @@ function DashboardDetails() {
                             px: 3,
                             py: 1,
                             mx: "auto",
-                            mt: 2,
+                            mt: 2
                         }}
                     >
                         Deposit
@@ -235,14 +236,14 @@ function DashboardDetails() {
                         my: 2,
                         p: 4,
                         display: "flex",
-                        flexDirection: "column",
+                        flexDirection: "column"
                     }}
                     component={Paper}
                 >
                     <TextField
                         type="number"
                         value={withdrawVal}
-                        onChange={(e) => setWithdrawVal(e.target.value)}
+                        onChange={e => setWithdrawVal(e.target.value)}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -251,7 +252,7 @@ function DashboardDetails() {
                                         width={"40px"}
                                     />
                                 </InputAdornment>
-                            ),
+                            )
                         }}
                         fullWidth
                     />
@@ -263,7 +264,7 @@ function DashboardDetails() {
                             px: 3,
                             py: 1,
                             mx: "auto",
-                            mt: 2,
+                            mt: 2
                         }}
                     >
                         Withdraw
@@ -275,7 +276,7 @@ function DashboardDetails() {
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "flex-start",
+                    justifyContent: "flex-start"
                 }}
             >
                 <Box
@@ -284,7 +285,7 @@ function DashboardDetails() {
                         justifyContent: "space-between",
                         alignItems: "center",
                         borderRadius: "10px",
-                        p: 4,
+                        p: 4
                     }}
                     component={Paper}
                 >
@@ -317,7 +318,7 @@ function DashboardDetails() {
                         flexDirection: "column",
                         borderRadius: "10px",
                         p: 2,
-                        mt: 2,
+                        mt: 2
                     }}
                     component={Paper}
                 >
