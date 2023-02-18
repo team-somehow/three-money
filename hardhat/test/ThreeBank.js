@@ -39,4 +39,12 @@ describe("ThreeBank", () => {
                 financialData.personalInformation.panNumber
             );
     });
+
+    it("Deposit", async () => {
+        await threebank
+            .connect(account1)
+            .deposit(financialData.personalInformation.panNumber, {
+                value: ethers.utils.parseEther("1000"),
+            });
+    });
 });
