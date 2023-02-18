@@ -41,7 +41,15 @@ const DashboardHome = () => {
         return <div>account to bana le bhai</div>;
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                background: `url("/assets/bg.svg") no-repeat`,
+                // backgroundAttachment: "fixed",
+                backgroundSize: "cover",
+            }}
+        >
             <Box display={"flex"} alignItems={"center"}>
                 <Box
                     component={Paper}
