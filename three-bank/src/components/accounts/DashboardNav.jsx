@@ -16,16 +16,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@arcana/auth-react";
 import { useEffect, useState } from "react";
+import contractAddress from "../../constants/contractAddress";
+
+import QRCode from "qrcode.react";
+import { useLocation } from "react-router-dom";
+import { faker } from "@faker-js/faker";
 
 function DashboardNav({ routes }) {
     const user = useAuth();
     const [userName, setUserName] = useState("Vinay Kanse");
+    const [profileUrl, setProfileUrl] = useState(faker.image.avatar());
     useEffect(() => {
         if (user.user) {
             setUserName(user.user.name);
+            setProfileUrl(user.user.picture);
         }
     }, [user]);
-
+    const isCurrentNavActive = (path) => {
+        const currentRoute = useLocation().pathname;
+        if (currentRoute == path) return true;
+        else return false;
+    };
     return (
         <Drawer
             variant="permanent"
@@ -61,7 +72,7 @@ function DashboardNav({ routes }) {
                         height: 180,
                     }}
                     alt={userName}
-                    src={`https://robohash.org/${userName}?set=set2`}
+                    src={profileUrl}
                 />
                 <Typography mt={2} variant="h4">
                     {userName}
@@ -71,24 +82,60 @@ function DashboardNav({ routes }) {
             <List>
                 {routes.map((r) => (
                     <Link to={r.path} key={r.headingText}>
-                        <ListItem key={r.headingText} disablePadding>
+                        <ListItem
+                            key={r.headingText}
+                            disablePadding
+                            sx={{
+                                transition: "all 0.3s",
+                                bgcolor: isCurrentNavActive(r.path)
+                                    ? "blue"
+                                    : "initial",
+                                color: isCurrentNavActive(r.path)
+                                    ? "white"
+                                    : "black",
+                            }}
+                        >
                             <ListItemButton sx={{ p: 2, px: 4 }}>
                                 <ListItemIcon
                                     sx={{
+                                        transition: "all 0.3s",
                                         fontSize: { xl: "30px", sm: "15px" },
-                                        color: "black",
+                                        color: isCurrentNavActive(r.path)
+                                            ? "white"
+                                            : "black",
                                     }}
                                 >
                                     {r.mainIcon}
                                 </ListItemIcon>
                                 <ListItemText
-                                    sx={{ fontSize: "24px" }}
+                                    sx={{
+                                        fontSize: "24px",
+                                        fontWeight: "bold",
+                                    }}
                                     primary={r.headingText}
                                 />
                             </ListItemButton>
                         </ListItem>
                     </Link>
                 ))}
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        gap: 2,
+                        padding: 5,
+                    }}
+                >
+                    <Typography textAlign={"center"} variant="h5">
+                        See the transactions of our contract
+                    </Typography>
+                    <QRCode
+                        value={`https://mumbai.polygonscan.com/address/${contractAddress}`}
+                    />
+                </Box>
             </List>
             <Button
                 sx={{
