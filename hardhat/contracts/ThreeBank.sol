@@ -22,4 +22,17 @@ contract ThreeBank {
 
     mapping(string => uint256) public balance;
     mapping(string => bool) public enrolled;
+
+    function enroll(
+        PersonalInformation memory personalInformation,
+        string memory panNumber
+    ) public {
+        enrolled[panNumber] = true;
+        users[panNumber] = personalInformation;
+    }
+
+    modifier onlyEnrolled(string memory panNumber) {
+        require(enrolled[panNumber], "User not enrolled");
+        _;
+    }
 }
