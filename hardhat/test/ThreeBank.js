@@ -16,19 +16,28 @@ const financialData = {
 };
 
 describe("ThreeBank", () => {
-    let threebank;
+    let threebank, threeCredit;
     let owner, account1, account2;
 
     before(async function () {
+        const ThreeCredit = await ethers.getContractFactory(
+            "contracts/ThreeCredit.sol:ThreeCredit"
+        );
+        // and deploy it
+        threeCredit = await ThreeCredit.deploy();
+        await threeCredit.deployed();
+
         const ThreeBank = await ethers.getContractFactory(
             "contracts/ThreeBank.sol:ThreeBank"
         );
-        threebank = await ThreeBank.deploy();
+        threebank = await ThreeBank.deploy(threeCredit.address);
         await threebank.deployed();
         const [_owner, _account1, _account2] = await ethers.getSigners();
         owner = _owner;
         account1 = _account1;
         account2 = _account2;
+
+        threeCredit.connect(_owner).addAuthorized(threebank.address);
     });
 
     it("Enroll user", async () => {
