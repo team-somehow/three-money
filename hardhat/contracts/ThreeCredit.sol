@@ -43,12 +43,49 @@ contract ThreeCredit {
         CreditHistory creditHistory;
     }
 
+    // keep track of owner
+    address private owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(
+            msg.sender == owner,
+            "Only the contract owner can access this function."
+        );
+        _;
+    }
+
+    // authorization
+    address[] public authorized;
+
+    modifier onlyAuthorized() {
+        require(isAuthorized(), "Caller is not an auhorized");
+        _;
+    }
+
+    function isAuthorized() internal view returns (bool) {
+        for (uint i = 0; i < authorized.length; i++) {
+            if (authorized[i] == msg.sender) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function addAuthorized(address _authorized) public onlyOwner {
+        authorized.push(_authorized);
+    }
+
+    // remaining contract
     mapping(string => FinancialData) private financialDataMap;
 
     function addPersonalInformation(
         string memory panNumber,
         PersonalInformation memory personalInformation
-    ) public {
+    ) public onlyAuthorized {
         FinancialData storage financialData = financialDataMap[panNumber];
         financialData.personalInformation = personalInformation;
     }
@@ -56,7 +93,7 @@ contract ThreeCredit {
     function addEmploymentInformation(
         string memory panNumber,
         EmploymentInformation memory employmentInformation
-    ) public {
+    ) public onlyAuthorized {
         FinancialData storage financialData = financialDataMap[panNumber];
         financialData.employmentInformation.push(employmentInformation);
     }
@@ -64,10 +101,30 @@ contract ThreeCredit {
     function addLoanRepaymentHistory(
         string memory panNumber,
         LoanRepaymentHistory memory loanRepaymentHistory
-    ) public {
+    ) public onlyAuthorized {
         FinancialData storage financialData = financialDataMap[panNumber];
         financialData.creditHistory.loanRepaymentHistory.push(
             loanRepaymentHistory
+        );
+    }
+
+    function getFinancialData(
+        string memory panNumber
+    )
+        public
+        view
+        onlyAuthorized
+        returns (
+            PersonalInformation memory,
+            EmploymentInformation[] memory,
+            CreditHistory memory
+        )
+    {
+        FinancialData memory financialData = financialDataMap[panNumber];
+        return (
+            financialData.personalInformation,
+            financialData.employmentInformation,
+            financialData.creditHistory
         );
     }
 }
