@@ -24,9 +24,14 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
     const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 
     const handlePayInstallment = async () => {
-        const amountInWei = utils.parseEther(payAmount.toString());
+        console.log("payAmount.toString()", payAmount.toString());
 
-        console.log("1");
+        // return;
+        if (!payAmount) return;
+
+        const amountInWei = utils.parseUnits(payAmount.toString(), 18);
+
+        console.log("1", amountInWei);
 
         const q = query(
             collection(db, "ThreeBank"),
@@ -47,7 +52,7 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
 
         console.log("3");
 
-        await contract.makeLoanPayment(panNumber, payAmount);
+        await contract.makeLoanPayment(panNumber, amountInWei);
 
         const loanPayments = data[0].loanPayments;
         let newData = [];
