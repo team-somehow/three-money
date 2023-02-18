@@ -17,8 +17,6 @@ const firebaseStructure = {
     accounts: [
         {
             bankProvider: "three-bank",
-            bankLogo:
-                "https://1000logos.net/wp-content/uploads/2021/06/HDFC-Bank-emblem.png",
             accountStartTime: new Date("2022"),
             loans: [
                 {
@@ -109,8 +107,7 @@ const Age = () => {
             <Box>
                 <Typography variant="h4">Your Accounts</Typography>
                 <AccountListItem
-                    icon="/assets/hdfc_logo.png"
-                    bankName={"HDFC Bank"}
+                    bankName={"Three Bank"}
                     cardNumber={"**** *890"}
                     isActive={true}
                 />

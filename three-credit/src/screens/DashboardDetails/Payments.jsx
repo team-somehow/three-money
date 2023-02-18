@@ -18,15 +18,14 @@ const Payments = () => {
     };
     const accounts = [
         {
-            icon: "/assets/hdfc_logo.png",
-            bankName: "Home Loan",
+            bankName: "Three Loan",
             cardNumber: "**** *890",
             loanTenure: 15,
             paymentsMade: 15,
             onClickHandle: () => activateHistoryModal(),
         },
         {
-            bankName: "SBI Bank",
+            bankName: "Three Bank",
             cardNumber: "**** *69",
             loanTenure: 15,
             paymentsMade: 5,

@@ -19,19 +19,18 @@ function SummaryCard({
         <Box
             data-aos="fade-up"
             component={Paper}
-            my={2}
-            mr={{ xl: 4, sm: 2 }}
+            mr={4}
+            mb={9}
             sx={{
                 position: "relative",
                 display: "flex",
                 alignItems: "start",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                height: { xl: "400px", sm: "340px" },
-                width: { xl: "360px", sm: "280px" },
+                height: "380px",
+                width: "320px",
                 borderRadius: "10px",
-                px: 4,
-                py: { xl: 4, sm: 2 },
+                p: 3,
                 transition: "all 0.2s ease-in-out",
                 "&:hover": {
                     boxShadow: "0 4px 20px 0 rgba(0, 0, 0, 0.1)",
