@@ -144,7 +144,7 @@ const CustomModal = ({
                 newData.push(loanRequest[i]);
             }
         }
-        let data = {
+        data = {
             loanType: "Home",
             loanAmount: ethers.utils.parseEther(amount),
             loanTenure: tenure,
