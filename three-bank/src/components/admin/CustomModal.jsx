@@ -116,7 +116,7 @@ const CustomModal = ({
         const isLoanApproved = await contract.approveLoan(panCardNumber);
 
         console.log("isLoanApproved", isLoanApproved);
-        return;
+        // return;
 
         if (isLoanApproved) {
             const q = query(

@@ -9,7 +9,7 @@ import contractAddress from "../../constants/contractAddress";
 import { providers, Contract, utils } from "ethers";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 
-const AdminApprovalListItem = (props) => {
+const AdminApprovalListItem = props => {
     const provider = new providers.Web3Provider(arcanaProvider.provider);
     const signer = provider.getSigner();
     const contract = new Contract(contractAddress, ThreeBank.abi, signer);
@@ -25,13 +25,19 @@ const AdminApprovalListItem = (props) => {
             name: item.name,
             dateOfBirth: "01-01-1980",
             gender: "Male",
-            panNumber: item.panCardNumber,
+            panNumber: item.panCardNumber
         };
 
-        await contract.enroll(personalData, personalData.panNumber);
+        await contract.enroll(personalData, personalData.panNumber, {
+            employerName: "Arya Nair",
+            occupation: "SWE",
+            incomePerYear: 100000,
+            startTime: "01-01-1980",
+            endTime: "01-01-1980"
+        });
 
         await updateDoc(doc(db, "ThreeBank", item.id), {
-            isAccountApproved: true,
+            isAccountApproved: true
         });
     };
 
@@ -45,7 +51,7 @@ const AdminApprovalListItem = (props) => {
                     borderRadius: "1vh",
                     paddingY: "3vh",
                     paddingX: "2vw",
-                    mb: 3,
+                    mb: 3
                 }}
                 component={Paper}
             >
@@ -57,7 +63,7 @@ const AdminApprovalListItem = (props) => {
                         marginX: "2%",
                         height: "100%",
                         flexGrow: 1,
-                        gap: "1.5vh",
+                        gap: "1.5vh"
                     }}
                 >
                     <Typography variant="h4">{item.name}</Typography>
@@ -105,7 +111,7 @@ const AdminApprovalListItem = (props) => {
                         fullWidth
                         onClick={() => setExpand(!expand)}
                         sx={{
-                            marginTop: "10%",
+                            marginTop: "10%"
                         }}
                         variant="outlined"
                         endIcon={
@@ -125,7 +131,7 @@ const AdminApprovalListItem = (props) => {
                                 approve();
                             }}
                             sx={{
-                                marginTop: "10%",
+                                marginTop: "10%"
                             }}
                             variant="contained"
                             disabled={loading}
