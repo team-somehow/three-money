@@ -58,7 +58,6 @@ function AdminApproval() {
                 const docData = doc.data().loanRequest;
                 // console.log("jasjdbj",docData)
                 docData.forEach((loanReq) => {
-                    console.log("dfds", loanReq);
                     if (loanReq.approvedStatus === "waiting")
                         loanRequests.push({
                             id: doc.id,
