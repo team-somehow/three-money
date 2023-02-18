@@ -11,11 +11,9 @@ const DashboardLoanPayment = () => {
 
     useEffect(() => {
         (async () => {
-
             if (!auth) return;
             if (!auth?.user) return;
             if (!auth.user?.publicKey) return;
-
 
             const q = query(
                 collection(db, "ThreeBank"),
@@ -41,19 +39,25 @@ const DashboardLoanPayment = () => {
 
             {data?.loanPayments &&
                 data?.loanPayments.map((item) => {
-                    return (
-                        <LoanPaymentListItem
-                            {...item}
-                            id={data.id}
-                            name={item.name}
-                            month={item.month}
-                            payAmount={
-                                parseFloat(item.loanAmmount) /
-                                parseFloat(item.loanTenure)
-                            }
-                            panNumber={data.pan}
-                        />
-                    );
+                    if (item.currentPayment < parseInt(item.loanTenure)) {
+                        console.log(
+                            item.currentPayment,
+                            parseInt(item.loanTenure)
+                        );
+                        return (
+                            <LoanPaymentListItem
+                                {...item}
+                                id={data.id}
+                                name={item.name}
+                                month={item.month}
+                                payAmount={
+                                    parseFloat(item.loanAmmount) /
+                                    parseFloat(item.loanTenure)
+                                }
+                                panNumber={data.pan}
+                            />
+                        );
+                    }
                 })}
         </Box>
     );
