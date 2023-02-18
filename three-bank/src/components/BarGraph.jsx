@@ -15,7 +15,7 @@ const data = {
     series: [
         {
             name: "Your Expenses",
-            data: [100, 80, 60, 50, 120, 90],
+            data: [100, 80, 60, 50, 150, 90],
         },
     ],
     options: {

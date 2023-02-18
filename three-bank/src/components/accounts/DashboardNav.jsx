@@ -1,4 +1,6 @@
 import {
+    Box,
+    Avatar,
     Button,
     Divider,
     Drawer,
@@ -12,8 +14,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@arcana/auth-react";
+import { useEffect, useState } from "react";
 
 function DashboardNav({ routes }) {
+    const user = useAuth();
+    const [userName, setUserName] = useState("Vinay Kanse");
+    useEffect(() => {
+        if (user.user) {
+            setUserName(user.user.name);
+        }
+    }, [user]);
+
     return (
         <Drawer
             variant="permanent"
@@ -35,6 +47,25 @@ function DashboardNav({ routes }) {
                     <Typography variant="h3">3 Money</Typography>
                 </Link>
             </Toolbar>
+            <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+                my={4}
+            >
+                <Avatar
+                    sx={{
+                        backgroundColor: "#eee",
+                        width: 180,
+                        height: 180,
+                    }}
+                    alt={userName}
+                    src={`https://robohash.org/${userName}?set=set2`}
+                />
+                <Typography mt={2} variant="h4">
+                    {userName}
+                </Typography>
+            </Box>
             <Divider />
             <List>
                 {routes.map((r) => (
