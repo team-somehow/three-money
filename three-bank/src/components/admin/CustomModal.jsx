@@ -112,6 +112,7 @@ const CustomModal = ({
         const signer = provider.getSigner();
         const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 
+        console.log("panCardNumber", panCardNumber);
         const isLoanApproved = await contract.approveLoan(panCardNumber);
 
         console.log("isLoanApproved", isLoanApproved);

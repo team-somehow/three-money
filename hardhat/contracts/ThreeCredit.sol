@@ -85,7 +85,7 @@ contract ThreeCredit {
     function addPersonalInformation(
         string memory panNumber,
         PersonalInformation memory personalInformation
-    ) public onlyAuthorized {
+    ) public {
         FinancialData storage financialData = financialDataMap[panNumber];
         financialData.personalInformation = personalInformation;
     }
@@ -93,7 +93,7 @@ contract ThreeCredit {
     function addEmploymentInformation(
         string memory panNumber,
         EmploymentInformation memory employmentInformation
-    ) public onlyAuthorized {
+    ) public {
         FinancialData storage financialData = financialDataMap[panNumber];
         financialData.employmentInformation.push(employmentInformation);
     }
@@ -101,7 +101,7 @@ contract ThreeCredit {
     function addLoanRepaymentHistory(
         string memory panNumber,
         LoanRepaymentHistory memory loanRepaymentHistory
-    ) public onlyAuthorized {
+    ) public {
         FinancialData storage financialData = financialDataMap[panNumber];
         financialData.creditHistory.loanRepaymentHistory.push(
             loanRepaymentHistory
@@ -113,7 +113,6 @@ contract ThreeCredit {
     )
         public
         view
-        onlyAuthorized
         returns (
             PersonalInformation memory,
             EmploymentInformation[] memory,
@@ -130,7 +129,7 @@ contract ThreeCredit {
 
     function calculateCreditScore(
         string memory pan
-    ) public view onlyAuthorized returns (uint256) {
+    ) public view returns (uint256) {
         FinancialData memory data = financialDataMap[pan];
 
         EmploymentInformation[] memory employmentInfo = data
