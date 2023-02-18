@@ -10,7 +10,6 @@ import CustomModal from "./CustomModal";
 
 const AdminApprovalListItem = (props) => {
 	const item = props;
-	console.log(item);
 	const [expand, setExpand] = useState(false);
 
 	const requestCreditData = () => {
