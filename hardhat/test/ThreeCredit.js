@@ -56,6 +56,7 @@ describe("ThreeCredit", function () {
         unauthorized = _unauthorized;
 
         // verify address
+        await threeCredit.connect(_owner).addAuthorized(authorized.address);
     });
 
     it("should add personal information", async () => {
