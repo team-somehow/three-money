@@ -44,41 +44,29 @@ const DashboardHome = () => {
         <Box
             sx={{
                 display: "flex",
-                flexDirection: "column",
                 background: `url("/assets/bg.svg") no-repeat`,
                 // backgroundAttachment: "fixed",
                 backgroundSize: "cover",
             }}
         >
-            <Box display={"flex"} alignItems={"center"}>
+            <Box
+                display={"flex"}
+                alignItems={"center"}
+                flexDirection={"column"}
+                width={"40%"}
+            >
                 <Box
+                    width={"80%"}
                     component={Paper}
                     p={2}
-                    width={"60%"}
-                    height={"60vh"}
-                    m={"auto"}
-                    mt={6}
-                    mx={4}
-                >
-                    <Typography variant="h2" py={2}>
-                        Your Score History
-                    </Typography>
-                    <LineChart />
-                </Box>
-                <Box
-                    component={Paper}
-                    p={2}
-                    width={"40%"}
-                    height={"60vh"}
-                    m={"auto"}
-                    mt={6}
-                    mx={4}
+                    mt={4}
+                    ml={4}
                     display={"flex"}
                     justifyContent={"center"}
                     alignContent={"space-evenly"}
                     flexDirection={"column"}
                 >
-                    <Typography variant="h3" align="center" py={2}>
+                    <Typography variant="h3" align="center">
                         Request Credit Score
                     </Typography>
                     <CreditMeter creditScore={creditScore} />
@@ -106,6 +94,12 @@ const DashboardHome = () => {
                     >
                         Update Score
                     </Button>
+                </Box>
+                <Box component={Paper} p={2} width={"80%"} ml={4} mt={2}>
+                    <Typography variant="h2" py={2}>
+                        Your Score History
+                    </Typography>
+                    <LineChart />
                 </Box>
             </Box>
             <SummaryDetails links={links} />
