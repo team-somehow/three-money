@@ -14,6 +14,7 @@ import {
     Grid,
     ListItemIcon,
     CircularProgress,
+    IconButton,
 } from "@mui/material";
 import { TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -33,6 +34,10 @@ import { providers, Contract, utils } from "ethers";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 import contractAddress from "../../constants/contractAddress";
 import { arcanaProvider } from "../../main";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import InputAdornment from "@mui/material/InputAdornment";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import BarGraph from "../../components/BarGraph";
 
 function DashboardDetails() {
     const provider = new providers.Web3Provider(arcanaProvider.provider);
@@ -152,113 +157,170 @@ function DashboardDetails() {
 
     return (
         <Box
-            width={"97vw"}
-            elevation={12}
+            width={"76%"}
+            mx={"auto"}
+            my={4}
             sx={{
-                height: "96vh",
-                paddingX: "1.5vw",
                 display: "flex",
-                flexDirection: "row",
-                marginY: "1.5vh",
-                marginX: "1.5vw",
-                overflowY: "scroll",
-                paddingY: "4vh",
             }}
         >
-            <Box
-                width={"100%"}
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    gap: "2vh",
-                    paddingX: "5%",
-                }}
-            >
-                <Box
-                    component={Paper}
-                    sx={{
-                        backgroundColor: "white",
-                        padding: "2%",
-                        textAlign: "center",
-                        borderRadius: "0.5vw",
-                        marginBottom: "4.5vh",
-                        height: "10vh",
-                    }}
-                >
-                    <Typography variant="h4">Your Account</Typography>
+            <Box width={"40%"}>
+                <Box>
+                    <Typography variant="h3">My Wallet</Typography>
+                    <Box position={"relative"} left={"-30px"} top={"-10px"}>
+                        <img
+                            src="/assets/Wallet.png"
+                            width={"90%"}
+                            style={{ marginRight: "auto" }}
+                        />
+                        <Typography
+                            variant="h6"
+                            position={"absolute"}
+                            bottom={"40px"}
+                            left={"50px"}
+                        >
+                            {pan}
+                        </Typography>
+                    </Box>
                 </Box>
 
                 <Box
+                    width={"80%"}
                     sx={{
+                        borderRadius: "10px",
+                        my: 2,
+                        p: 2,
                         display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: "1vh",
-                        borderRadius: "1vh",
-                        alignItems: "center",
-
-                        paddingY: "3vh",
-                        paddingX: "5vw",
-                        mb: 3,
+                        flexDirection: "column",
                     }}
                     component={Paper}
-                    // elevation={6}
-                    // className={"awesome-bg-0"}
-                >
-                    <Typography>Balance: {balance}</Typography>
-                    <Button onClick={fetchBalance} variant="outlined">
-                        Fetch Balance{" "}
-                    </Button>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: "1vh",
-                        borderRadius: "1vh",
-                        alignItems: "center",
-
-                        paddingY: "3vh",
-                        paddingX: "5vw",
-                        mb: 3,
-                    }}
-                    component={Paper}
-                    // elevation={6}
-                    // className={"awesome-bg-0"}
                 >
                     <TextField
                         type="number"
                         value={depositVal}
                         onChange={(e) => setDepositVal(e.target.value)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <img
+                                        src="/assets/matic.png"
+                                        width={"40px"}
+                                    />
+                                </InputAdornment>
+                            ),
+                        }}
+                        fullWidth
                     />
-                    <Button onClick={deposit} variant="outlined">
+                    <Button
+                        onClick={deposit}
+                        variant="contained"
+                        sx={{
+                            fontSize: "18px",
+                            px: 3,
+                            py: 1,
+                            mx: "auto",
+                            mt: 2,
+                        }}
+                    >
                         Deposit
                     </Button>
                 </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: "1vh",
-                        borderRadius: "1vh",
-                        alignItems: "center",
 
-                        paddingY: "3vh",
-                        paddingX: "5vw",
-                        mb: 3,
+                <Box
+                    width={"80%"}
+                    sx={{
+                        borderRadius: "10px",
+                        my: 2,
+                        p: 4,
+                        display: "flex",
+                        flexDirection: "column",
                     }}
                     component={Paper}
-                    // elevation={6}
-                    // className={"awesome-bg-0"}
                 >
                     <TextField
                         type="number"
                         value={withdrawVal}
                         onChange={(e) => setWithdrawVal(e.target.value)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <img
+                                        src="/assets/matic.png"
+                                        width={"40px"}
+                                    />
+                                </InputAdornment>
+                            ),
+                        }}
+                        fullWidth
                     />
-                    <Button onClick={withdraw} variant="outlined">
+                    <Button
+                        onClick={withdraw}
+                        variant="contained"
+                        sx={{
+                            fontSize: "18px",
+                            px: 3,
+                            py: 1,
+                            mx: "auto",
+                            mt: 2,
+                        }}
+                    >
                         Withdraw
                     </Button>
+                </Box>
+            </Box>
+            <Box
+                width={"60%"}
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                }}
+            >
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        borderRadius: "10px",
+                        p: 4,
+                    }}
+                    component={Paper}
+                >
+                    <Box>
+                        <Typography variant="h6">Your Balance</Typography>
+                        <Typography
+                            variant="h2"
+                            display={"flex"}
+                            alignItems={"center"}
+                        >
+                            <img src="/assets/matic.png" width={"80px"} />
+                            {balance}
+                        </Typography>
+                        <Typography variant="h6">
+                            Last Updated: <b>12 Feb 2023</b>
+                        </Typography>
+                    </Box>
+                    <IconButton
+                        onClick={fetchBalance}
+                        variant="outlined"
+                        title="Fetch Balance"
+                    >
+                        <RefreshIcon sx={{ fontSize: "48px" }} />
+                    </IconButton>
+                </Box>
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        borderRadius: "10px",
+                        p: 2,
+                        mt: 2,
+                    }}
+                    component={Paper}
+                >
+                    <Typography variant="h4">Monthly Activities</Typography>
+                    <BarGraph />
                 </Box>
             </Box>
         </Box>
