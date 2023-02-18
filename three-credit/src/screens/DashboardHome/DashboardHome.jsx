@@ -26,7 +26,9 @@ const DashboardHome = () => {
   const contract = new Contract(contractAddress, ThreeCredit.abi, signer);
 
   const creditDataCtx = useContext(CreditDataContext);
-  const [creditScore, setCreditScore] = useState(0);
+  const [creditScore, setCreditScore] = useState(
+    creditDataCtx.userCreditRequest[0].creditScore
+  );
 
   const updateScore = async () => {
     await arcanaProvider.connect();
@@ -34,7 +36,7 @@ const DashboardHome = () => {
     console.log(result);
   };
 
-  if (!userCreditRequest?.userCreditRequest)
+  if (!creditDataCtx?.userCreditRequest)
     return <div>account to bana le bhai</div>;
 
   return (

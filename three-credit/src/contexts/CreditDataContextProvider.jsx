@@ -16,6 +16,7 @@ const firebaseStructure = {
   },
   userCreditRequest: [
     {
+      creditScore: 500,
       requestId: 1,
       timestamp: new Date(),
     },
@@ -115,7 +116,7 @@ const CreditDataContextProvider = ({ children }) => {
   const auth = useAuth();
 
   const [loading, setLoading] = useState(false);
-  const [firebaseData, setFirebaseData] = useState();
+  const [firebaseData, setFirebaseData] = useState(firebaseStructure);
 
   useEffect(() => {
     if (!auth) return;
