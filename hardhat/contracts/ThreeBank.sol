@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 struct Loan {
     string loanType;
@@ -15,6 +15,10 @@ interface ThreeCredit {
         string memory panNumber,
         Loan memory loanRepaymentHistory
     ) external;
+
+    function calculateCreditScore(
+        string memory pan
+    ) external view returns (uint256);
 }
 
 contract ThreeBank {
@@ -30,6 +34,9 @@ contract ThreeBank {
     mapping(string => uint256) public balance;
     mapping(string => bool) public enrolled;
     mapping(string => Loan) public loans;
+
+    uint256 minCreditScore = 500;
+    uint256 maxLoanLimitForNewCustomer = 2000;
 
     uint256 totalBalance = 0;
     ThreeCredit threeCredit;
@@ -76,7 +83,7 @@ contract ThreeBank {
     function requestLoan(
         string memory panNumber,
         Loan memory loanDeets
-    ) public onlyEnrolled(panNumber) returns (bool) {
+    ) public onlyEnrolled(panNumber) returns (uint256) {
         require(
             loanDeets.loanAmount <= totalBalance,
             "Not enough funds in bank"
@@ -86,17 +93,36 @@ contract ThreeBank {
             "You already have a loan active"
         );
 
-        balance[panNumber] += loanDeets.loanAmount;
-        loans[panNumber] = loanDeets;
+        console.log(threeCredit.calculateCreditScore(panNumber));
+        console.log(minCreditScore);
+        console.log(
+            minCreditScore > threeCredit.calculateCreditScore(panNumber)
+        );
 
-        return true;
+        uint256 result = 0;
+
+        if (minCreditScore > threeCredit.calculateCreditScore(panNumber)) {
+            console.log("idhar kaise aana hua");
+            result = 888889999999999;
+        } else {
+            console.log("idhar to pohoch gaya");
+
+            balance[panNumber] += loanDeets.loanAmount;
+            loans[panNumber] = loanDeets;
+            result = 990;
+        }
+
+        console.log("result ye hai", result);
+
+        return result;
     }
 
     function makeLoanPayment(
         string memory panNumber,
         uint256 amount
     ) public onlyEnrolled(panNumber) {
-        require(loans[panNumber].loanAmount > 0, "You dont have a loan");
+        console.log(loans[panNumber].loanAmount);
+        // require(loans[panNumber].loanAmount > 0, "You dont have a loan");
         require(balance[panNumber] >= amount, "You dont have that much money");
         require(amount > 0, "Payment should be positive");
 

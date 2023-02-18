@@ -1,4 +1,5 @@
 const { ethers } = require("hardhat");
+const { expect } = require("chai");
 
 const financialData = {
     personalInformation: {
@@ -11,12 +12,19 @@ const financialData = {
         loanType: "Home Loan",
         loanAmount: ethers.utils.parseEther("200"),
         loanTenure: 60,
-        repaymentStatus: "Delayed",
+        repaymentStatus: "on_time",
+    },
+    employmentInformation: {
+        employerName: "Mera Employer",
+        occupation: "SDE",
+        incomePerYear: 100000,
+        startTime: "",
+        endTime: "",
     },
 };
 
 describe("ThreeBank", () => {
-    let threebank, threeCredit;
+    let threeBank, threeCredit;
     let owner, account1, account2;
 
     before(async function () {
@@ -30,18 +38,40 @@ describe("ThreeBank", () => {
         const ThreeBank = await ethers.getContractFactory(
             "contracts/ThreeBank.sol:ThreeBank"
         );
-        threebank = await ThreeBank.deploy(threeCredit.address);
-        await threebank.deployed();
-        const [_owner, _account1, _account2] = await ethers.getSigners();
+        threeBank = await ThreeBank.deploy(threeCredit.address);
+        await threeBank.deployed();
+
+        const [_owner, _account1, _account2, account3] =
+            await ethers.getSigners();
         owner = _owner;
         account1 = _account1;
         account2 = _account2;
 
-        threeCredit.connect(_owner).addAuthorized(threebank.address);
+        await threeCredit.connect(_owner).addAuthorized(threeBank.address);
+        await threeCredit.connect(_owner).addAuthorized(account3.address);
+
+        await threeCredit
+            .connect(account3)
+            .addPersonalInformation(
+                financialData.personalInformation.panNumber,
+                financialData.personalInformation
+            );
+        await threeCredit
+            .connect(account3)
+            .addEmploymentInformation(
+                financialData.personalInformation.panNumber,
+                financialData.employmentInformation
+            );
+        await threeCredit
+            .connect(account3)
+            .addLoanRepaymentHistory(
+                financialData.personalInformation.panNumber,
+                financialData.loanDeets
+            );
     });
 
     it("Enroll user", async () => {
-        await threebank
+        await threeBank
             .connect(account1)
             .enroll(
                 financialData.personalInformation,
@@ -50,7 +80,7 @@ describe("ThreeBank", () => {
     });
 
     it("Deposit", async () => {
-        await threebank
+        await threeBank
             .connect(account1)
             .deposit(financialData.personalInformation.panNumber, {
                 value: ethers.utils.parseEther("1000"),
@@ -58,13 +88,13 @@ describe("ThreeBank", () => {
     });
 
     it("Get balance", async () => {
-        await threebank
+        await threeBank
             .connect(account1)
             .getBalance(financialData.personalInformation.panNumber);
     });
 
     it("Withdraw", async () => {
-        await threebank
+        await threeBank
             .connect(account1)
             .withdraw(
                 ethers.utils.parseEther("10"),
@@ -73,16 +103,20 @@ describe("ThreeBank", () => {
     });
 
     it("Request Loan", async () => {
-        await threebank
+        const data = await threeBank
             .connect(account2)
             .requestLoan(
                 financialData.personalInformation.panNumber,
                 financialData.loanDeets
             );
+
+        console.log(data);
+
+        // expect(data).to.equal("approved");
     });
 
     it("Make Loan Payment", async () => {
-        await threebank
+        await threeBank
             .connect(account2)
             .makeLoanPayment(
                 financialData.personalInformation.panNumber,
