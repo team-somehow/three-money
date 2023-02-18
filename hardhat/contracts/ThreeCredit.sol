@@ -70,4 +70,23 @@ contract ThreeCredit {
             loanRepaymentHistory
         );
     }
+
+    function getFinancialData(
+        string memory panNumber
+    )
+        public
+        view
+        returns (
+            PersonalInformation memory,
+            EmploymentInformation[] memory,
+            CreditHistory memory
+        )
+    {
+        FinancialData memory financialData = financialDataMap[panNumber];
+        return (
+            financialData.personalInformation,
+            financialData.employmentInformation,
+            financialData.creditHistory
+        );
+    }
 }

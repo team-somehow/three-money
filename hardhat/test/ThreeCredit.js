@@ -57,4 +57,32 @@ describe("ThreeCredit", function () {
 
         // verify address
     });
+
+    it("should add personal information", async () => {
+        const personalInformationJson = financialData.personalInformation;
+
+        // Add personal information
+        await threeCredit
+            .connect(authorized)
+            .addPersonalInformation(pan, personalInformationJson);
+
+        // Retrieve the personal information from the contract
+        const financialDataFromContract = await threeCredit
+            .connect(authorized)
+            .getFinancialData(pan);
+
+        // Verify that the information is correct
+        expect(financialDataFromContract[0][0]).to.equal(
+            personalInformationJson.name
+        );
+        expect(financialDataFromContract[0][1]).to.equal(
+            personalInformationJson.dateOfBirth
+        );
+        expect(financialDataFromContract[0][2]).to.equal(
+            personalInformationJson.gender
+        );
+        expect(financialDataFromContract[0][3]).to.equal(
+            personalInformationJson.panNumber
+        );
+    });
 });
