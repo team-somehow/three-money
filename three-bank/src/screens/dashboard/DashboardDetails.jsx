@@ -29,17 +29,15 @@ import {
 import { db } from "../../config/firebase";
 
 import { useNavigate } from "react-router-dom";
-import AdminApprovalListItem from "../../components/admin/AdminListItem";
-import AdminListItem from "../../components/admin/AdminListItem";
 import { providers, Contract, utils } from "ethers";
-// import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
+import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 import contractAddress from "../../constants/contractAddress";
 import { arcanaProvider } from "../../main";
 
 function DashboardDetails() {
-    // const provider = new providers.Web3Provider(arcanaProvider.provider);
-    // const signer = provider.getSigner();
-    // const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+    const provider = new providers.Web3Provider(arcanaProvider.provider);
+    const signer = provider.getSigner();
+    const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 
     const auth = useAuth();
     const navigate = useNavigate();

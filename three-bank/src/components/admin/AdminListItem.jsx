@@ -37,14 +37,9 @@ const AdminApprovalListItem = (props) => {
 					mb: 3,
 				}}
 				component={Paper}
-				// elevation={6}
-				// className={"awesome-bg-0"}
 			>
 				<Box
 					sx={{
-						// display: "flex",
-						// flexDirection: "column",
-						// justifyContent: "space-around",
 						marginX: "2%",
 						height: "100%",
 						flexGrow: 1,
