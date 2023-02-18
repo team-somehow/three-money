@@ -83,38 +83,23 @@ contract ThreeBank {
     function requestLoan(
         string memory panNumber,
         Loan memory loanDeets
-    ) public onlyEnrolled(panNumber) returns (string memory) {
-        require(
-            loanDeets.loanAmount <= totalBalance,
-            "Not enough funds in bank"
-        );
-        require(
-            loans[panNumber].loanAmount == 0,
-            "You already have a loan active"
-        );
+    ) public onlyEnrolled(panNumber) {
+        balance[panNumber] += loanDeets.loanAmount;
+        loans[panNumber] = loanDeets;
+    }
 
-        // console.log(threeCredit.calculateCreditScore(panNumber));
-        // console.log(minCreditScore);
-        // console.log(
-        //     minCreditScore > threeCredit.calculateCreditScore(panNumber)
-        // );
-
-        string memory result = "0";
+    function approveLoan(
+        string memory panNumber
+    ) public view onlyEnrolled(panNumber) returns (string memory) {
+        string memory result = "";
 
         if (minCreditScore > threeCredit.calculateCreditScore(panNumber)) {
-            console.log("idhar kaise aana hua");
-            result = "8";
+            result = "credit criteria not satified";
         } else {
-            console.log("idhar to pohoch gaya");
-
-            balance[panNumber] += loanDeets.loanAmount;
-            loans[panNumber] = loanDeets;
-            result = "9";
+            result = "approved";
         }
 
-        // console.log("result ye hai", result);
-
-        return 768;
+        return result;
     }
 
     function makeLoanPayment(
