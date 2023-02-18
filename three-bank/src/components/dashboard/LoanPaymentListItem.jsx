@@ -18,7 +18,7 @@ import {
 import { db } from "../../config/firebase";
 
 function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
-	const auth=useAuth()
+    const auth = useAuth();
     // const provider = new providers.Web3Provider(arcanaProvider.provider);
     // const signer = provider.getSigner();
     // const contract = new Contract(contractAddress, ThreeBank.abi, signer);
@@ -30,14 +30,38 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
         //     value: amountInWei,
         // });
 
-		const q = query(
-			collection(db, "ThreeBank"),
-			where("arcanaUid", "==", auth.user.publicKey)
-		);
+        const q = query(
+            collection(db, "ThreeBank"),
+            where("arcanaUid", "==", auth.user.publicKey)
+        );
 
-		const querySnapshot = await getDoc(q);
+        const querySnapshot = await getDocs(q);
+        const data = [];
+        querySnapshot.forEach((doc) => {
+            data.push({ id: doc.id, ...doc.data() });
+        });
 
-		// console.log(querySnapshot.id,querySnapshot.data())
+        const loanPayments = data[0].loanPayments;
+        let newData = [];
+        for (let i = 0; i < loanPayments.length; i++) {
+            console.log(loanPayments[i]);
+            if (loanPayments[i].id === id) {
+                newData.push(loanPayments[i]);
+            } else {
+                let temp = loanPayments[i];
+                temp.currentPayment = temp.currentPayment + 1;
+                temp.month = "March";
+                newData.push(temp);
+            }
+        }
+        const accountRef = doc(db, "ThreeBank", data[0].id);
+        await updateDoc(accountRef, {
+            loanPayments: newData,
+        });
+
+        console.log(newData);
+
+        // console.log(querySnapshot.id,querySnapshot.data())
 
         // const q = query(
         //     collection(db, "ThreeBank"),
