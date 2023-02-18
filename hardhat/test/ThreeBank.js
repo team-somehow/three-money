@@ -50,24 +50,24 @@ describe("ThreeBank", () => {
         await threeCredit.connect(_owner).addAuthorized(threeBank.address);
         await threeCredit.connect(_owner).addAuthorized(account3.address);
 
-        await threeCredit
-            .connect(account3)
-            .addPersonalInformation(
-                financialData.personalInformation.panNumber,
-                financialData.personalInformation
-            );
-        await threeCredit
-            .connect(account3)
-            .addEmploymentInformation(
-                financialData.personalInformation.panNumber,
-                financialData.employmentInformation
-            );
-        await threeCredit
-            .connect(account3)
-            .addLoanRepaymentHistory(
-                financialData.personalInformation.panNumber,
-                financialData.loanDeets
-            );
+        // await threeCredit
+        //     .connect(account3)
+        //     .addPersonalInformation(
+        //         financialData.personalInformation.panNumber,
+        //         financialData.personalInformation
+        //     );
+        // await threeCredit
+        //     .connect(account3)
+        //     .addEmploymentInformation(
+        //         financialData.personalInformation.panNumber,
+        //         financialData.employmentInformation
+        //     );
+        // await threeCredit
+        //     .connect(account3)
+        //     .addLoanRepaymentHistory(
+        //         financialData.personalInformation.panNumber,
+        //         financialData.loanDeets
+        //     );
     });
 
     it("Enroll user", async () => {
@@ -75,8 +75,14 @@ describe("ThreeBank", () => {
             .connect(account1)
             .enroll(
                 financialData.personalInformation,
-                financialData.personalInformation.panNumber
+                financialData.personalInformation.panNumber,
+                financialData.employmentInformation
             );
+
+        const cred = await threeCredit
+            .connect(account1)
+            .calculateCreditScore(financialData.personalInformation.panNumber);
+        console.log(cred);
     });
 
     it("Deposit", async () => {

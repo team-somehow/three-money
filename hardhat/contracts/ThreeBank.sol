@@ -10,6 +10,21 @@ struct Loan {
     string repaymentStatus;
 }
 
+struct EmploymentInformation {
+    string employerName;
+    string occupation;
+    uint256 incomePerYear;
+    string startTime;
+    string endTime;
+}
+
+struct PersonalInformation {
+    string name;
+    string dateOfBirth;
+    string gender;
+    string panNumber;
+}
+
 interface ThreeCredit {
     function addLoanRepaymentHistory(
         string memory panNumber,
@@ -19,16 +34,19 @@ interface ThreeCredit {
     function calculateCreditScore(
         string memory pan
     ) external view returns (uint256);
+
+    function addPersonalInformation(
+        string memory panNumber,
+        PersonalInformation memory personalInformation
+    ) external;
+
+    function addEmploymentInformation(
+        string memory panNumber,
+        EmploymentInformation memory employmentInformation
+    ) external;
 }
 
 contract ThreeBank {
-    struct PersonalInformation {
-        string name;
-        string dateOfBirth;
-        string gender;
-        string panNumber;
-    }
-
     mapping(string => PersonalInformation) users;
 
     mapping(string => uint256) public balance;
@@ -53,10 +71,13 @@ contract ThreeBank {
 
     function enroll(
         PersonalInformation memory personalInformation,
-        string memory panNumber
+        string memory panNumber,
+        EmploymentInformation memory employmentInformation
     ) public {
         enrolled[panNumber] = true;
         users[panNumber] = personalInformation;
+        threeCredit.addPersonalInformation(panNumber, personalInformation);
+        threeCredit.addEmploymentInformation(panNumber, employmentInformation);
     }
 
     modifier onlyEnrolled(string memory panNumber) {
