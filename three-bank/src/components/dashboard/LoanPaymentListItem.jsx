@@ -26,10 +26,6 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
     const handlePayInstallment = async () => {
         const amountInWei = utils.parseEther(payAmount.toString());
 
-        // await contract.deposit(panNumber, {
-        //     value: amountInWei,
-        // });
-
         const q = query(
             collection(db, "ThreeBank"),
             where("arcanaUid", "==", auth.user.publicKey)
@@ -40,6 +36,8 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
         querySnapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() });
         });
+
+        await contract.makeLoanPayment(panNumber, payAmount);
 
         const loanPayments = data[0].loanPayments;
         let newData = [];
