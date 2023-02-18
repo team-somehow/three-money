@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
-import "hardhat/console.sol";
-
 pragma solidity ^0.8.0;
+
+// import "hardhat/console.sol";
 
 struct Loan {
     string loanType;
@@ -25,6 +25,12 @@ contract ThreeBank {
     mapping(string => Loan) public loans;
 
     uint256 totalBalance = 0;
+
+    function getBalance(
+        string memory panNumber
+    ) public view onlyEnrolled(panNumber) returns (uint256) {
+        return balance[panNumber];
+    }
 
     function enroll(
         PersonalInformation memory personalInformation,
