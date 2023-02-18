@@ -16,6 +16,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@arcana/auth-react";
 import { useEffect, useState } from "react";
+import contractAddress from "../../constants/contractAddress";
+
+import QRCode from "qrcode.react";
 
 function DashboardNav({ routes }) {
     const user = useAuth();
@@ -89,6 +92,24 @@ function DashboardNav({ routes }) {
                         </ListItem>
                     </Link>
                 ))}
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        gap: 2,
+                        padding: 5,
+                    }}
+                >
+                    <Typography textAlign={"center"} variant="h5">
+                        See the transactions of our contract
+                    </Typography>
+                    <QRCode
+                        value={`https://mumbai.polygonscan.com/address/${contractAddress}`}
+                    />
+                </Box>
             </List>
             <Button
                 sx={{
