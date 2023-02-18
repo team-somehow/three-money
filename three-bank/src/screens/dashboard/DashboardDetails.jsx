@@ -34,7 +34,6 @@ import { providers, Contract, utils } from "ethers";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 import contractAddress from "../../constants/contractAddress";
 import { arcanaProvider } from "../../main";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import InputAdornment from "@mui/material/InputAdornment";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import BarGraph from "../../components/BarGraph";
