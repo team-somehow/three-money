@@ -167,17 +167,18 @@ function DashboardDetails() {
             <Box width={"40%"}>
                 <Box>
                     <Typography variant="h3">My Wallet</Typography>
-                    <Box position={"relative"} left={"-30px"} top={"-10px"}>
+                    <Box position={"relative"} mt={1}>
                         <img
                             src="/assets/Wallet.png"
-                            width={"90%"}
+                            width={"80%"}
                             style={{ marginRight: "auto" }}
                         />
                         <Typography
                             variant="h6"
                             position={"absolute"}
-                            bottom={"40px"}
-                            left={"50px"}
+                            bottom={"30px"}
+                            left={"20px"}
+                            color={"white"}
                         >
                             {pan}
                         </Typography>
