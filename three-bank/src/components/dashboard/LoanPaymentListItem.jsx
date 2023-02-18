@@ -26,16 +26,26 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
     const handlePayInstallment = async () => {
         const amountInWei = utils.parseEther(payAmount.toString());
 
+        console.log("1");
+
         const q = query(
             collection(db, "ThreeBank"),
             where("arcanaUid", "==", auth.user.publicKey)
         );
 
+        console.log("2");
+
         const querySnapshot = await getDocs(q);
         const data = [];
         querySnapshot.forEach((doc) => {
+            console.log("{ id: doc.id, ...doc.data() }", {
+                id: doc.id,
+                ...doc.data(),
+            });
             data.push({ id: doc.id, ...doc.data() });
         });
+
+        console.log("3");
 
         await contract.makeLoanPayment(panNumber, payAmount);
 

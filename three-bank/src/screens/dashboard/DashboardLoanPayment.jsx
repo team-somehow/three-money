@@ -11,21 +11,28 @@ const DashboardLoanPayment = () => {
 
     useEffect(() => {
         (async () => {
+            console.log("DashboardLoanPayment 0");
+
             if (!auth) return;
             if (!auth?.user) return;
             if (!auth.user?.publicKey) return;
+
+            console.log("DashboardLoanPayment 1");
 
             const q = query(
                 collection(db, "ThreeBank"),
                 where("arcanaUid", "==", auth.user.publicKey)
             );
+            console.log("DashboardLoanPayment 2");
 
             const querySnapshot = await getDocs(q);
             const dataArr = [];
+            console.log("DashboardLoanPayment 3");
 
             querySnapshot.forEach((doc) => {
                 dataArr.push({ id: doc.id, ...doc.data() });
             });
+            console.log("DashboardLoanPayment 3", dataArr[0]);
 
             setData(dataArr[0]);
         })();
@@ -37,8 +44,8 @@ const DashboardLoanPayment = () => {
                 My Loans
             </Typography>
 
-            {data?.loanPayments &&
-                data?.loanPayments.map((item) => {
+            {data?.loanRequest &&
+                data?.loanRequest.map((item) => {
                     return (
                         <LoanPaymentListItem
                             {...item}
