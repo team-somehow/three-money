@@ -12,6 +12,7 @@ import {
 import React, { createContext, useEffect, useState } from "react";
 import DashboardLoanListItem from "../../components/dashboard/DashboardLoanListItem";
 import { db } from "../../config/firebase";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const DashboardLoan = () => {
     const [loanVal, setLoanVal] = useState(0);
@@ -78,52 +79,68 @@ const DashboardLoan = () => {
     };
 
     return (
-        <Box>
+        <Box width={"78%"} mx={"auto"} my={4}>
+            <Typography variant="h3">Loan Details</Typography>
             <Box
                 sx={{
+                    width: "100%",
+                    my: 3,
                     display: "flex",
-                    justifyContent: "flex-start",
-                    marginBottom: "1vh",
+                    flexDirection: "column",
                     borderRadius: "1vh",
                     paddingY: "3vh",
                     paddingX: "2vw",
-                    mb: 3,
                 }}
                 component={Paper}
-                // elevation={6}
-                // className={"awesome-bg-0"}
             >
-                <Typography>Loan Details</Typography>
+                <Box display={"flex"} alignItems={"center"}>
+                    <TextField
+                        placeholder="Enter Loan Amount"
+                        label="Loan Amount"
+                        value={loanVal}
+                        onChange={(e) => setLoanVal(e.target.value)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <img
+                                        src="/assets/matic.png"
+                                        width={"40px"}
+                                    />
+                                </InputAdornment>
+                            ),
+                        }}
+                        fullWidth
+                    ></TextField>
+                    <Box width={"400px"}></Box>
+                    <TextField
+                        placeholder="Enter Loan tenure"
+                        label="Loan Tenure"
+                        value={loanTenure}
+                        onChange={(e) => setLoanTenure(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="start">
+                                    months
+                                </InputAdornment>
+                            ),
+                        }}
+                        fullWidth
+                    ></TextField>
+                </Box>
+                <Button
+                    sx={{
+                        mx: "auto",
+                        mt: 4,
+                        width: "50%",
+                        fontSize: "18px",
+                    }}
+                    variant="contained"
+                    onClick={handleLoanRequest}
+                >
+                    Request Loan
+                </Button>
             </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    marginBottom: "1vh",
-                    borderRadius: "1vh",
-                    paddingY: "3vh",
-                    paddingX: "2vw",
-                    mb: 3,
-                }}
-                component={Paper}
-                // elevation={6}
-                // className={"awesome-bg-0"}
-            >
-                <TextField
-                    placeholder="Enter Loan Amount"
-                    label="Loan Amount"
-                    value={loanVal}
-                    onChange={(e) => setLoanVal(e.target.value)}
-                ></TextField>
-                <TextField
-                    placeholder="Enter Loan tenure"
-                    label="Loan Tenure"
-                    value={loanTenure}
-                    onChange={(e) => setLoanTenure(e.target.value)}
-                ></TextField>
-                <Button onClick={handleLoanRequest}>Request Loan</Button>
-            </Box>
-            <Typography>Loan Requests</Typography>
+            <Typography variant="h3">Loan Requests</Typography>
             {loanRequests.map((item) => (
                 <DashboardLoanListItem {...item} />
             ))}

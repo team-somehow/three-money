@@ -5,7 +5,7 @@ import DashboardNav from "../../components/accounts/DashboardNav";
 import { Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 const Dashboard = () => {
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const Dashboard = () => {
                     {
                         headingText: "Apply Loan",
                         path: "/dashboard/loan",
-                        mainIcon: <MonetizationOnIcon fontSize="large" />,
+                        mainIcon: <ArrowOutwardIcon fontSize="large" />,
                     },
                     {
                         headingText: "My Loans",
