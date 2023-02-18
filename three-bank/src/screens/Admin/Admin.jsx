@@ -12,13 +12,15 @@ import {
     Button,
     Paper,
     CircularProgress,
-    ListItemIcon,
+    ListItemIcon
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import AdminApprovalListItem from "../../components/admin/AdminListItem";
 import AdminListItem from "../../components/admin/AdminListItem";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 
 import {
     collection,
@@ -26,10 +28,11 @@ import {
     query,
     where,
     updateDoc,
-    doc,
+    doc
 } from "@firebase/firestore";
 import { db } from "../../config/firebase";
 import { useAuth } from "@arcana/auth-react";
+import DashboardNav from "../../components/accounts/DashboardNav";
 
 function AdminApproval() {
     const auth = useAuth();
@@ -54,15 +57,15 @@ function AdminApproval() {
 
             let loanRequests = [];
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 const docData = doc.data().loanRequest;
                 // console.log("jasjdbj",docData)
-                docData.forEach((loanReq) => {
+                docData.forEach(loanReq => {
                     if (loanReq.approvedStatus === "waiting")
                         loanRequests.push({
                             id: doc.id,
                             ...loanReq,
-                            panCardNumber: doc.data().pan,
+                            panCardNumber: doc.data().pan
                         });
                 });
             });
@@ -82,7 +85,6 @@ function AdminApproval() {
 
     return (
         <Box
-            component={Paper}
             width={"97vw"}
             elevation={12}
             sx={{
@@ -95,39 +97,24 @@ function AdminApproval() {
                 marginY: "1.5vh",
                 marginX: "1.5vw",
                 overflowY: "scroll",
-                paddingY: "4vh",
+                paddingY: "4vh"
             }}
             className="awesome-bg-0 "
         >
-            <Box width={"20%"}>
-                {/* <img
-                    src="/logo.png"
-                    style={{
-                        height: "10vh",
-                        // width: "100%",
-                        margin:"auto"
-                    }}
-                /> */}
-                <div
-                    style={{
-                        paddingLeft: "18px",
-                        marginTop: "12px",
-                        marginBottom: "28px",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                    }}
-                >
-                    <ListItem onClick={() => navigate("/")}>
-                        <ListItemIcon>
-                            <img src="/logo.png" width={"40px"} />
-                        </ListItemIcon>
-                        <ListItemText>
-                            <h2>3 - Bank</h2>
-                        </ListItemText>
-                    </ListItem>
-                </div>
-            </Box>
+            <DashboardNav
+                routes={[
+                    {
+                        path: "/admin/approvals",
+                        headingText: "Approve Account",
+                        mainIcon: <HowToRegIcon fontSize="large" />
+                    },
+                    {
+                        path: "/admin",
+                        headingText: "Approve Loans",
+                        mainIcon: <PriceCheckIcon fontSize="large" />
+                    }
+                ]}
+            />
             <Box
                 width={"80%"}
                 sx={{
@@ -135,7 +122,7 @@ function AdminApproval() {
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     gap: "2vh",
-                    paddingX: "5%",
+                    paddingX: "5%"
                 }}
             >
                 <Box
@@ -146,12 +133,12 @@ function AdminApproval() {
                         textAlign: "center",
                         borderRadius: "0.5vw",
                         marginBottom: "4.5vh",
-                        height: "10vh",
+                        height: "10vh"
                     }}
                 >
                     <Typography variant="h4">Admin Portal</Typography>
                 </Box>
-                {data.length && data.map((item) => <AdminListItem {...item} />)}
+                {data.length && data.map(item => <AdminListItem {...item} />)}
             </Box>
         </Box>
     );
