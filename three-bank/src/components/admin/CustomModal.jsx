@@ -112,67 +112,59 @@ const CustomModal = ({
         const signer = provider.getSigner();
         const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 
-        let data = {
-            loanType: "Home",
-            loanAmount: ethers.utils.parseEther(amount),
-            loanTenure: tenure,
-            repaymentStatus: "ongoing",
-        };
+        const isLoanApproved = await contract.approveLoan(panCardNumber);
 
-        console.log(await contract.requestLoan(panCardNumber, data));
+        console.log("isLoanApproved", isLoanApproved);
+        return;
 
-        const q = query(
-            collection(db, "ThreeBank"),
-            where("pan", "==", panCardNumber)
-        );
-        const arr = [];
-        const datafromfirebase = await getDocs(q);
+        if (isLoanApproved) {
+            const q = query(
+                collection(db, "ThreeBank"),
+                where("pan", "==", panCardNumber)
+            );
+            const arr = [];
+            const datafromfirebase = await getDocs(q);
 
-        datafromfirebase.forEach((doc) => {
-            arr.push({ id: doc.id, ...doc.data() });
-        });
+            datafromfirebase.forEach((doc) => {
+                arr.push({ id: doc.id, ...doc.data() });
+            });
 
-        const loanRequest = arr[0].loanRequest;
-        let newData = [];
-        for (let i = 0; i < loanRequest.length; i++) {
-            console.log(loanRequest[i]);
-            if (loanRequest[i].loanId === loanId) {
-                let temp = loanRequest[i];
-                temp.approvedStatus = "approved";
-                newData.push(temp);
-            } else {
-                newData.push(loanRequest[i]);
+            const loanRequest = arr[0].loanRequest;
+            let newData = [];
+            for (let i = 0; i < loanRequest.length; i++) {
+                console.log(loanRequest[i]);
+                if (loanRequest[i].loanId === loanId) {
+                    let temp = loanRequest[i];
+                    temp.approvedStatus = "approved";
+                    newData.push(temp);
+                } else {
+                    newData.push(loanRequest[i]);
+                }
             }
+
+            const accountRef = doc(db, "ThreeBank", arr[0].id);
+            await updateDoc(accountRef, {
+                bankDetails: {
+                    balance:
+                        parseFloat(arr[0].bankDetails.balance) +
+                        parseFloat(amount),
+                },
+                loanRequest: newData,
+                loanPayments: arrayUnion({
+                    id: loanId,
+                    name: loanId,
+                    loanAmmount: amount,
+                    loanTenure: tenure,
+                    pan: panCardNumber,
+                    currentPayment: 0,
+                    month: "February",
+                }),
+            });
+
+            console.log("success");
+            setExpand(true);
+            setStatus(true);
         }
-        data = {
-            loanType: "Home",
-            loanAmount: ethers.utils.parseEther(amount),
-            loanTenure: tenure,
-            repaymentStatus: "ongoing",
-        };
-        // console.log(await contract.requestLoan(panCardNumber, data));
-
-        const accountRef = doc(db, "ThreeBank", arr[0].id);
-        await updateDoc(accountRef, {
-            bankDetails: {
-                balance:
-                    parseFloat(arr[0].bankDetails.balance) + parseFloat(amount),
-            },
-            loanRequest: newData,
-            loanPayments: arrayUnion({
-                id: loanId,
-                name: loanId,
-                loanAmmount: amount,
-                loanTenure: tenure,
-                pan: panCardNumber,
-                currentPayment: 0,
-                month: "February",
-            }),
-        });
-
-        console.log("success");
-        setExpand(true);
-        setStatus(true);
 
         handleClose();
     };
