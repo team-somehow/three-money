@@ -136,7 +136,7 @@ const CreditDataContextProvider = ({ children }) => {
 
       if (dataArr.length !== 0) {
         const data = dataArr[0];
-        setFirebaseData(data);
+        // setFirebaseData(data);
         // thoos data in context
         console.log("firebase se aaya data CreditDataContext", data);
       } else {
