@@ -83,7 +83,7 @@ contract ThreeBank {
     function requestLoan(
         string memory panNumber,
         Loan memory loanDeets
-    ) public onlyEnrolled(panNumber) returns (uint256) {
+    ) public onlyEnrolled(panNumber) returns (string memory) {
         require(
             loanDeets.loanAmount <= totalBalance,
             "Not enough funds in bank"
@@ -99,17 +99,17 @@ contract ThreeBank {
             minCreditScore > threeCredit.calculateCreditScore(panNumber)
         );
 
-        uint256 result = 0;
+        string memory result = "0";
 
         if (minCreditScore > threeCredit.calculateCreditScore(panNumber)) {
             console.log("idhar kaise aana hua");
-            result = 888889999999999;
+            result = "8";
         } else {
             console.log("idhar to pohoch gaya");
 
             balance[panNumber] += loanDeets.loanAmount;
             loans[panNumber] = loanDeets;
-            result = 990;
+            result = "9";
         }
 
         console.log("result ye hai", result);

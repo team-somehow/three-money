@@ -111,6 +111,16 @@ const CustomModal = ({
         const provider = new providers.Web3Provider(arcanaProvider.provider);
         const signer = provider.getSigner();
         const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+
+        let data = {
+            loanType: "Home",
+            loanAmount: ethers.utils.parseEther(amount),
+            loanTenure: tenure,
+            repaymentStatus: "ongoing",
+        };
+
+        console.log(await contract.requestLoan(panCardNumber, data));
+
         const q = query(
             collection(db, "ThreeBank"),
             where("pan", "==", panCardNumber)
@@ -153,14 +163,6 @@ const CustomModal = ({
             }),
         });
 
-        let data = {
-            loanType: "Home",
-            loanAmount: ethers.utils.parseEther(amount),
-            loanTenure: tenure,
-            repaymentStatus: "ongoing",
-        };
-
-        console.log(await contract.requestLoan(panCardNumber, data));
         console.log("success");
         setExpand(true);
         setStatus(true);
