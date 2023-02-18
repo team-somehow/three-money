@@ -103,16 +103,20 @@ describe("ThreeBank", () => {
     });
 
     it("Request Loan", async () => {
-        const data = await threeBank
+        await threeBank
             .connect(account1)
             .requestLoan(
                 financialData.personalInformation.panNumber,
                 financialData.loanDeets
             );
+    });
 
-        console.log(data);
+    it("Approve Loan", async () => {
+        const approvalString = await threeBank
+            .connect(account1)
+            .approveLoan(financialData.personalInformation.panNumber);
 
-        // expect(data).to.equal("approved");
+        expect(approvalString).to.equal("approved");
     });
 
     it("Make Loan Payment", async () => {
