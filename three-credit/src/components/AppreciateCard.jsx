@@ -42,4 +42,3 @@ function AppreciateCard({
 }
 
 export default AppreciateCard;
-s;
