@@ -15,7 +15,7 @@ import {
 	where,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
-// import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
+import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 const data = {
 	options: {
 		chart: {
@@ -101,9 +101,9 @@ const CustomModal = ({ open, handleClose, panCardNumber, amount, tenure }) => {
 	const [creditScore, setCreditScore] = useState(600);
 
 	const approveLoan = async () => {
-		// const provider = new providers.Web3Provider(arcanaProvider.provider);
-		// const signer = provider.getSigner();
-		// const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+		const provider = new providers.Web3Provider(arcanaProvider.provider);
+		const signer = provider.getSigner();
+		const contract = new Contract(contractAddress, ThreeBank.abi, signer);
 		const q = query(
 			/*  */ collection(db, "ThreeBank"),
 			where("pan", "==", panCardNumber)

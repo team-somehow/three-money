@@ -7,12 +7,12 @@ import { db } from "../../config/firebase";
 import { arcanaProvider } from "../../main";
 import contractAddress from "../../constants/contractAddress";
 import { providers, Contract, utils } from "ethers";
-// import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
+import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 
 const AdminApprovalListItem = (props) => {
-    // const provider = new providers.Web3Provider(arcanaProvider.provider);
-    // const signer = provider.getSigner();
-    // const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+    const provider = new providers.Web3Provider(arcanaProvider.provider);
+    const signer = provider.getSigner();
+    const contract = new Contract(contractAddress, ThreeBank.abi, signer);
     const item = props;
     console.log(contractAddress);
     const [expand, setExpand] = useState(false);
@@ -48,8 +48,6 @@ const AdminApprovalListItem = (props) => {
                     mb: 3,
                 }}
                 component={Paper}
-                // elevation={6}
-                // className={"awesome-bg-0"}
             >
                 <Box
                     sx={{

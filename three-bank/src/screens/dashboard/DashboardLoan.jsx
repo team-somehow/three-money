@@ -13,26 +13,6 @@ import React, { createContext, useEffect, useState } from "react";
 import DashboardLoanListItem from "../../components/dashboard/DashboardLoanListItem";
 import { db } from "../../config/firebase";
 
-// const loanRequests = [
-//     {
-//         loanId: "loan 1",
-//         loanAmmount: 3000,
-//         approvedStatus: "approved",
-//         timestamp: new Date(),
-//     },
-//     {
-//         loanId: "loan 2",
-//         loanAmmount: 4000,
-//         approvedStatus: "rejected",
-//         timestamp: new Date(),
-//     },
-//     {
-//         loanId: "loan 3",
-//         loanAmmount: 4000,
-//         approvedStatus: "waiting",
-//         timestamp: new Date(),
-//     },
-// ];
 
 const DashboardLoan = () => {
     const [loanVal, setLoanVal] = useState(0);
