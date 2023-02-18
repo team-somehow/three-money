@@ -137,6 +137,10 @@ const CustomModal = ({
 
         const accountRef = doc(db, "ThreeBank", arr[0].id);
         await updateDoc(accountRef, {
+            bankDetails: {
+                balance:
+                    parseFloat(arr[0].bankDetails.balance) + parseFloat(amount),
+            },
             loanRequest: newData,
             loanPayments: arrayUnion({
                 id: loanId,
@@ -158,7 +162,7 @@ const CustomModal = ({
 
         console.log(await contract.requestLoan(panCardNumber, data));
         console.log("success");
-		handleClose()
+        handleClose();
         setExpand(true);
         setStatus(true);
     };

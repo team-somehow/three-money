@@ -43,7 +43,7 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
         });
 
         // await contract.makeLoanPayment(panNumber, amountInWei);
-
+        // const balance=
         const loanPayments = data[0].loanPayments;
         const loanRequest = data[0].loanRequest;
         let newData = [];
@@ -84,6 +84,9 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
         }
         const accountRef = doc(db, "ThreeBank", data[0].id);
         await updateDoc(accountRef, {
+            bankDetails: {
+                balance: parseFloat(data[0].bankDetails.balance) - parseFloat(payAmount),
+            },
             loanRequest: loanRequest,
             loanPayments: newData,
         });
