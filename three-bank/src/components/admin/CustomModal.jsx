@@ -144,6 +144,13 @@ const CustomModal = ({
                 newData.push(loanRequest[i]);
             }
         }
+        data = {
+            loanType: "Home",
+            loanAmount: ethers.utils.parseEther(amount),
+            loanTenure: tenure,
+            repaymentStatus: "ongoing",
+        };
+        // console.log(await contract.requestLoan(panCardNumber, data));
 
         const accountRef = doc(db, "ThreeBank", arr[0].id);
         await updateDoc(accountRef, {
