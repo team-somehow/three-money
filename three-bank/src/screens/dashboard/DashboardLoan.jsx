@@ -14,10 +14,16 @@ import DashboardLoanListItem from "../../components/dashboard/DashboardLoanListI
 import { db } from "../../config/firebase";
 import InputAdornment from "@mui/material/InputAdornment";
 
+import contractAddress from "../../constants/contractAddress";
+import { providers, Contract, utils, ethers } from "ethers";
+import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
+import { arcanaProvider } from "../../main";
+
 const DashboardLoan = () => {
     const [loanVal, setLoanVal] = useState(0);
     const [loanTenure, setLoanTenure] = useState(0);
     const [loanRequests, setLoanRequest] = useState([]);
+    const [pan, setPan] = useState(null);
 
     const auth = useAuth();
 
@@ -34,15 +40,35 @@ const DashboardLoan = () => {
             querySnapshot.forEach((doc) => {
                 dataArr.push({ id: doc.id, ...doc.data() });
             });
+
+            setPan(dataArr[0].pan);
             setLoanRequest(dataArr[0].loanRequest);
         })();
     }, [auth]);
 
     const handleLoanRequest = async () => {
         if (!auth.user.publicKey) {
-            alert("Arcana nai aya");
+            alert("Arcana nahi aya");
             return;
         }
+        if (!pan) {
+            alert("pan nahi aya");
+            return;
+        }
+
+        const provider = new providers.Web3Provider(arcanaProvider.provider);
+        const signer = provider.getSigner();
+        const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+
+        let requestLoanData = {
+            loanType: "Home",
+            loanAmount: ethers.utils.parseEther(loanVal),
+            loanTenure: loanTenure,
+            repaymentStatus: "ongoing",
+        };
+
+        await contract.requestLoan(pan, requestLoanData);
+
         const q = query(
             collection(db, "ThreeBank"),
             where("arcanaUid", "==", auth.user.publicKey)
