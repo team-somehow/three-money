@@ -73,4 +73,21 @@ contract ThreeBank {
 
         return true;
     }
+
+    function makeLoanPayment(
+        string memory panNumber,
+        uint256 amount
+    ) public onlyEnrolled(panNumber) {
+        require(loans[panNumber].loanAmount > 0, "You dont have a loan");
+        require(balance[panNumber] >= amount, "You dont have that much money");
+        require(amount > 0, "Payment should be positive");
+
+        if (amount >= loans[panNumber].loanAmount) {
+            amount = loans[panNumber].loanAmount;
+            loans[panNumber].loanAmount = 0;
+        } else {
+            loans[panNumber].loanAmount -= amount;
+        }
+        balance[panNumber] -= amount;
+    }
 }

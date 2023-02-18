@@ -65,4 +65,13 @@ describe("ThreeBank", () => {
                 financialData.loanDeets
             );
     });
+
+    it("Make Loan Payment", async () => {
+        await threebank
+            .connect(account2)
+            .makeLoanPayment(
+                financialData.personalInformation.panNumber,
+                ethers.utils.parseEther("150")
+            );
+    });
 });
