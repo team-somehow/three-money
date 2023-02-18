@@ -14,6 +14,51 @@
           "components": [
             {
               "internalType": "string",
+              "name": "employerName",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "occupation",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "incomePerYear",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "startTime",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "endTime",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct EmploymentInformation",
+          "name": "employmentInformation",
+          "type": "tuple"
+        }
+      ],
+      "name": "addEmploymentInformation",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "panNumber",
+          "type": "string"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
               "name": "loanType",
               "type": "string"
             },
@@ -39,6 +84,46 @@
         }
       ],
       "name": "addLoanRepaymentHistory",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "panNumber",
+          "type": "string"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "dateOfBirth",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "gender",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "panNumber",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct PersonalInformation",
+          "name": "personalInformation",
+          "type": "tuple"
+        }
+      ],
+      "name": "addPersonalInformation",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
