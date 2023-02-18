@@ -104,7 +104,7 @@ describe("ThreeBank", () => {
 
     it("Request Loan", async () => {
         const data = await threeBank
-            .connect(account2)
+            .connect(account1)
             .requestLoan(
                 financialData.personalInformation.panNumber,
                 financialData.loanDeets
@@ -117,7 +117,7 @@ describe("ThreeBank", () => {
 
     it("Make Loan Payment", async () => {
         await threeBank
-            .connect(account2)
+            .connect(account1)
             .makeLoanPayment(
                 financialData.personalInformation.panNumber,
                 ethers.utils.parseEther("150")

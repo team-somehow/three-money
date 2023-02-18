@@ -8,11 +8,22 @@ const hre = require("hardhat");
 
 async function main() {
     // We get the contract to deploy
+    const ThreeCredit = await hre.ethers.getContractFactory(
+        "contracts/ThreeCredit.sol:ThreeCredit"
+    );
+
+    const threeCredit = await ThreeCredit.deploy();
+
+    await threeCredit.deployed();
+
+    console.log("ThreeCredit deployed to:", threeCredit.address);
+
+    // We get the contract to deploy
     const ThreeBank = await hre.ethers.getContractFactory(
         "contracts/ThreeBank.sol:ThreeBank"
     );
 
-    const threeBank = await ThreeBank.deploy();
+    const threeBank = await ThreeBank.deploy(threeCredit.address);
 
     await threeBank.deployed();
 
