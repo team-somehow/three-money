@@ -33,7 +33,7 @@ function DashboardNav({ routes }) {
       <Toolbar>
         <img></img>
         <Link to="/dashboard">
-          <Typography variant="h3">3 Money</Typography>
+          <Typography variant="h3">3 Credit</Typography>
         </Link>
       </Toolbar>
       <Divider />

@@ -22,6 +22,7 @@ contract ThreeBank {
 
     mapping(string => uint256) public balance;
     mapping(string => bool) public enrolled;
+    mapping(string => Loan) public loans;
 
     uint256 totalBalance = 0;
 
@@ -52,5 +53,41 @@ contract ThreeBank {
         require(balance[panNumber] >= amount, "Insufficient Balance");
         balance[panNumber] -= amount;
         payable(msg.sender).transfer(amount);
+    }
+
+    function requestLoan(
+        string memory panNumber,
+        Loan memory loanDeets
+    ) public onlyEnrolled(panNumber) returns (bool) {
+        require(
+            loanDeets.loanAmount <= totalBalance,
+            "Not enough funds in bank"
+        );
+        require(
+            loans[panNumber].loanAmount == 0,
+            "You already have a loan active"
+        );
+
+        balance[panNumber] += loanDeets.loanAmount;
+        loans[panNumber] = loanDeets;
+
+        return true;
+    }
+
+    function makeLoanPayment(
+        string memory panNumber,
+        uint256 amount
+    ) public onlyEnrolled(panNumber) {
+        require(loans[panNumber].loanAmount > 0, "You dont have a loan");
+        require(balance[panNumber] >= amount, "You dont have that much money");
+        require(amount > 0, "Payment should be positive");
+
+        if (amount >= loans[panNumber].loanAmount) {
+            amount = loans[panNumber].loanAmount;
+            loans[panNumber].loanAmount = 0;
+        } else {
+            loans[panNumber].loanAmount -= amount;
+        }
+        balance[panNumber] -= amount;
     }
 }

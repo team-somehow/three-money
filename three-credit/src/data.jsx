@@ -8,9 +8,9 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 export const links = [
   {
     tagLabel: "2",
-    tagLabelColor: "#a9e1c9",
+    tagLabelColor: "#e1d590",
     mainIcon: <AccessTimeIcon sx={{ fontSize: "1em", color: "inherit" }} />,
-    iconColor: "#a9e1c9",
+    iconColor: "#d3b683",
     headingText: "Payments",
     subText: "High Impact",
     buttonHeading: "Timely payments",
@@ -20,9 +20,9 @@ export const links = [
   },
   {
     tagLabel: "1",
-    tagLabelColor: "#a9e1c9",
+    tagLabelColor: "#e1d590",
     mainIcon: <BarChartIcon sx={{ fontSize: "1em" }} />,
-    iconColor: "#a9e1c9",
+    iconColor: "#d3b683",
     headingText: "Age",
     subText: "Medium Impact",
     buttonHeading: "Total Accounts",
@@ -32,7 +32,7 @@ export const links = [
   },
   {
     mainIcon: <TrendingUpIcon sx={{ fontSize: "1em", color: "inherit" }} />,
-    iconColor: "#a9e1c9",
+    iconColor: "#d2cbaf",
     subText: "High Impact",
     buttonHeading: "Credit Limit Used",
     percentValue: "33%",
@@ -42,7 +42,7 @@ export const links = [
   },
   {
     mainIcon: <ManageAccountsIcon sx={{ fontSize: "1em" }} />,
-    iconColor: "#a9e1c9",
+    iconColor: "#d2bfc4",
     headingText: "Accounts",
     subText: "Medium Impact",
     buttonHeading: "Total Accounts",
@@ -52,7 +52,7 @@ export const links = [
   },
   {
     mainIcon: <QuestionAnswerIcon sx={{ fontSize: "1em" }} />,
-    iconColor: "#a9e1c9",
+    iconColor: "#bfafb2",
     headingText: "Enquiry",
     subText: "Low Impact",
     buttonHeading: "Total Accounts",
@@ -62,9 +62,9 @@ export const links = [
   },
   {
     tagLabel: "1",
-    tagLabelColor: "#a9e1c9",
+    tagLabelColor: "#d4c9a6",
     mainIcon: <Person2Icon sx={{ fontSize: "1em" }} />,
-    iconColor: "#a9e1c9",
+    iconColor: "#cfa46b",
     headingText: "Profile",
     subText: "Low Impact",
     buttonHeading: "Your Accounts",
