@@ -34,8 +34,8 @@ function SummaryCard({
                 py: { xl: 4, sm: 2 },
                 transition: "all 0.2s ease-in-out",
                 "&:hover": {
-                    boxShadow: "0 4px 20px 0 rgba(0, 0, 0, 0.08)",
-                    transform: "scale(1.05)",
+                    boxShadow: "0 4px 20px 0 rgba(0, 0, 0, 0.1)",
+                    transform: "scale(1.05) !important",
                 },
             }}
         >

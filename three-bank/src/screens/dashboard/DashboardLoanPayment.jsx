@@ -44,7 +44,7 @@ const DashboardLoanPayment = () => {
                             {...item}
                             id={data.id}
                             name={item.name}
-                            month={"February"}
+                            month={item.month}
                             payAmount={
                                 parseFloat(item.loanAmmount) /
                                 parseFloat(item.loanTenure)
