@@ -1,41 +1,42 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 .center-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
 }
 body {
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 .css-cveggr-MuiListItemIcon-root {
-  color: inherit !important;
+    color: inherit !important;
 }
 
 input[type="range"] {
-  margin: auto;
-  -webkit-appearance: none;
-  position: relative;
-  overflow: hidden;
-  height: 40px;
-  width: 100%;
-  cursor: pointer;
-  border-radius: 25px; /* iOS */
+    margin: auto;
+    -webkit-appearance: none;
+    position: relative;
+    overflow: hidden;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 25px; /* iOS */
 }
 
 ::-webkit-slider-runnable-track {
-  background: #ddd;
+    background: #ddd;
 }
 
 /*
@@ -44,57 +45,69 @@ input[type="range"] {
 *    of the width of the input.
 */
 ::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px; /* 1 */
-  height: 40px;
-  background: #65cb9f;
-  box-shadow: -28vw 0 0 8vw #65cb9f; /* 2 */
-  /* border: 2px solid red; /* 1 */
-  border-radius: 25px;
+    -webkit-appearance: none;
+    width: 20px; /* 1 */
+    height: 40px;
+    background: #65cb9f;
+    box-shadow: -28vw 0 0 8vw #65cb9f; /* 2 */
+    /* border: 2px solid red; /* 1 */
+    border-radius: 25px;
 }
 
 ::-moz-range-track {
-  height: 30px;
-  background: #ddd;
+    height: 30px;
+    background: #ddd;
 }
 
 ::-moz-range-thumb {
-  background: #fff;
-  height: 40px;
-  width: 20px;
-  border: 3px solid #999;
-  border-radius: 0 !important;
-  box-shadow: -200px 0 0 200px dodgerblue;
-  box-sizing: border-box;
+    background: #fff;
+    height: 40px;
+    width: 20px;
+    border: 3px solid #999;
+    border-radius: 0 !important;
+    box-shadow: -200px 0 0 200px dodgerblue;
+    box-sizing: border-box;
 }
 
 ::-ms-fill-lower {
-  background: dodgerblue;
+    background: dodgerblue;
 }
 
 ::-ms-thumb {
-  background: #fff;
-  border: 2px solid #999;
-  height: 40px;
-  width: 20px;
-  box-sizing: border-box;
+    background: #fff;
+    border: 2px solid #999;
+    height: 40px;
+    width: 20px;
+    box-sizing: border-box;
 }
 
 ::-ms-ticks-after {
-  display: none;
+    display: none;
 }
 
 ::-ms-ticks-before {
-  display: none;
+    display: none;
 }
 
 ::-ms-track {
-  background: #ddd;
-  color: transparent;
-  height: 40px;
-  border: none;
+    background: #ddd;
+    color: transparent;
+    height: 40px;
+    border: none;
 }
 
 ::-ms-tooltip {
-  display: none;
+    display: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield !important;
 }
