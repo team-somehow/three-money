@@ -44,4 +44,13 @@ contract ThreeBank {
         balance[panNumber] += msg.value;
         totalBalance += msg.value;
     }
+
+    function withdraw(
+        uint256 amount,
+        string memory panNumber
+    ) public onlyEnrolled(panNumber) {
+        require(balance[panNumber] >= amount, "Insufficient Balance");
+        balance[panNumber] -= amount;
+        payable(msg.sender).transfer(amount);
+    }
 }

@@ -2,10 +2,10 @@ const { ethers } = require("hardhat");
 
 const financialData = {
     personalInformation: {
-        name: "John Doe",
-        dateOfBirth: "01-01-1980",
+        name: "Hussain",
+        dateOfBirth: "09-09-2001",
         gender: "Male",
-        panNumber: "ABCDEF1234G",
+        panNumber: "HussainPan0",
     },
     loanDeets: {
         loanType: "Home Loan",
@@ -16,7 +16,7 @@ const financialData = {
 };
 
 describe("ThreeBank", () => {
-    let threebank, threeCredit;
+    let threebank;
     let owner, account1, account2;
 
     before(async function () {
@@ -46,5 +46,14 @@ describe("ThreeBank", () => {
             .deposit(financialData.personalInformation.panNumber, {
                 value: ethers.utils.parseEther("1000"),
             });
+    });
+
+    it("Withdraw", async () => {
+        await threebank
+            .connect(account1)
+            .withdraw(
+                ethers.utils.parseEther("10"),
+                financialData.personalInformation.panNumber
+            );
     });
 });
