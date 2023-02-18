@@ -48,6 +48,12 @@ describe("ThreeBank", () => {
             });
     });
 
+    it("Get balance", async () => {
+        await threebank
+            .connect(account1)
+            .getBalance(financialData.personalInformation.panNumber);
+    });
+
     it("Withdraw", async () => {
         await threebank
             .connect(account1)
