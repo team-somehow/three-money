@@ -5,6 +5,16 @@ import ReactApexChart from "react-apexcharts";
 import { arcanaProvider } from "../../main";
 import { providers, Contract, utils, ethers } from "ethers";
 import contractAddress from "../../constants/contractAddress";
+import {
+	arrayUnion,
+	collection,
+	doc,
+	getDocs,
+	query,
+	updateDoc,
+	where,
+} from "firebase/firestore";
+import { db } from "../../config/firebase";
 // import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 const data = {
 	options: {
@@ -94,6 +104,32 @@ const CustomModal = ({ open, handleClose, panCardNumber, amount, tenure }) => {
 		// const provider = new providers.Web3Provider(arcanaProvider.provider);
 		// const signer = provider.getSigner();
 		// const contract = new Contract(contractAddress, ThreeBank.abi, signer);
+		const q = query(
+			/*  */ collection(db, "ThreeBank"),
+			where("pan", "==", panCardNumber)
+		);
+		const arr = [];
+		const datafromfirebase = await getDocs(q);
+
+		datafromfirebase.forEach((doc) => {
+			console.log(doc.id, "=>", doc.data());
+			arr.push({ id: doc.id, ...doc.data() });
+		});
+		const accountRef = doc(db, "ThreeBank", arr[0].id);
+		await updateDoc(accountRef, {
+			loanPayments: arrayUnion({
+				id: parseInt(Math.random() * 100),
+				name: parseInt(Math.random() * 100),
+				loanAmmount: amount,
+				loanTenure: tenure,
+				pan: panCardNumber,
+				currentPayment: 0,
+                month:"February"
+			}),
+		});
+
+		console.log("success");
+
 		let data = {
 			loanType: "Home",
 			loanAmount: ethers.utils.parseEther(amount),
@@ -101,7 +137,7 @@ const CustomModal = ({ open, handleClose, panCardNumber, amount, tenure }) => {
 			repaymentStatus: "ongoing",
 		};
 
-		console.log(await contract.requestLoan(panCardNumber, data));
+		// console.log(await contract.requestLoan(panCardNumber, data));
 
 		setExpand(true);
 		setStatus(true);
