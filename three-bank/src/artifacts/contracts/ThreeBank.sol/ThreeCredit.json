@@ -1,0 +1,51 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "ThreeCredit",
+  "sourceName": "contracts/ThreeBank.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "panNumber",
+          "type": "string"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "loanType",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "loanAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "loanTenure",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "repaymentStatus",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct Loan",
+          "name": "loanRepaymentHistory",
+          "type": "tuple"
+        }
+      ],
+      "name": "addLoanRepaymentHistory",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

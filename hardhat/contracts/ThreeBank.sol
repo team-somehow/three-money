@@ -10,6 +10,13 @@ struct Loan {
     string repaymentStatus;
 }
 
+interface ThreeCredit {
+    function addLoanRepaymentHistory(
+        string memory panNumber,
+        Loan memory loanRepaymentHistory
+    ) external;
+}
+
 contract ThreeBank {
     struct PersonalInformation {
         string name;
@@ -25,6 +32,11 @@ contract ThreeBank {
     mapping(string => Loan) public loans;
 
     uint256 totalBalance = 0;
+    ThreeCredit threeCredit;
+
+    constructor(address contractAddress) {
+        threeCredit = ThreeCredit(contractAddress);
+    }
 
     function getBalance(
         string memory panNumber
