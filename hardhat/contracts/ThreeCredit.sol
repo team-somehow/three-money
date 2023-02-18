@@ -35,12 +35,39 @@ contract ThreeCredit {
 
     struct CreditHistory {
         LoanRepaymentHistory[] loanRepaymentHistory;
-        CreditCardHistory[] creditCardHistory;
     }
 
     struct FinancialData {
         PersonalInformation personalInformation;
         EmploymentInformation[] employmentInformation;
         CreditHistory creditHistory;
+    }
+
+    mapping(string => FinancialData) private financialDataMap;
+
+    function addPersonalInformation(
+        string memory panNumber,
+        PersonalInformation memory personalInformation
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.personalInformation = personalInformation;
+    }
+
+    function addEmploymentInformation(
+        string memory panNumber,
+        EmploymentInformation memory employmentInformation
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.employmentInformation.push(employmentInformation);
+    }
+
+    function addLoanRepaymentHistory(
+        string memory panNumber,
+        LoanRepaymentHistory memory loanRepaymentHistory
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.creditHistory.loanRepaymentHistory.push(
+            loanRepaymentHistory
+        );
     }
 }
