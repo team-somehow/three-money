@@ -201,7 +201,7 @@ const CustomModal = ({
         });
 
         setExpand(true);
-        setStatus(true);
+        setStatus(false);
         handleClose();
     };
 

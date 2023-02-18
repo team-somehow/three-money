@@ -29,6 +29,7 @@ function DashboardNav({ routes }) {
     return (
         <Drawer
             variant="permanent"
+            data-aos="fade-right"
             sx={{
                 position: "relative",
                 // display: { xl: "initial", sm: "none", xs: "none" },

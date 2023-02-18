@@ -93,11 +93,11 @@ contract ThreeBank {
             "You already have a loan active"
         );
 
-        console.log(threeCredit.calculateCreditScore(panNumber));
-        console.log(minCreditScore);
-        console.log(
-            minCreditScore > threeCredit.calculateCreditScore(panNumber)
-        );
+        // console.log(threeCredit.calculateCreditScore(panNumber));
+        // console.log(minCreditScore);
+        // console.log(
+        //     minCreditScore > threeCredit.calculateCreditScore(panNumber)
+        // );
 
         string memory result = "0";
 
@@ -112,9 +112,9 @@ contract ThreeBank {
             result = "9";
         }
 
-        console.log("result ye hai", result);
+        // console.log("result ye hai", result);
 
-        return result;
+        return 768;
     }
 
     function makeLoanPayment(
