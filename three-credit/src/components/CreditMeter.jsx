@@ -16,13 +16,13 @@ function CreditMeter({ creditScore }) {
           endAngle: 135,
           dataLabels: {
             name: {
-              fontSize: "16px",
-              color: undefined,
+              fontSize: "24px",
+              color: "#618EF6",
               offsetY: 120,
             },
             value: {
-              offsetY: 76,
-              fontSize: "22px",
+              offsetY: 4,
+              fontSize: "54px",
               color: undefined,
               formatter: function (val) {
                 return val * 10;

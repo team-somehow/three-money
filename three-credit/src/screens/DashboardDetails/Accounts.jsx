@@ -33,7 +33,7 @@ const Age = () => {
       <Box>
         <Typography variant="h4">Your Accounts</Typography>
         <AccountListItem
-          icon={<img src="/assets/hdfc_logo.png" width={"50px"} />}
+          icon="/assets/hdfc_logo.png"
           bankName={"HDFC Bank"}
           cardNumber={"**** *890"}
           isActive={true}
