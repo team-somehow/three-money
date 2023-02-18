@@ -128,6 +128,7 @@ function DashboardDetails() {
             },
         });
         setBalance(parseFloat(balance) + parseFloat(depositVal));
+        setDepositVal(0);
     };
     const withdraw = async () => {
         console.log("Withdraw");
@@ -145,6 +146,7 @@ function DashboardDetails() {
             },
         });
         setBalance(parseFloat(balance) - parseFloat(withdrawVal));
+        setDepositVal(0);
     };
 
     if (loading)
