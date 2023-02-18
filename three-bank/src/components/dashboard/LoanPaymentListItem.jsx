@@ -16,7 +16,7 @@ import {
     getDoc,
 } from "@firebase/firestore";
 import { db } from "../../config/firebase";
-
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
     const auth = useAuth();
     const provider = new providers.Web3Provider(arcanaProvider.provider);
@@ -85,7 +85,9 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
         const accountRef = doc(db, "ThreeBank", data[0].id);
         await updateDoc(accountRef, {
             bankDetails: {
-                balance: parseFloat(data[0].bankDetails.balance) - parseFloat(payAmount),
+                balance:
+                    parseFloat(data[0].bankDetails.balance) -
+                    parseFloat(payAmount),
             },
             loanRequest: loanRequest,
             loanPayments: newData,
@@ -96,20 +98,43 @@ function LoanPaymentListItem({ id, name, month, onPay, payAmount, panNumber }) {
         <Box
             component={Paper}
             p={2}
+            px={4}
             display={"flex"}
             alignItems={"center"}
             justifyContent={"space-between"}
+            sx={{
+                "&:hover": {
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.12)",
+                },
+            }}
         >
             <Box>
-                <Typography variant="h4">{name}</Typography>
-                <Typography variant="h6">Pay for {month}</Typography>
+                <Typography variant="h4">Loan Id: {name}</Typography>
+                <Typography
+                    variant="h5"
+                    display={"flex"}
+                    alignItems={"center"}
+                    mt={1}
+                >
+                    <CalendarMonthIcon
+                        fontSize="large"
+                        sx={{
+                            color: "#618ef6",
+                            mr: 1,
+                        }}
+                    />
+                    {/* Pay for */}
+                    <b>{month}</b>
+                </Typography>
             </Box>
             <Button
-                variant="contained"
+                variant="outlined"
                 onClick={handlePayInstallment}
                 size="large"
             >
-                Pay ₹{payAmount}
+                Pay
+                <img src="/assets/matic.png" width={"50px"} />
+                {payAmount}
             </Button>
         </Box>
     );
