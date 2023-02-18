@@ -17,7 +17,7 @@ function SummaryCard({
 }) {
     return (
         <Box
-            datatype="fade-up"
+            data-aos="fade-up"
             component={Paper}
             my={2}
             mr={{ xl: 4, sm: 2 }}
