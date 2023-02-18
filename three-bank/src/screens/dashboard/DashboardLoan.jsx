@@ -54,7 +54,7 @@ const DashboardLoan = () => {
         });
 
         const accountRef = doc(db, "ThreeBank", datafromfirebase[0].id);
-        let temp = (Math.random() * 100).toString();
+        let temp = parseInt(Math.random() * 100).toString();
         await updateDoc(accountRef, {
             loanRequest: arrayUnion({
                 loanId: temp,
