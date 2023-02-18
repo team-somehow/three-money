@@ -17,7 +17,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@arcana/auth-react";
 import { useEffect, useState } from "react";
 import contractAddress from "../../constants/contractAddress";
-
+import { useLocation } from "react-router-dom";
+import { faker } from "@faker-js/faker";
 import QRCode from "qrcode.react";
 import ChatBot from "react-simple-chatbot";
 const steps = [
@@ -39,8 +40,6 @@ const steps = [
             { value: 3, label: "Number 3", trigger: "1" }
         ]
     },
-import { useLocation } from "react-router-dom";
-import { faker } from "@faker-js/faker";
 
     {
         id: "3",
@@ -60,7 +59,7 @@ function DashboardNav({ routes }) {
             setProfileUrl(user.user.picture);
         }
     }, [user]);
-    const isCurrentNavActive = (path) => {
+    const isCurrentNavActive = path => {
         const currentRoute = useLocation().pathname;
         if (currentRoute == path) return true;
         else return false;
@@ -120,7 +119,7 @@ function DashboardNav({ routes }) {
                                     : "initial",
                                 color: isCurrentNavActive(r.path)
                                     ? "white"
-                                    : "black",
+                                    : "black"
                             }}
                         >
                             <ListItemButton sx={{ p: 2, px: 4 }}>
@@ -130,7 +129,7 @@ function DashboardNav({ routes }) {
                                         fontSize: { xl: "30px", sm: "15px" },
                                         color: isCurrentNavActive(r.path)
                                             ? "white"
-                                            : "black",
+                                            : "black"
                                     }}
                                 >
                                     {r.mainIcon}
@@ -138,7 +137,7 @@ function DashboardNav({ routes }) {
                                 <ListItemText
                                     sx={{
                                         fontSize: "24px",
-                                        fontWeight: "bold",
+                                        fontWeight: "bold"
                                     }}
                                     primary={r.headingText}
                                 />
