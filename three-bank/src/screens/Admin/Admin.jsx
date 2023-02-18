@@ -56,13 +56,15 @@ function AdminApproval() {
 
             querySnapshot.forEach((doc) => {
                 const docData = doc.data().loanRequest;
-
+                // console.log("jasjdbj",docData)
                 docData.forEach((loanReq) => {
-                    loanRequests.push({
-                        id: doc.id,
-                        ...loanReq,
-                        panCardNumber: doc.data().pan,
-                    });
+                    console.log("dfds", loanReq);
+                    if (loanReq.approvedStatus === "waiting")
+                        loanRequests.push({
+                            id: doc.id,
+                            ...loanReq,
+                            panCardNumber: doc.data().pan,
+                        });
                 });
             });
 
@@ -150,9 +152,7 @@ function AdminApproval() {
                 >
                     <Typography variant="h4">Admin Portal</Typography>
                 </Box>
-                {data.length && data.map((item) => (
-                    <AdminListItem {...item} />
-                ))}
+                {data.length && data.map((item) => <AdminListItem {...item} />)}
             </Box>
         </Box>
     );

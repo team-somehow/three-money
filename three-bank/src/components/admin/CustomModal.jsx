@@ -6,7 +6,6 @@ import { arcanaProvider } from "../../main";
 import { providers, Contract, utils, ethers } from "ethers";
 import contractAddress from "../../constants/contractAddress";
 import {
-    arrayRemove,
     arrayUnion,
     collection,
     doc,
@@ -159,7 +158,7 @@ const CustomModal = ({
 
         console.log(await contract.requestLoan(panCardNumber, data));
         console.log("success");
-
+		handleClose()
         setExpand(true);
         setStatus(true);
     };
