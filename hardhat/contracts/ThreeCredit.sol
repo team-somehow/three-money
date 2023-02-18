@@ -43,4 +43,40 @@ contract ThreeCredit {
         EmploymentInformation[] employmentInformation;
         CreditHistory creditHistory;
     }
+
+    mapping(string => FinancialData) private financialDataMap;
+
+    function addPersonalInformation(
+        string memory panNumber,
+        PersonalInformation memory personalInformation
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.personalInformation = personalInformation;
+    }
+
+    function addEmploymentInformation(
+        string memory panNumber,
+        EmploymentInformation memory employmentInformation
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.employmentInformation.push(employmentInformation);
+    }
+
+    function addLoanRepaymentHistory(
+        string memory panNumber,
+        LoanRepaymentHistory memory loanRepaymentHistory
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.creditHistory.loanRepaymentHistory.push(
+            loanRepaymentHistory
+        );
+    }
+
+    function addCreditCardHistory(
+        string memory panNumber,
+        CreditCardHistory memory creditCardHistory
+    ) public {
+        FinancialData storage financialData = financialDataMap[panNumber];
+        financialData.creditHistory.creditCardHistory.push(creditCardHistory);
+    }
 }
