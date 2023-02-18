@@ -35,7 +35,6 @@ contract ThreeCredit {
 
     struct CreditHistory {
         LoanRepaymentHistory[] loanRepaymentHistory;
-        CreditCardHistory[] creditCardHistory;
     }
 
     struct FinancialData {
@@ -70,13 +69,5 @@ contract ThreeCredit {
         financialData.creditHistory.loanRepaymentHistory.push(
             loanRepaymentHistory
         );
-    }
-
-    function addCreditCardHistory(
-        string memory panNumber,
-        CreditCardHistory memory creditCardHistory
-    ) public {
-        FinancialData storage financialData = financialDataMap[panNumber];
-        financialData.creditHistory.creditCardHistory.push(creditCardHistory);
     }
 }
