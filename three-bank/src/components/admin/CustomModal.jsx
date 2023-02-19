@@ -24,6 +24,7 @@ import {
 import { db } from "../../config/firebase";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 import ThreeCredit from "../../artifacts/contracts/ThreeBank.sol/ThreeCredit.json";
+import { useNavigate } from "react-router-dom";
 const data = {
     options: {
         chart: {
@@ -115,6 +116,7 @@ const CustomModal = ({
     const [expand, setExpand] = useState(false);
     const [creditScore, setCreditScore] = useState(0);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -195,6 +197,7 @@ const CustomModal = ({
             console.log("success");
             setExpand(true);
             setStatus(true);
+            navigate(0);
         }
 
         setLoading(false);
@@ -238,6 +241,7 @@ const CustomModal = ({
         setLoading(false);
 
         handleClose();
+        navigate(0);
     };
 
     return (
