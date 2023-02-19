@@ -118,7 +118,7 @@ function AdminApproval() {
                 }}
             >
                 <Typography mb={8} variant="h4">
-                    Aprove Loans - Admin
+                    Approve Loans - Admin
                 </Typography>
                 {data.length && data.map(item => <AdminListItem {...item} />)}
             </Box>
