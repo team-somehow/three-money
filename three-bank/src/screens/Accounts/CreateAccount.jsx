@@ -33,7 +33,6 @@ import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useAuth } from "@arcana/auth-react";
-
 const storage = getStorage();
 
 function CreateAccount() {
@@ -145,77 +144,43 @@ function CreateAccount() {
 
     return (
         <Box
-            component={Paper}
-            width={"97vw"}
             elevation={12}
             sx={{
-                maxHeight: "96vh",
-                height: "96vh",
-                borderRadius: "1vw",
-                paddingX: "1.5vw",
+                background: "url('/assets/bg.jpg') no-repeat center center",
+                backgroundSize: "cover",
+                backgroundAttachment: "fixed",
                 display: "flex",
-                flexDirection: "row",
-                marginY: "1.5vh",
-                marginX: "1.5vw",
-                overflowY: "scroll",
-                paddingY: "4vh"
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                position: "relative"
             }}
-            className="awesome-bg-0 "
         >
-            <Box width={"20%"}>
-                {/* <img
-                  src="/logo.png"
-                  style={{
-                      height: "10vh",
-                      // width: "100%",
-                      margin:"auto"
-                  }}
-              /> */}
-                <div
-                    style={{
-                        paddingLeft: "18px",
-                        marginTop: "12px",
-                        marginBottom: "28px",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center"
-                    }}
-                >
-                    <ListItem onClick={() => navigate("/")}>
-                        <ListItemIcon>
-                            <img src="/logo.png" width={"40px"} />
-                        </ListItemIcon>
-                        <ListItemText>
-                            <h2>3 - Bank</h2>
-                        </ListItemText>
-                    </ListItem>
-                </div>
-            </Box>
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(0, 0, 0, 0.2)",
+                    backdropFilter: "blur(1px) brightness(80%)"
+                }}
+            ></Box>
             <Box
                 width={"80%"}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    gap: "2vh",
-                    paddingX: "5%"
+                    mx: "auto",
+                    borderBottomLeftRadius: "25px",
+                    borderBottomRightRadius: "25px",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    backdropFilter: "blur(1px) brightness(80%)"
                 }}
+                zIndex={100}
             >
-                <Box
-                    component={Paper}
-                    sx={{
-                        backgroundColor: "white",
-                        padding: "2%",
-                        textAlign: "center",
-                        borderRadius: "0.5vw",
-                        marginBottom: "4.5vh",
-                        height: "10vh"
-                    }}
-                >
-                    <Typography variant="h4">
-                        Complete your application
-                    </Typography>
-                </Box>
                 <Box
                     sx={{
                         display: "flex",
@@ -228,10 +193,10 @@ function CreateAccount() {
                         mb: 3,
                         gap: 2
                     }}
-                    component={Paper}
-                    // elevation={6}
-                    // className={"awesome-bg-0"}
                 >
+                    <Typography variant="h4">
+                        Complete your application
+                    </Typography>
                     <TextField
                         placeholder="Enter Name"
                         label=" Name"
@@ -281,9 +246,6 @@ function CreateAccount() {
                         mb: 3,
                         gap: 2
                     }}
-                    component={Paper}
-                    // elevation={6}
-                    // className={"awesome-bg-0"}
                 >
                     <input
                         ref={PanCardRef}
@@ -355,6 +317,7 @@ function CreateAccount() {
                     </Button>
                 </Box>
             </Box>
+            <Box height={"5vh"} width={"100%"}></Box>
         </Box>
     );
 }
