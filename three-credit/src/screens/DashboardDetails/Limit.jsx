@@ -1,6 +1,7 @@
 import { Box, Typography, LinearProgress, Paper } from "@mui/material";
-import { useState } from "react";
+import { useState ,useContext,useEffect} from "react";
 import AccountListItem from "../../components/AccountListItem";
+import { CreditDataContext } from "../../contexts/CreditDataContextProvider";
 
 function LinearProgressWithLabel(props) {
     return (
@@ -19,6 +20,20 @@ function LinearProgressWithLabel(props) {
 
 const Age = () => {
     const [progress, setProgress] = useState(10);
+    const [accounts,setAccounts]=useState([])
+
+    const creditDataCtx=useContext(CreditDataContext);
+
+    useEffect(()=>{
+        const {pan}=creditDataCtx
+        console.log(pan)
+        if(pan==="Vijaymalya"){
+            setProgress(90)
+        }
+        setAccounts(creditDataCtx.accounts)
+        console.log(creditDataCtx)
+    },[creditDataCtx])
+
 
     return (
         <Box width={"76%"} mx={"auto"}>
