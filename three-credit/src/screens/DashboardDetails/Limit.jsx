@@ -1,99 +1,62 @@
-import { Box, Typography } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import { Box, Typography, LinearProgress, Paper } from "@mui/material";
+import { useState } from "react";
 import AccountListItem from "../../components/AccountListItem";
-import DetailsCard from "../../components/DetailsCard";
-import { CreditDataContext } from "../../contexts/CreditDataContextProvider";
 
-// from data.accounts from each account currenttime-account start time
-
-const firebaseStructure = {
-    arcanaUid: "hussain",
-    pan: "hussain",
-    personalDetails: {
-        incomeDetails: {
-            yearlyIncome: 1000,
-        },
-    },
-    accounts: [
-        {
-            bankProvider: "three-bank",
-
-            accountStartTime: new Date("2022"),
-            loans: [
-                {
-                    loanType: "personal",
-                    loanId: 69,
-                    loanAmount: 100000,
-                    loanTenure: 15,
-                    paymentsMade: 3,
-                    payments: [
-                        {
-                            year: 2022,
-                            calendar: [
-                                {
-                                    month: "december",
-                                    state: "on_time",
-                                },
-                            ],
-                        },
-                        {
-                            year: 2023,
-                            calendar: [
-                                {
-                                    month: "january",
-                                    state: "semi_delayed",
-                                },
-                                {
-                                    month: "february",
-                                    state: "delayed",
-                                },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    loanType: "home",
-                    loanId: 99,
-                    loanAmount: 3000000,
-                    loanTenure: 4,
-                    paymentsMade: 4,
-                    payments: [
-                        {
-                            year: 2022,
-                            calendar: [
-                                {
-                                    month: "august",
-                                    state: "on_time",
-                                },
-                                {
-                                    month: "september",
-                                    state: "semi_delayed",
-                                },
-                                {
-                                    month: "october",
-                                    state: "on_time",
-                                },
-                                {
-                                    month: "november",
-                                    state: "on_time",
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
-        },
-    ],
-};
+function LinearProgressWithLabel(props) {
+    return (
+        <Box
+            sx={{
+                display: "flex",
+                alignItems: "center",
+            }}
+        >
+            <Box sx={{ width: "100%", mr: 1 }}>
+                <LinearProgress variant="determinate" {...props} />
+            </Box>
+        </Box>
+    );
+}
 
 const Age = () => {
-    const creditDataCtx = useContext(CreditDataContext);
-
-    // const
+    const [progress, setProgress] = useState(10);
 
     return (
         <Box width={"76%"} mx={"auto"}>
-            <DetailsCard
+            <Box
+                sx={{
+                    display: "flex",
+                    direction: "column",
+                    justifyContent: "center",
+                    borderRadius: "1vh",
+                    px: 4,
+                    py: 2,
+                    my: 2,
+                    "&:hover": {
+                        boxShadow: "10px 10px 20px rgba(0, 0, 0, 0.12)",
+                    },
+                }}
+                component={Paper}
+            >
+                <Typography
+                    sx={{
+                        fontSize: 40,
+                        textAlign: "center",
+                    }}
+                >
+                    Credit Utilization
+                </Typography>
+            </Box>
+
+            <Box sx={{ marginBlock: 10 }}>
+                <Box>
+                    <Typography
+                        fontSize={30}
+                        color="text.secondary"
+                    >{`${Math.round(progress)}%`}</Typography>
+                </Box>
+                <LinearProgressWithLabel value={progress} />
+            </Box>
+            {/* <DetailsCard
                 mainHeading={"Medium Impact"}
                 lastUpdated={JSON.stringify(
                     creditDataCtx.userCreditRequest[0].timestamp
@@ -104,7 +67,7 @@ const Age = () => {
                 leftHeadingTitle={"Active Accounts"}
                 rightHeadingNumber={`1y 3m`}
                 rightHeadingTitle={"Age of Accounts"}
-            />
+            /> */}
             <Box>
                 <Typography variant="h4">Your Accounts</Typography>
                 <AccountListItem
