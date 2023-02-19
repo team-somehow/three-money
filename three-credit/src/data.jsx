@@ -36,7 +36,7 @@ export const links = [
         subText: "High Impact",
         buttonHeading: "Credit Limit Used",
         percentValue: "33%",
-        headingText: "Credit Utilization",
+        headingText: "Credit Used",
         path: "/dashboard/details/limit",
         name: "Limit",
     },

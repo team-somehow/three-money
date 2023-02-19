@@ -56,7 +56,7 @@ const Age = () => {
                         textAlign: "center",
                     }}
                 >
-                    Credit Utilization
+                    Credit Use
                 </Typography>
             </Box>
 

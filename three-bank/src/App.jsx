@@ -9,6 +9,12 @@ import { useEffect } from "react";
 const darkTheme = createTheme({
     palette: {
         primary: { main: "#618ef8" }
+    },
+
+    typography: {
+        fontFamily: ["Poppins", "Nunito", "Roboto", "Arial", "sans-serif"].join(
+            ","
+        )
     }
 });
 
