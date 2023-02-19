@@ -24,7 +24,12 @@ function CreditMeter({ creditScore }) {
                         value: {
                             offsetY: 4,
                             fontSize: "54px",
-                            color: undefined,
+                            color:
+                                creditScore < 500
+                                    ? "red"
+                                    : creditScore == 500
+                                    ? "yellow"
+                                    : "green",
                             formatter: function (val) {
                                 return val * 10;
                             },
