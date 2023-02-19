@@ -82,17 +82,6 @@ function DashboardNav({ routes }) {
                     </Link>
                 ))}
             </List>
-            <Button
-                sx={{
-                    position: "absolute",
-                    bottom: "10px",
-                    color: "red",
-                }}
-                variant="text"
-                fullWidth
-            >
-                Logout
-            </Button>
         </Drawer>
     );
 }
