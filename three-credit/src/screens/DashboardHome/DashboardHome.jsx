@@ -44,9 +44,10 @@ const DashboardHome = () => {
         <Box
             sx={{
                 display: "flex",
-                background: `url("/assets/bg.svg") no-repeat`,
+                background: `url("/assets/bg3.png   ") no-repeat`,
                 // backgroundAttachment: "fixed",
                 backgroundSize: "cover",
+                backgroundAttachment: "fixed",
             }}
         >
             <Box

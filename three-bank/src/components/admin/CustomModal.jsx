@@ -236,16 +236,24 @@ const CustomModal = ({
             loanRequest: newData
         });
 
-        setExpand(true);
         setStatus(false);
-        setLoading(false);
-
-        handleClose();
+        setExpand(true);
         navigate(0);
+        setLoading(false);
     };
 
     return (
         <>
+            {
+                <ChildModal
+                    open={expand}
+                    status={status ? "SUCCESS" : "FAILED"}
+                    onClose={() => {
+                        setStatus(false);
+                        setExpand(false);
+                    }}
+                />
+            }
             <Modal open={open} onClose={handleClose}>
                 <div
                     style={{
