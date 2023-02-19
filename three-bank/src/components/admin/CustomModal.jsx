@@ -150,7 +150,7 @@ const CustomModal = ({
         console.log("isLoanApproved", isLoanApproved);
         // return;
 
-        if (isLoanApproved) {
+        if (isLoanApproved === "approved") {
             const q = query(
                 collection(db, "ThreeBank"),
                 where("pan", "==", panCardNumber)
@@ -198,6 +198,8 @@ const CustomModal = ({
             setExpand(true);
             setStatus(true);
             navigate(0);
+        } else {
+            await RejectLoan();
         }
 
         setLoading(false);
