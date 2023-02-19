@@ -51,8 +51,8 @@ function DashboardNav({ routes }) {
     const [open, setOpen] = useState(false);
 
     const user = useAuth();
-    const [userName, setUserName] = useState("Vinay Kanse");
-    const [profileUrl, setProfileUrl] = useState(faker.image.avatar());
+    const [userName, setUserName] = useState("Loading...");
+    const [profileUrl, setProfileUrl] = useState("");
     useEffect(() => {
         if (user.user) {
             setUserName(user.user.name);
