@@ -29,21 +29,53 @@ const steps = [
     },
     {
         id: "1",
-        message: "Choose one of the options",
+        message: "What would you like  help with?",
         trigger: "2"
     },
     {
         id: "2",
         options: [
-            { value: 1, label: "Exit", trigger: "3" },
-            { value: 2, label: "Number 2", trigger: "1" },
-            { value: 3, label: "Number 3", trigger: "1" }
+            { value: 1, label: "Accessing account details", trigger: "3" },
+            { value: 2, label: "Apply for loans", trigger: "4" },
+            { value: 3, label: "See my loans", trigger: "5" },
+            { value: 3, label: "Exit", trigger: "8" }
         ]
     },
-
     {
         id: "3",
+        message: "Click on My Account option on the left to access the Page",
+        trigger: "6"
+    },
+    {
+        id: "4",
+        message: "Click on Apply loan option on the left to access the Page",
+        trigger: "6"
+    },
+    {
+        id: "5",
+        message: "Click on my loans option on the left to access the Page",
+        trigger: "6"
+    },
+    {
+        id: "6",
+        message: "Do you want any more help?",
+        trigger: "7"
+    },
+    {
+        id: "7",
+        options: [
+            { value: 1, label: "Yes", trigger: 1 },
+            { value: 2, label: "No", trigger: 8 }
+        ]
+    },
+    {
+        id: "8",
         message: "Adios Amigo",
+        trigger:"9"
+    },
+    {
+        id: "9",
+        message: "hello",
         end: true
     }
 ];

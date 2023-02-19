@@ -6,33 +6,7 @@ import { Box, Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import ChatBot from "react-simple-chatbot";
-const steps = [
-    {
-        id: "0",
-        message: "Welcome to Your personal Assitant",
-        trigger: "1"
-    },
-    {
-        id: "1",
-        message: "Choose one of the options",
-        trigger: "2"
-    },
-    {
-        id: "2",
-        options: [
-            { value: 1, label: "Exit", trigger: "3" },
-            { value: 2, label: "Number 2", trigger: "1" },
-            { value: 3, label: "Number 3", trigger: "1" }
-        ]
-    },
 
-    {
-        id: "3",
-        message: "Adios Amigo",
-        end: true
-    }
-];
 const Dashboard = () => {
     const navigate = useNavigate();
 
