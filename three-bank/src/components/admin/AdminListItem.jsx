@@ -27,7 +27,6 @@ const AdminApprovalListItem = props => {
                 tenure={item.loanTenure}
                 {...item}
             />
-
             <Box
                 sx={{
                     display: "flex",

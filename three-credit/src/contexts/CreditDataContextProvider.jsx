@@ -6,33 +6,32 @@ import { CircularProgress } from "@mui/material";
 
 export const CreditDataContext = createContext();
 
-const firebaseStructure = {
-    arcanaUid: "hussain",
-    pan: "hussain",
+const structVM = {
+    arcanaUid: "Vijay Malya",
+    pan: "Vijaymalya",
     personalDetails: {
         incomeDetails: {
-            yearlyIncome: 10000,
-        },
+            yearlyIncome: 100000000
+        }
     },
     userCreditRequest: [
         {
-            creditScore: 500,
+            creditScore: 200,
             requestId: 1,
-            timestamp: new Date(),
-        },
+            timestamp: new Date()
+        }
     ],
     enquiry: [
         {
             timestamp: new Date(),
             enquiryId: 69,
-            enquiryBy: "three-bank",
+            enquiryBy: "three-bank"
         },
         {
             timestamp: new Date(),
-
             enquiryId: 99,
-            enquiryBy: "Three Bank",
-        },
+            enquiryBy: "Three Bank"
+        }
     ],
     accounts: [
         {
@@ -42,8 +41,8 @@ const firebaseStructure = {
                 {
                     loanType: "personal",
                     loanId: "69",
-                    loanAmount: 10000,
-                    loanTenure: 15,
+                    loanAmount: 20000000,
+                    loanTenure: 30,
                     paymentsMade: 3,
                     payments: [
                         {
@@ -51,24 +50,24 @@ const firebaseStructure = {
                             calendar: [
                                 {
                                     month: "december",
-                                    state: "on_time",
-                                },
-                            ],
+                                    state: "missed"
+                                }
+                            ]
                         },
                         {
                             year: 2023,
                             calendar: [
                                 {
                                     month: "january",
-                                    state: "semi_delayed",
+                                    state: "missed"
                                 },
                                 {
                                     month: "february",
-                                    state: "delayed",
-                                },
-                            ],
-                        },
-                    ],
+                                    state: "missed"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     loanType: "home",
@@ -82,34 +81,110 @@ const firebaseStructure = {
                             calendar: [
                                 {
                                     month: "august",
-                                    state: "on_time",
+                                    state: "on_time"
                                 },
                                 {
                                     month: "september",
-                                    state: "semi_delayed",
+                                    state: "semi_delayed"
                                 },
                                 {
                                     month: "october",
-                                    state: "on_time",
+                                    state: "on_time"
                                 },
                                 {
                                     month: "november",
-                                    state: "on_time",
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
-        },
+                                    state: "on_time"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+const structNew = {
+    arcanaUid: "Vijay Malya",
+    pan: "Vijaymalya",
+    personalDetails: {
+        incomeDetails: {
+            yearlyIncome: 0
+        }
+    },
+    userCreditRequest: [
+        {
+            creditScore: 500,
+            requestId: 1,
+            timestamp: new Date()
+        }
     ],
+    enquiry: [],
+    accounts: []
+};
+
+const firebaseStructure = {
+    arcanaUid: "farmer",
+    pan: "farmer",
+    personalDetails: {
+        incomeDetails: {
+            yearlyIncome: 100000
+        }
+    },
+    userCreditRequest: [
+        {
+            creditScore: 500,
+            requestId: 1,
+            timestamp: new Date()
+        }
+    ],
+    enquiry: [],
+    accounts: [
+        {
+            bankProvider: "three-bank",
+            accountStartTime: new Date("2022"),
+            loans: [
+                {
+                    loanType: "Vehicle Loan",
+                    loanId: "69",
+                    loanAmount: 2000,
+                    loanTenure: 12,
+                    paymentsMade: 3,
+                    payments: [
+                        {
+                            year: 2022,
+                            calendar: [
+                                {
+                                    month: "december",
+                                    state: "ontime"
+                                }
+                            ]
+                        },
+                        {
+                            year: 2023,
+                            calendar: [
+                                {
+                                    month: "january",
+                                    state: "ontime"
+                                },
+                                {
+                                    month: "february",
+                                    state: "ontime"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 };
 
 const CreditDataContextProvider = ({ children }) => {
     const auth = useAuth();
 
     const [loading, setLoading] = useState(false);
-    const [firebaseData, setFirebaseData] = useState(firebaseStructure);
+    const [firebaseData, setFirebaseData] = useState(structVM);
 
     useEffect(() => {
         if (!auth) return;
@@ -124,7 +199,7 @@ const CreditDataContextProvider = ({ children }) => {
             const querySnapshot = await getDocs(q);
             const dataArr = [];
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 console.log(doc.id, " => ", doc.data());
                 dataArr.push({ id: doc.id, ...doc.data() });
             });
