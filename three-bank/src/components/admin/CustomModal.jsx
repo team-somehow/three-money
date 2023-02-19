@@ -1,4 +1,10 @@
-import { Button, Modal, Paper, Typography } from "@mui/material";
+import {
+    Button,
+    CircularProgress,
+    Modal,
+    Paper,
+    Typography
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
@@ -18,6 +24,7 @@ import {
 import { db } from "../../config/firebase";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
 import ThreeCredit from "../../artifacts/contracts/ThreeBank.sol/ThreeCredit.json";
+import { useNavigate } from "react-router-dom";
 const data = {
     options: {
         chart: {
@@ -108,6 +115,8 @@ const CustomModal = ({
     const [status, setStatus] = useState(false);
     const [expand, setExpand] = useState(false);
     const [creditScore, setCreditScore] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -125,11 +134,12 @@ const CustomModal = ({
                 panCardNumber
             );
             console.log(getBalance);
-            setCreditScore(getBalance)
+            setCreditScore(getBalance);
         })();
     }, [open]);
 
     const approveLoan = async () => {
+        setLoading(true);
         const provider = new providers.Web3Provider(arcanaProvider.provider);
         const signer = provider.getSigner();
         const contract = new Contract(contractAddress, ThreeBank.abi, signer);
@@ -187,12 +197,16 @@ const CustomModal = ({
             console.log("success");
             setExpand(true);
             setStatus(true);
+            navigate(0);
         }
 
+        setLoading(false);
         handleClose();
     };
 
     const RejectLoan = async () => {
+        setLoading(true);
+
         const q = query(
             collection(db, "ThreeBank"),
             where("pan", "==", panCardNumber)
@@ -224,7 +238,10 @@ const CustomModal = ({
 
         setExpand(true);
         setStatus(false);
+        setLoading(false);
+
         handleClose();
+        navigate(0);
     };
 
     return (
@@ -263,14 +280,17 @@ const CustomModal = ({
                             type="radialBar"
                             height={300}
                         />
-                        <Box>
-                            <Button onClick={() => approveLoan()}>
-                                Approve for Loan
-                            </Button>
-                            <Button onClick={() => RejectLoan()}>
-                                Reject Loan
-                            </Button>
-                        </Box>
+                        {!loading && (
+                            <Box>
+                                <Button onClick={() => approveLoan()}>
+                                    Approve for Loan
+                                </Button>
+                                <Button onClick={() => RejectLoan()}>
+                                    Reject Loan
+                                </Button>
+                            </Box>
+                        )}
+                        {loading && <CircularProgress />}
                     </Paper>
                 </div>
             </Modal>

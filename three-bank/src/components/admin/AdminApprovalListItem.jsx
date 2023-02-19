@@ -1,4 +1,10 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Paper,
+    Typography
+} from "@mui/material";
 import React, { useState } from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -8,18 +14,20 @@ import { arcanaProvider } from "../../main";
 import contractAddress from "../../constants/contractAddress";
 import { providers, Contract, utils } from "ethers";
 import ThreeBank from "../../artifacts/contracts/ThreeBank.sol/ThreeBank.json";
+import { useNavigate } from "react-router-dom";
 
 const AdminApprovalListItem = props => {
     const provider = new providers.Web3Provider(arcanaProvider.provider);
     const signer = provider.getSigner();
     const contract = new Contract(contractAddress, ThreeBank.abi, signer);
     const item = props;
-    console.log(contractAddress);
     const [expand, setExpand] = useState(false);
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
 
     const approve = async () => {
+        setLoading(true);
         await arcanaProvider.connect();
         const personalData = {
             name: item.name,
@@ -39,6 +47,8 @@ const AdminApprovalListItem = props => {
         await updateDoc(doc(db, "ThreeBank", item.id), {
             isAccountApproved: true
         });
+        navigate(0);
+        setLoading(false);
     };
 
     return (
@@ -136,7 +146,9 @@ const AdminApprovalListItem = props => {
                             variant="contained"
                             disabled={loading}
                         >
-                            Verify
+                            {!loading && "Verify"}
+
+                            {loading && <CircularProgress />}
                         </Button>
                     )}
                 </Box>
