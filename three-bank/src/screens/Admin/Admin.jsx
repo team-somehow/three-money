@@ -88,16 +88,8 @@ function AdminApproval() {
             width={"97vw"}
             elevation={12}
             sx={{
-                maxHeight: "96vh",
-                height: "96vh",
-                borderRadius: "1vw",
-                paddingX: "1.5vw",
                 display: "flex",
-                flexDirection: "row",
-                marginY: "1.5vh",
-                marginX: "1.5vw",
-                overflowY: "scroll",
-                paddingY: "4vh"
+                flexDirection: "row"
             }}
             className="awesome-bg-0 "
         >
@@ -116,28 +108,18 @@ function AdminApproval() {
                 ]}
             />
             <Box
-                width={"80%"}
+                width={"76%"}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    gap: "2vh",
-                    paddingX: "5%"
+                    mx: "auto",
+                    my: 4
                 }}
             >
-                <Box
-                    component={Paper}
-                    sx={{
-                        backgroundColor: "white",
-                        padding: "2%",
-                        textAlign: "center",
-                        borderRadius: "0.5vw",
-                        marginBottom: "4.5vh",
-                        height: "10vh"
-                    }}
-                >
-                    <Typography variant="h4">Admin Portal</Typography>
-                </Box>
+                <Typography mb={8} variant="h4">
+                    Aprove Loans - Admin
+                </Typography>
                 {data.length && data.map(item => <AdminListItem {...item} />)}
             </Box>
         </Box>

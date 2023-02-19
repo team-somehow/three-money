@@ -112,7 +112,7 @@ function AdminApproval() {
                 }}
             >
                 <Typography my={4} variant="h4">
-                    Admin Portal
+                    Aprove Accounts - Admin
                 </Typography>
                 {data.map(item => (
                     <AdminApprovalListItem {...item} />

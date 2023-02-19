@@ -3,17 +3,18 @@ import {
     Button,
     Paper,
     Typography,
-    CircularProgress,
+    CircularProgress
 } from "@mui/material";
 import React, { useState } from "react";
 import CustomModal from "./CustomModal";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
-const AdminApprovalListItem = (props) => {
+const AdminApprovalListItem = props => {
     const item = props;
     const [expand, setExpand] = useState(false);
 
     const requestCreditData = () => {
-        setExpand((prev) => !prev);
+        setExpand(prev => !prev);
     };
 
     return (
@@ -35,7 +36,7 @@ const AdminApprovalListItem = (props) => {
                     borderRadius: "1vh",
                     paddingY: "3vh",
                     paddingX: "2vw",
-                    mb: 3,
+                    mb: 3
                 }}
                 component={Paper}
             >
@@ -44,10 +45,10 @@ const AdminApprovalListItem = (props) => {
                         marginX: "2%",
                         height: "100%",
                         flexGrow: 1,
-                        gap: "1.5vh",
+                        gap: "1.5vh"
                     }}
                 >
-                    <Typography variant="h4">{item.loanId}</Typography>
+                    <Typography variant="h4">Loan Id: {item.loanId}</Typography>
                     <Typography variant="body1">
                         Loan Amount: {item.loanAmmount}
                     </Typography>
@@ -57,11 +58,13 @@ const AdminApprovalListItem = (props) => {
                         fullWidth
                         onClick={() => requestCreditData()}
                         sx={{
-                            marginTop: "10%",
+                            py: 2
                         }}
-                        variant="outlined"
+                        variant="contained"
+                        color="success"
+                        startIcon={<ArrowOutwardIcon fontSize="large" />}
                     >
-                        Request Credit info from 3 Credit
+                        Request Credit
                     </Button>
                 </Box>
             </Box>
