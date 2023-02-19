@@ -120,7 +120,13 @@ function AdminApproval() {
                 <Typography mb={8} variant="h4">
                     Approve Loans - Admin
                 </Typography>
-                {data.length && data.map(item => <AdminListItem {...item} />)}
+                {data.length > 0 &&
+                    data.map(item => <AdminListItem {...item} />)}
+                {data.length < 1 && (
+                    <Typography sx={{ marginTop: 10, fontSize: 24 }}>
+                        Whoops! No Loans To Show Here
+                    </Typography>
+                )}
             </Box>
         </Box>
     );

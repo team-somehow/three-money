@@ -182,6 +182,11 @@ const DashboardLoan = () => {
             {loanRequests.map(item => (
                 <DashboardLoanListItem {...item} />
             ))}
+            {loanRequests.length < 1 && (
+                <Typography sx={{ marginTop: 10, fontSize: 24 }}>
+                    Whoops! No Loan Requests
+                </Typography>
+            )}
         </Box>
     );
 };

@@ -177,23 +177,31 @@ function DashboardNav({ routes }) {
                     />
                 </Box>
             </List>
+            <Button
+                variant="contained"
+                onClick={() => setOpen(prev => !prev)}
+                fullWidth
+                sx={{
+                    py: 1,
+                    display: open ? "none" : "block",
+                    position: "fixed",
+                    zIndex: "999999 !important",
+                    bottom: 20,
+                    left: 20,
+                    width: "300px"
+                }}
+            >
+                Open Chatbot
+            </Button>
             <Box
                 sx={{
                     position: "fixed",
                     zIndex: "999999 !important",
-                    bottom: 20,
-                    left: 4,
+                    bottom: 40,
+                    left: 40,
                     width: "300px"
                 }}
             >
-                <Button
-                    variant="contained"
-                    onClick={() => setOpen(prev => !prev)}
-                    fullWidth
-                    sx={{ py: 1 }}
-                >
-                    Open Chatbot
-                </Button>
                 {open && (
                     <ChatBot
                         opened={open}

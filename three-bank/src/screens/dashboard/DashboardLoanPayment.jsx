@@ -23,7 +23,7 @@ const DashboardLoanPayment = () => {
             const querySnapshot = await getDocs(q);
             const dataArr = [];
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 dataArr.push({ id: doc.id, ...doc.data() });
             });
 
@@ -38,7 +38,7 @@ const DashboardLoanPayment = () => {
             </Typography>
 
             {data?.loanPayments &&
-                data?.loanPayments.map((item) => {
+                data?.loanPayments.map(item => {
                     if (item.currentPayment < parseInt(item.loanTenure)) {
                         console.log(
                             item.currentPayment,
@@ -59,6 +59,12 @@ const DashboardLoanPayment = () => {
                         );
                     }
                 })}
+
+            {data?.loanPayments?.length < 1 && (
+                <Typography sx={{ marginTop: 10, fontSize: 24 }}>
+                    Whoops! No Loans To Show Here
+                </Typography>
+            )}
         </Box>
     );
 };

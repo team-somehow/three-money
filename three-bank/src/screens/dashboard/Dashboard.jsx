@@ -6,7 +6,7 @@ import { Box, Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import ChatBot from "react-simple-chatbot";
+
 const steps = [
     {
         id: "0",
@@ -58,7 +58,6 @@ const Dashboard = () => {
                 ]}
             />
 
-           
             <Outlet />
         </Box>
     );
