@@ -59,8 +59,8 @@ const Payments = () => {
             if(accounts[i].approvedStatus==="approved")temp1+=1;
             
         }
-        setPaymentLeft(accounts.length);
-        setPaymentPaid(accounts.length-temp1);
+        setPaymentLeft(accounts.length-temp1);
+        setPaymentPaid(temp1);
     }, [accounts]);
 
     return (
