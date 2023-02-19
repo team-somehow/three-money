@@ -1,5 +1,12 @@
 import { useAuth } from "@arcana/auth-react";
-import { Box, Typography, TextField, Paper, Button } from "@mui/material";
+import {
+    Box,
+    Typography,
+    TextField,
+    Paper,
+    Button,
+    CircularProgress
+} from "@mui/material";
 import {
     collection,
     getDocs,
@@ -7,7 +14,7 @@ import {
     updateDoc,
     where,
     doc,
-    arrayUnion,
+    arrayUnion
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import DashboardLoanListItem from "../../components/dashboard/DashboardLoanListItem";
@@ -24,6 +31,7 @@ const DashboardLoan = () => {
     const [loanTenure, setLoanTenure] = useState(0);
     const [loanRequests, setLoanRequest] = useState([]);
     const [pan, setPan] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const auth = useAuth();
 
@@ -37,7 +45,7 @@ const DashboardLoan = () => {
             const querySnapshot = await getDocs(q);
             const dataArr = [];
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 dataArr.push({ id: doc.id, ...doc.data() });
             });
 
@@ -47,6 +55,7 @@ const DashboardLoan = () => {
     }, [auth]);
 
     const handleLoanRequest = async () => {
+        setLoading(true);
         if (!auth.user.publicKey) {
             alert("Arcana nahi aya");
             return;
@@ -64,7 +73,7 @@ const DashboardLoan = () => {
             loanType: "Home",
             loanAmount: ethers.utils.parseEther(loanVal),
             loanTenure: loanTenure,
-            repaymentStatus: "ongoing",
+            repaymentStatus: "ongoing"
         };
 
         await contract.requestLoan(pan, requestLoanData);
@@ -76,7 +85,7 @@ const DashboardLoan = () => {
 
         const data = await getDocs(q);
         let datafromfirebase = [];
-        data.forEach((doc) => {
+        data.forEach(doc => {
             datafromfirebase.push({ id: doc.id, ...doc.data() });
         });
 
@@ -88,20 +97,21 @@ const DashboardLoan = () => {
                 loanAmmount: loanVal,
                 loanTenure: loanTenure,
                 approvedStatus: "waiting",
-                timestamp: new Date(),
-            }),
+                timestamp: new Date()
+            })
         });
-        setLoanRequest((prev) => {
+        setLoanRequest(prev => {
             prev.push({
                 loanId: temp,
                 loanAmmount: loanVal,
                 loanTenure: loanTenure,
                 approvedStatus: "waiting",
-                timestamp: new Date(),
+                timestamp: new Date()
             });
             return [...prev];
         });
         console.log("hogaya bhai");
+        setLoading(false);
     };
 
     return (
@@ -115,7 +125,7 @@ const DashboardLoan = () => {
                     flexDirection: "column",
                     borderRadius: "1vh",
                     paddingY: "3vh",
-                    paddingX: "2vw",
+                    paddingX: "2vw"
                 }}
                 component={Paper}
             >
@@ -124,7 +134,7 @@ const DashboardLoan = () => {
                         placeholder="Enter Loan Amount"
                         label="Loan Amount"
                         value={loanVal}
-                        onChange={(e) => setLoanVal(e.target.value)}
+                        onChange={e => setLoanVal(e.target.value)}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -133,7 +143,7 @@ const DashboardLoan = () => {
                                         width={"40px"}
                                     />
                                 </InputAdornment>
-                            ),
+                            )
                         }}
                         fullWidth
                     ></TextField>
@@ -142,13 +152,13 @@ const DashboardLoan = () => {
                         placeholder="Enter Loan tenure"
                         label="Loan Tenure"
                         value={loanTenure}
-                        onChange={(e) => setLoanTenure(e.target.value)}
+                        onChange={e => setLoanTenure(e.target.value)}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">
                                     months
                                 </InputAdornment>
-                            ),
+                            )
                         }}
                         fullWidth
                     ></TextField>
@@ -158,16 +168,18 @@ const DashboardLoan = () => {
                         mx: "auto",
                         mt: 4,
                         width: "50%",
-                        fontSize: "18px",
+                        fontSize: "18px"
                     }}
                     variant="contained"
                     onClick={handleLoanRequest}
+                    disabled={loading}
                 >
-                    Request Loan
+                    {loading && <CircularProgress />}
+                    {!loading && "Request Loan"}
                 </Button>
             </Box>
             <Typography variant="h3">Loan Requests</Typography>
-            {loanRequests.map((item) => (
+            {loanRequests.map(item => (
                 <DashboardLoanListItem {...item} />
             ))}
         </Box>

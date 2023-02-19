@@ -1,4 +1,10 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Paper,
+    Typography
+} from "@mui/material";
 import React, { useState } from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -14,12 +20,12 @@ const AdminApprovalListItem = props => {
     const signer = provider.getSigner();
     const contract = new Contract(contractAddress, ThreeBank.abi, signer);
     const item = props;
-    console.log(contractAddress);
     const [expand, setExpand] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
     const approve = async () => {
+        setLoading(true);
         await arcanaProvider.connect();
         const personalData = {
             name: item.name,
@@ -39,6 +45,7 @@ const AdminApprovalListItem = props => {
         await updateDoc(doc(db, "ThreeBank", item.id), {
             isAccountApproved: true
         });
+        setLoading(false);
     };
 
     return (
@@ -136,7 +143,9 @@ const AdminApprovalListItem = props => {
                             variant="contained"
                             disabled={loading}
                         >
-                            Verify
+                            {!loading && "Verify"}
+
+                            {loading && <CircularProgress />}
                         </Button>
                     )}
                 </Box>

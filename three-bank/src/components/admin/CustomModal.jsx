@@ -1,4 +1,10 @@
-import { Button, Modal, Paper, Typography } from "@mui/material";
+import {
+    Button,
+    CircularProgress,
+    Modal,
+    Paper,
+    Typography
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
@@ -108,6 +114,7 @@ const CustomModal = ({
     const [status, setStatus] = useState(false);
     const [expand, setExpand] = useState(false);
     const [creditScore, setCreditScore] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -125,11 +132,12 @@ const CustomModal = ({
                 panCardNumber
             );
             console.log(getBalance);
-            setCreditScore(getBalance)
+            setCreditScore(getBalance);
         })();
     }, [open]);
 
     const approveLoan = async () => {
+        setLoading(true);
         const provider = new providers.Web3Provider(arcanaProvider.provider);
         const signer = provider.getSigner();
         const contract = new Contract(contractAddress, ThreeBank.abi, signer);
@@ -189,10 +197,13 @@ const CustomModal = ({
             setStatus(true);
         }
 
+        setLoading(false);
         handleClose();
     };
 
     const RejectLoan = async () => {
+        setLoading(true);
+
         const q = query(
             collection(db, "ThreeBank"),
             where("pan", "==", panCardNumber)
@@ -224,6 +235,8 @@ const CustomModal = ({
 
         setExpand(true);
         setStatus(false);
+        setLoading(false);
+
         handleClose();
     };
 
@@ -263,14 +276,17 @@ const CustomModal = ({
                             type="radialBar"
                             height={300}
                         />
-                        <Box>
-                            <Button onClick={() => approveLoan()}>
-                                Approve for Loan
-                            </Button>
-                            <Button onClick={() => RejectLoan()}>
-                                Reject Loan
-                            </Button>
-                        </Box>
+                        {!loading && (
+                            <Box>
+                                <Button onClick={() => approveLoan()}>
+                                    Approve for Loan
+                                </Button>
+                                <Button onClick={() => RejectLoan()}>
+                                    Reject Loan
+                                </Button>
+                            </Box>
+                        )}
+                        {loading && <CircularProgress />}
                     </Paper>
                 </div>
             </Modal>
