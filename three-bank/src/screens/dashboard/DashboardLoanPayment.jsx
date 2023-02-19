@@ -23,7 +23,7 @@ const DashboardLoanPayment = () => {
             const querySnapshot = await getDocs(q);
             const dataArr = [];
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 dataArr.push({ id: doc.id, ...doc.data() });
             });
 
@@ -33,12 +33,30 @@ const DashboardLoanPayment = () => {
 
     return (
         <Box p={4} width={"100%"}>
-            <Typography variant="h2" mb={4}>
-                My Loans
-            </Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    direction: "column",
+                    justifyContent: "center",
+                    borderRadius: "1vh",
+                    px: 4,
+                    py: 2,
+                    my: 4,
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)"
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: 40,
+                        textAlign: "center"
+                    }}
+                >
+                    Loan Details
+                </Typography>
+            </Box>
 
             {data?.loanPayments &&
-                data?.loanPayments.map((item) => {
+                data?.loanPayments.map(item => {
                     if (item.currentPayment < parseInt(item.loanTenure)) {
                         console.log(
                             item.currentPayment,
@@ -59,6 +77,12 @@ const DashboardLoanPayment = () => {
                         );
                     }
                 })}
+
+            {data?.loanPayments?.length < 1 && (
+                <Typography sx={{ marginTop: 10, fontSize: 24 }}>
+                    Whoops! No Loans To Show Here
+                </Typography>
+            )}
         </Box>
     );
 };

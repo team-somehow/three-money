@@ -32,10 +32,10 @@ const Payments = () => {
             );
             const snapshot = await getDocs(q);
             let data;
-            snapshot.forEach(doc => {
+            snapshot.forEach((doc) => {
                 data = {
                     id: doc.id,
-                    ...doc.data()
+                    ...doc.data(),
                 };
             });
 
@@ -45,7 +45,7 @@ const Payments = () => {
             );
             const snapshot2 = await getDocs(q2);
 
-            snapshot2.forEach(doc => {
+            snapshot2.forEach((doc) => {
                 data = doc.data().loanRequest;
             });
             setAccounts(data);
@@ -79,13 +79,13 @@ const Payments = () => {
                     py: 2,
                     my: 4,
                     mt: 6,
-                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)"
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
                 }}
             >
                 <Typography
                     sx={{
                         fontSize: 40,
-                        textAlign: "center"
+                        textAlign: "center",
                     }}
                 >
                     Payments
@@ -114,7 +114,7 @@ const Payments = () => {
             <Box>
                 <Typography variant="h4">Your Loans</Typography>
                 {accounts.length > 0 &&
-                    accounts.map(acc => (
+                    accounts.map((acc) => (
                         <AccountListItem
                             key={acc.loanId + acc.icon}
                             icon={acc.icon}
@@ -125,16 +125,19 @@ const Payments = () => {
                             status={acc.approvedStatus}
                         />
                     ))}
+                {!accounts?.length && (
+                    <Typography sx={{ mt: 5 }}>No Loans To Show</Typography>
+                )}
             </Box>
             {pan !== "Vijaymalya" && (
-                <>
+                <div>
                     <AppreciateCard
                         headingText={"On time payment in the month of December"}
                         subHeading={"Great! Keep on time paying"}
                         label={"Dec"}
                     />
                     <PaymentCalenderInfoLabel />{" "}
-                </>
+                </div>
             )}
         </Box>
     );

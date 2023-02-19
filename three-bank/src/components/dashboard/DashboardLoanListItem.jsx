@@ -27,7 +27,7 @@ const DashboardLoanListItem = props => {
         }
     };
     return (
-        <>
+        <div>
             <CustomModal
                 open={expand}
                 handleClose={(e, r) => setExpand(false)}
@@ -81,7 +81,7 @@ const DashboardLoanListItem = props => {
                     </Box>
                 </Box>
             </Box>
-        </>
+        </div>
     );
 };
 

@@ -243,7 +243,7 @@ const CustomModal = ({
     };
 
     return (
-        <>
+        <div>
             {
                 <ChildModal
                     open={expand}
@@ -302,7 +302,7 @@ const CustomModal = ({
                     </Paper>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

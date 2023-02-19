@@ -19,7 +19,9 @@ export const arcanaProvider = new AuthProvider(appID, {
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <ProvideAuth provider={arcanaProvider}>
-        <App />
-    </ProvideAuth>
+    <div>
+        <ProvideAuth provider={arcanaProvider}>
+            <App />
+        </ProvideAuth>
+    </div>
 );

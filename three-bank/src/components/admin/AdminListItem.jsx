@@ -18,7 +18,7 @@ const AdminApprovalListItem = props => {
     };
 
     return (
-        <>
+        <div>
             <CustomModal
                 open={expand}
                 handleClose={(e, r) => setExpand(false)}
@@ -63,11 +63,11 @@ const AdminApprovalListItem = props => {
                         color="success"
                         startIcon={<ArrowOutwardIcon fontSize="large" />}
                     >
-                        Request Credit
+                        Approve Loan
                     </Button>
                 </Box>
             </Box>
-        </>
+        </div>
     );
 };
 

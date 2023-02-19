@@ -43,7 +43,7 @@ function DashboardNav({ routes }) {
                     <Typography
                         variant="h4"
                         display={"flex"}
-                        alignItems={"baseline"}
+                        alignItems={"center"}
                     >
                         <img
                             src="/logo.png"
@@ -57,7 +57,7 @@ function DashboardNav({ routes }) {
                 </Link>
             </Toolbar>
             <Divider />
-            <List>
+            <List sx={{ mt: 5 }}>
                 {routes.map((r) => (
                     <Link to={r.path} key={r.headingText}>
                         <ListItem

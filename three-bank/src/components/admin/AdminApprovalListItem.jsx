@@ -52,7 +52,7 @@ const AdminApprovalListItem = props => {
     };
 
     return (
-        <>
+        <div>
             <Box
                 sx={{
                     display: "flex",
@@ -79,7 +79,7 @@ const AdminApprovalListItem = props => {
                     <Typography variant="h4">{item.name}</Typography>
                     <Typography variant="body1">{item.city}</Typography>
                     {expand && (
-                        <>
+                        <div>
                             <Typography variant="body1">
                                 Father/Husband Name: {item.FatherName}
                             </Typography>
@@ -113,7 +113,7 @@ const AdminApprovalListItem = props => {
                                     Income Proof
                                 </Button>
                             </a>
-                        </>
+                        </div>
                     )}
                 </Box>
                 <Box width="20%">
@@ -153,7 +153,7 @@ const AdminApprovalListItem = props => {
                     )}
                 </Box>
             </Box>
-        </>
+        </div>
     );
 };
 

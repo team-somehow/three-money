@@ -21,6 +21,9 @@ import { useLocation } from "react-router-dom";
 import { faker } from "@faker-js/faker";
 import QRCode from "qrcode.react";
 import ChatBot from "react-simple-chatbot";
+import { ThemeProvider } from "styled-components";
+import MarkChatUnreadIcon from "@mui/icons-material/MarkChatUnread";
+
 const steps = [
     {
         id: "0",
@@ -29,21 +32,53 @@ const steps = [
     },
     {
         id: "1",
-        message: "Choose one of the options",
+        message: "What would you like  help with?",
         trigger: "2"
     },
     {
         id: "2",
         options: [
-            { value: 1, label: "Exit", trigger: "3" },
-            { value: 2, label: "Number 2", trigger: "1" },
-            { value: 3, label: "Number 3", trigger: "1" }
+            { value: 1, label: "Accessing account details", trigger: "3" },
+            { value: 2, label: "Apply for loans", trigger: "4" },
+            { value: 3, label: "See my loans", trigger: "5" },
+            { value: 3, label: "Exit", trigger: "8" }
         ]
     },
-
     {
         id: "3",
+        message: "Click on My Account option on the left to access the Page",
+        trigger: "6"
+    },
+    {
+        id: "4",
+        message: "Click on Apply loan option on the left to access the Page",
+        trigger: "6"
+    },
+    {
+        id: "5",
+        message: "Click on my loans option on the left to access the Page",
+        trigger: "6"
+    },
+    {
+        id: "6",
+        message: "Do you want any more help?",
+        trigger: "7"
+    },
+    {
+        id: "7",
+        options: [
+            { value: 1, label: "Yes", trigger: 1 },
+            { value: 2, label: "No", trigger: 8 }
+        ]
+    },
+    {
+        id: "8",
         message: "Adios Amigo",
+        trigger: "9"
+    },
+    {
+        id: "9",
+        message: "hello",
         end: true
     }
 ];
@@ -87,6 +122,8 @@ function DashboardNav({ routes }) {
                         variant="h4"
                         display={"flex"}
                         alignItems={"center"}
+                        justifyContent={"center"}
+                        ml={6}
                     >
                         <img
                             src="/logo.png"
@@ -177,29 +214,50 @@ function DashboardNav({ routes }) {
                     />
                 </Box>
             </List>
+            <Button
+                variant="contained"
+                onClick={() => setOpen(prev => !prev)}
+                fullWidth
+                size="large"
+                sx={{
+                    py: 1,
+                    display: open ? "none" : "flex",
+                    position: "fixed",
+                    zIndex: "999999 !important",
+                    bottom: 20,
+                    left: 20,
+                    width: "300px",
+                    alignItems: "center"
+                }}
+            >
+                Open Chatbot
+                <MarkChatUnreadIcon sx={{ ml: 3 }} />
+            </Button>
             <Box
                 sx={{
                     position: "fixed",
                     zIndex: "999999 !important",
-                    bottom: 20,
-                    left: 4,
+                    bottom: 40,
+                    left: 40,
                     width: "300px"
                 }}
             >
-                <Button
-                    variant="contained"
-                    onClick={() => setOpen(prev => !prev)}
-                    fullWidth
-                    sx={{ py: 1 }}
-                >
-                    Open Chatbot
-                </Button>
                 {open && (
-                    <ChatBot
-                        opened={open}
-                        handleEnd={() => setOpen(false)}
-                        steps={steps}
-                    />
+                    <ThemeProvider
+                        theme={{
+                            background: "white",
+                            botBubbleColor: "#0000ff",
+                            userBubbleColor: "#40a0fc",
+                            botFontColor: "#fff",
+                            userFontColor: "#fff"
+                        }}
+                    >
+                        <ChatBot
+                            opened={open}
+                            handleEnd={() => setOpen(false)}
+                            steps={steps}
+                        />
+                    </ThemeProvider>
                 )}
             </Box>
         </Drawer>
