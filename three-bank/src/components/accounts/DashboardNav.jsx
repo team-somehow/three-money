@@ -83,7 +83,20 @@ function DashboardNav({ routes }) {
             <Toolbar>
                 <img></img>
                 <Link to="/dashboard/details">
-                    <Typography variant="h3">3 Money</Typography>
+                    <Typography
+                        variant="h4"
+                        display={"flex"}
+                        alignItems={"center"}
+                    >
+                        <img
+                            src="/logo.png"
+                            width={"40px"}
+                            style={{
+                                marginRight: "16px"
+                            }}
+                        />
+                        3 Money
+                    </Typography>
                 </Link>
             </Toolbar>
             <Box
