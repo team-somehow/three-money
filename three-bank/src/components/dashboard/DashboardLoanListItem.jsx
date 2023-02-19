@@ -5,18 +5,18 @@ import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-const DashboardLoanListItem = (props) => {
+const DashboardLoanListItem = props => {
     const item = props;
     const [expand, setExpand] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
     const requestCreditData = () => {
-        setExpand((prev) => !prev);
+        setExpand(prev => !prev);
     };
-    const getIconAsPerApprovalState = (status) => {
+    const getIconAsPerApprovalState = status => {
         console.log(status);
-        if (status == "completed") {
+        if (status == "completed" || status == "approved") {
             return <CheckCircleIcon fontSize="large" color="success" />;
         } else if (status == "waiting") {
             return (
@@ -43,8 +43,8 @@ const DashboardLoanListItem = (props) => {
                     py: 2,
                     my: 2,
                     "&:hover": {
-                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.12)",
-                    },
+                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.12)"
+                    }
                 }}
                 component={Paper}
             >
@@ -53,7 +53,7 @@ const DashboardLoanListItem = (props) => {
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        width: "100%",
+                        width: "100%"
                     }}
                 >
                     <Box>
