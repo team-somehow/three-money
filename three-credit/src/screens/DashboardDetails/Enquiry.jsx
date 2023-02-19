@@ -16,7 +16,7 @@ const Age = () => {
     ]);
     useEffect(() => {
         const { enquiry, userCreditRequest } = CreditDataCtx;
-        console.log(enquiry)
+        console.log(enquiry);
         setEnquiries(enquiry);
         setUserCredit(userCreditRequest);
     }, [CreditDataCtx]);

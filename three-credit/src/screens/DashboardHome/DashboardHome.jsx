@@ -34,8 +34,8 @@ const DashboardHome = () => {
     const updateScore = async () => {
         await arcanaProvider.connect();
         const result = await contract.calculateCreditScore(creditDataCtx.pan);
-        setCreditScore(result);
-        console.log(result);
+        setCreditScore(utils.formatEther(result));
+        console.log(result, utils.formatEther(result));
     };
 
     if (!creditDataCtx?.userCreditRequest)

@@ -9,7 +9,7 @@ function AppreciateCard({
     headingText,
     subHeading,
     label,
-    backgroundColor = "#fce8e5",
+    backgroundColor = "#f0faf7",
     headingTextColor = "#8dd4b7",
 }) {
     return (
