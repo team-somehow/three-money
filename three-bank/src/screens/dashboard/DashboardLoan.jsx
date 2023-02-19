@@ -116,7 +116,27 @@ const DashboardLoan = () => {
 
     return (
         <Box width={"78%"} mx={"auto"} my={4}>
-            <Typography variant="h3">Loan Details</Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    direction: "column",
+                    justifyContent: "center",
+                    borderRadius: "1vh",
+                    px: 4,
+                    py: 2,
+                    my: 4,
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)"
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: 40,
+                        textAlign: "center"
+                    }}
+                >
+                    Loan Details
+                </Typography>
+            </Box>
             <Box
                 sx={{
                     width: "100%",
