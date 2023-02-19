@@ -6,42 +6,61 @@ import PaymentCalenderInfoLabel from "../../components/PaymentCalenderInfoLabel"
 import DetailsCard from "../../components/DetailsCard";
 import AccountListItem from "../../components/AccountListItem";
 import { CreditDataContext } from "../../contexts/CreditDataContextProvider";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../config/firebase";
+
+import { useAuth } from "@arcana/auth-react";
 
 const Payments = () => {
     const creditDataCtx = useContext(CreditDataContext);
+    const auth = useAuth();
 
     const [isPaymentHistoryModal, setIsPaymentHistoryModal] = useState(false);
     const [paymentLefts, setPaymentLeft] = useState(0);
     const [paymentsPaid, setPaymentPaid] = useState(0);
+    const [accounts, setAccounts] = useState([]);
     const activateHistoryModal = () => {
         setIsPaymentHistoryModal(true);
     };
-    const accounts = [
-        {
-            bankName: "Three Loan",
-            cardNumber: "**** *890",
-            loanTenure: 15,
-            paymentsMade: 15,
-            onClickHandle: () => activateHistoryModal(),
-        },
-        {
-            bankName: "Three Bank",
-            cardNumber: "**** *69",
-            loanTenure: 15,
-            paymentsMade: 5,
-            onClickHandle: () => activateHistoryModal(),
-        },
-    ];
+
+    useEffect(() => {
+        (async () => {
+            const q = query(
+                collection(db, "CreditDetails"),
+                where("arcanaUid", "==", auth.user.publicKey)
+            );
+            const snapshot = await getDocs(q);
+            let data;
+            snapshot.forEach(doc => {
+                data = {
+                    id: doc.id,
+                    ...doc.data()
+                };
+            });
+
+            const q2 = query(
+                collection(db, "ThreeBank"),
+                where("pan", "==", data.pan)
+            );
+            const snapshot2 = await getDocs(q2);
+
+            snapshot2.forEach(doc => {
+                data=doc.data().loanRequest;
+            });
+            setAccounts(data)
+            console.log(data)
+        })();   
+    }, [auth]);
 
     useEffect(() => {
         let temp1 = 0;
         let temp2 = 0;
         for (let i = 0; i < accounts.length; i++) {
-            temp1 += accounts[i].loanTenure - accounts[i].paymentsMade;
-            temp2 += accounts[i].paymentsMade;
+            if(accounts[i].approvedStatus==="approved")temp1+=1;
+            
         }
-        setPaymentLeft(temp1);
-        setPaymentPaid(temp2);
+        setPaymentLeft(accounts.length);
+        setPaymentPaid(accounts.length-temp1);
     }, [accounts]);
 
     return (
@@ -62,20 +81,21 @@ const Payments = () => {
                 label={"Good"}
                 labelBackground={"orange"}
                 leftHeadingNumber={paymentLefts}
-                leftHeadingTitle={"Payments Left"}
+                leftHeadingTitle={"Pending Loans"}
                 rightHeadingNumber={paymentsPaid}
-                rightHeadingTitle={"Payments Paid"}
+                rightHeadingTitle={"Approved Loans"}
             />
             <Box>
                 <Typography variant="h4">Your Loans</Typography>
-                {accounts.map((acc) => (
+                {accounts.map(acc => (
                     <AccountListItem
-                        key={acc.bankName + acc.icon}
+                        key={acc.loanId + acc.icon}
                         icon={acc.icon}
-                        bankName={acc.bankName}
+                        bankName={acc.loanId}
                         cardNumber={acc.cardNumber}
-                        isActive={acc.loanTenure === acc.paymentsMade}
+                        isActive={acc.approvedStatus==="approved"}
                         onClickHandle={acc.onClickHandle}
+                        status={acc.approvedStatus}
                     />
                 ))}
             </Box>

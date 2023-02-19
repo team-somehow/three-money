@@ -9,8 +9,8 @@ function AccountListItem({
     bankName,
     cardNumber,
     isActive,
-    enquiryDate,
-    onClickHandle,
+    status,
+    onClickHandle
 }) {
     console.log(icon);
     return (
@@ -25,7 +25,7 @@ function AccountListItem({
                         {icon ? (
                             <img
                                 style={{
-                                    width: "50px",
+                                    width: "50px"
                                 }}
                                 src={`${icon}`}
                             />
@@ -33,7 +33,7 @@ function AccountListItem({
                             <AccountBalanceIcon
                                 color="primary"
                                 sx={{
-                                    fontSize: "42px",
+                                    fontSize: "42px"
                                 }}
                             />
                         )}
@@ -44,21 +44,15 @@ function AccountListItem({
                         </Typography>
                         <Box display={"flex"}>
                             <Typography>Loan ID: </Typography>
-                            <Typography>{cardNumber}</Typography>
+                            <Typography>{bankName}</Typography>
                         </Box>
                         <Box display={"flex"}>
-                            <Typography>
-                                {enquiryDate ? "Enquired on: " : "Status: "}
-                            </Typography>
+                            <Typography>Status:</Typography>
                             <Typography
                                 color={isActive ? "green" : "red"}
                                 fontWeight={"bold"}
                             >
-                                {enquiryDate
-                                    ? enquiryDate
-                                    : isActive
-                                    ? " Active"
-                                    : " Pending"}
+                                {status}
                             </Typography>
                         </Box>
                     </Box>
