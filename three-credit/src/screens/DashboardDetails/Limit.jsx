@@ -30,12 +30,10 @@ const Age = () => {
                     borderRadius: "1vh",
                     px: 4,
                     py: 2,
-                    my: 2,
-                    "&:hover": {
-                        boxShadow: "10px 10px 20px rgba(0, 0, 0, 0.12)",
-                    },
+                    my: 4,
+                    mt: 6,
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
                 }}
-                component={Paper}
             >
                 <Typography
                     sx={{
