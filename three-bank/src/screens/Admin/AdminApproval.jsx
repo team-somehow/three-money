@@ -108,11 +108,12 @@ function AdminApproval() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    mx: "auto"
+                    mx: "auto",
+                    padding: 10
                 }}
             >
                 <Typography my={4} variant="h4">
-                    Aprove Accounts - Admin
+                    Approve Accounts - Admin
                 </Typography>
                 {data.map(item => (
                     <AdminApprovalListItem {...item} />
