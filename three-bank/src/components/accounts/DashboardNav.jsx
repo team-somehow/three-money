@@ -21,6 +21,9 @@ import { useLocation } from "react-router-dom";
 import { faker } from "@faker-js/faker";
 import QRCode from "qrcode.react";
 import ChatBot from "react-simple-chatbot";
+import { ThemeProvider } from "styled-components";
+import MarkChatUnreadIcon from "@mui/icons-material/MarkChatUnread";
+
 const steps = [
     {
         id: "0",
@@ -71,7 +74,7 @@ const steps = [
     {
         id: "8",
         message: "Adios Amigo",
-        trigger:"9"
+        trigger: "9"
     },
     {
         id: "9",
@@ -119,6 +122,8 @@ function DashboardNav({ routes }) {
                         variant="h4"
                         display={"flex"}
                         alignItems={"center"}
+                        justifyContent={"center"}
+                        ml={6}
                     >
                         <img
                             src="/logo.png"
@@ -213,17 +218,20 @@ function DashboardNav({ routes }) {
                 variant="contained"
                 onClick={() => setOpen(prev => !prev)}
                 fullWidth
+                size="large"
                 sx={{
                     py: 1,
-                    display: open ? "none" : "block",
+                    display: open ? "none" : "flex",
                     position: "fixed",
                     zIndex: "999999 !important",
                     bottom: 20,
                     left: 20,
-                    width: "300px"
+                    width: "300px",
+                    alignItems: "center"
                 }}
             >
                 Open Chatbot
+                <MarkChatUnreadIcon sx={{ ml: 3 }} />
             </Button>
             <Box
                 sx={{
@@ -235,11 +243,21 @@ function DashboardNav({ routes }) {
                 }}
             >
                 {open && (
-                    <ChatBot
-                        opened={open}
-                        handleEnd={() => setOpen(false)}
-                        steps={steps}
-                    />
+                    <ThemeProvider
+                        theme={{
+                            background: "white",
+                            botBubbleColor: "#0000ff",
+                            userBubbleColor: "#40a0fc",
+                            botFontColor: "#fff",
+                            userFontColor: "#fff"
+                        }}
+                    >
+                        <ChatBot
+                            opened={open}
+                            handleEnd={() => setOpen(false)}
+                            steps={steps}
+                        />
+                    </ThemeProvider>
                 )}
             </Box>
         </Drawer>

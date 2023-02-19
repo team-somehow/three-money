@@ -34,7 +34,7 @@ const DashboardHome = () => {
     const updateScore = async () => {
         await arcanaProvider.connect();
         const result = await contract.calculateCreditScore(creditDataCtx.pan);
-        setCreditScore(result)
+        setCreditScore(result);
         console.log(result);
     };
 
@@ -45,10 +45,19 @@ const DashboardHome = () => {
         <Box
             sx={{
                 display: "flex",
-                background: `url("/assets/bg3.png   ") no-repeat`,
+                background: `conic-gradient(
+        from 136.11deg at 39.58% 43.78%,
+        #f5f6ff -56.04deg,
+        #f8f9ff 8.89deg,
+        #f4f8ff 120.09deg,
+        #f5f6ff 303.96deg,
+        #f8f9ff 368.89deg
+    )`,
+                // background: `url("/assets/bg5.png   ") no-repeat`,
                 // backgroundAttachment: "fixed",
                 backgroundSize: "cover",
                 backgroundAttachment: "fixed",
+                height: "100vh",
             }}
         >
             <Box

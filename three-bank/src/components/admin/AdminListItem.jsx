@@ -18,7 +18,7 @@ const AdminApprovalListItem = props => {
     };
 
     return (
-        <>
+        <div>
             <CustomModal
                 open={expand}
                 handleClose={(e, r) => setExpand(false)}
@@ -67,7 +67,7 @@ const AdminApprovalListItem = props => {
                     </Button>
                 </Box>
             </Box>
-        </>
+        </div>
     );
 };
 
