@@ -11,27 +11,27 @@ const structVM = {
     pan: "Vijaymalya",
     personalDetails: {
         incomeDetails: {
-            yearlyIncome: 100000000
-        }
+            yearlyIncome: 100000000,
+        },
     },
     userCreditRequest: [
         {
             creditScore: 200,
             requestId: 1,
-            timestamp: new Date()
-        }
+            timestamp: new Date(),
+        },
     ],
     enquiry: [
         {
             timestamp: new Date(),
             enquiryId: 69,
-            enquiryBy: "three-bank"
+            enquiryBy: "three-bank",
         },
         {
             timestamp: new Date(),
             enquiryId: 99,
-            enquiryBy: "Three Bank"
-        }
+            enquiryBy: "Three Bank",
+        },
     ],
     accounts: [
         {
@@ -50,24 +50,24 @@ const structVM = {
                             calendar: [
                                 {
                                     month: "december",
-                                    state: "missed"
-                                }
-                            ]
+                                    state: "missed",
+                                },
+                            ],
                         },
                         {
                             year: 2023,
                             calendar: [
                                 {
                                     month: "january",
-                                    state: "missed"
+                                    state: "missed",
                                 },
                                 {
                                     month: "february",
-                                    state: "missed"
-                                }
-                            ]
-                        }
-                    ]
+                                    state: "missed",
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     loanType: "home",
@@ -81,27 +81,27 @@ const structVM = {
                             calendar: [
                                 {
                                     month: "august",
-                                    state: "on_time"
+                                    state: "on_time",
                                 },
                                 {
                                     month: "september",
-                                    state: "semi_delayed"
+                                    state: "semi_delayed",
                                 },
                                 {
                                     month: "october",
-                                    state: "on_time"
+                                    state: "on_time",
                                 },
                                 {
                                     month: "november",
-                                    state: "on_time"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+                                    state: "on_time",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
 };
 
 const structNew = {
@@ -109,18 +109,18 @@ const structNew = {
     pan: "Vijaymalya",
     personalDetails: {
         incomeDetails: {
-            yearlyIncome: 0
-        }
+            yearlyIncome: 0,
+        },
     },
     userCreditRequest: [
         {
             creditScore: 500,
             requestId: 1,
-            timestamp: new Date()
-        }
+            timestamp: new Date(),
+        },
     ],
     enquiry: [],
-    accounts: []
+    accounts: [],
 };
 
 const firebaseStructure = {
@@ -128,15 +128,15 @@ const firebaseStructure = {
     pan: "farmer",
     personalDetails: {
         incomeDetails: {
-            yearlyIncome: 100000
-        }
+            yearlyIncome: 100000,
+        },
     },
     userCreditRequest: [
         {
             creditScore: 500,
             requestId: 1,
-            timestamp: new Date()
-        }
+            timestamp: new Date(),
+        },
     ],
     enquiry: [],
     accounts: [
@@ -156,35 +156,35 @@ const firebaseStructure = {
                             calendar: [
                                 {
                                     month: "december",
-                                    state: "ontime"
-                                }
-                            ]
+                                    state: "ontime",
+                                },
+                            ],
                         },
                         {
                             year: 2023,
                             calendar: [
                                 {
                                     month: "january",
-                                    state: "ontime"
+                                    state: "ontime",
                                 },
                                 {
                                     month: "february",
-                                    state: "ontime"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+                                    state: "ontime",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
 };
 
 const CreditDataContextProvider = ({ children }) => {
     const auth = useAuth();
 
     const [loading, setLoading] = useState(false);
-    const [firebaseData, setFirebaseData] = useState(structVM);
+    const [firebaseData, setFirebaseData] = useState(structNew);
 
     useEffect(() => {
         if (!auth) return;
@@ -199,7 +199,7 @@ const CreditDataContextProvider = ({ children }) => {
             const querySnapshot = await getDocs(q);
             const dataArr = [];
 
-            querySnapshot.forEach(doc => {
+            querySnapshot.forEach((doc) => {
                 console.log(doc.id, " => ", doc.data());
                 dataArr.push({ id: doc.id, ...doc.data() });
             });

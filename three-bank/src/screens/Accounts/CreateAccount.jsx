@@ -88,25 +88,25 @@ function CreateAccount() {
 
     const createAccountSubmit = async () => {
         setIsLoading(true);
-        // const panCardRefFb = ref(storage, `titleDeed/${panCard.name}`);
-        // const snapshot0 = await uploadBytes(panCardRefFb, panCard);
-        // const panCardUrl = await getDownloadURL(snapshot0.ref);
+        const panCardRefFb = ref(storage, `titleDeed/${panCard.name}`);
+        const snapshot0 = await uploadBytes(panCardRefFb, panCard);
+        const panCardUrl = await getDownloadURL(snapshot0.ref);
 
-        // const addressProofRefFb = ref(
-        //     storage,
-        //     `titleDeed/${addressProof.name}`
-        // );
-        // const snapshot1 = await uploadBytes(addressProofRefFb, addressProof);
-        // const addressProofUrl = await getDownloadURL(snapshot1.ref);
+        const addressProofRefFb = ref(
+            storage,
+            `titleDeed/${addressProof.name}`
+        );
+        const snapshot1 = await uploadBytes(addressProofRefFb, addressProof);
+        const addressProofUrl = await getDownloadURL(snapshot1.ref);
 
-        // const incomeProofRefFb = ref(storage, `titleDeed/${income.name}`);
-        // const snapshot2 = await uploadBytes(incomeProofRefFb, income);
-        // const incomeProofUrl = await getDownloadURL(snapshot2.ref);
+        const incomeProofRefFb = ref(storage, `titleDeed/${income.name}`);
+        const snapshot2 = await uploadBytes(incomeProofRefFb, income);
+        const incomeProofUrl = await getDownloadURL(snapshot2.ref);
 
-        // const signatureProofRefFb = ref(storage, `titleDeed/${signature.name}`);
-        // const snapshot3 = await uploadBytes(signatureProofRefFb, signature);
-        // const signatureProofUrl = await getDownloadURL(snapshot3.ref);
-        // console.log("panCardUrl", panCardUrl);
+        const signatureProofRefFb = ref(storage, `titleDeed/${signature.name}`);
+        const snapshot3 = await uploadBytes(signatureProofRefFb, signature);
+        const signatureProofUrl = await getDownloadURL(snapshot3.ref);
+        console.log("panCardUrl", panCardUrl);
 
         await addDoc(collection(db, "ThreeBank"), {
             arcanaUid: auth.user.publicKey,
@@ -122,14 +122,14 @@ function CreateAccount() {
                     yearlyIncome: yearlyIncome
                 },
                 documents: {
-                    panCardUrl: "https://brave.com/en-in/",
-                    addressProofUrl: "https://brave.com/en-in/",
-                    incomeProofUrl: "https://brave.com/en-in/",
-                    signatureProofUrl: "https://brave.com/en-in/"
-                    // panCardUrl: panCardUrl,
-                    // addressProofUrl: addressProofUrl,
-                    // incomeProofUrl: incomeProofUrl,
-                    // signatureProofUrl: signatureProofUrl
+                    // panCardUrl: "https://brave.com/en-in/",
+                    // addressProofUrl: "https://brave.com/en-in/",
+                    // incomeProofUrl: "https://brave.com/en-in/",
+                    // signatureProofUrl: "https://brave.com/en-in/"
+                    panCardUrl: panCardUrl,
+                    addressProofUrl: addressProofUrl,
+                    incomeProofUrl: incomeProofUrl,
+                    signatureProofUrl: signatureProofUrl
                 }
             },
             bankDetails: {
