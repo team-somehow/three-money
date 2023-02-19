@@ -40,7 +40,20 @@ function DashboardNav({ routes }) {
             <Toolbar>
                 <img></img>
                 <Link to="/dashboard">
-                    <Typography variant="h3">3 Credit</Typography>
+                    <Typography
+                        variant="h4"
+                        display={"flex"}
+                        alignItems={"baseline"}
+                    >
+                        <img
+                            src="/logo.png"
+                            width={"80px"}
+                            style={{
+                                marginRight: "16px",
+                            }}
+                        />
+                        3 Credit
+                    </Typography>
                 </Link>
             </Toolbar>
             <Divider />
@@ -82,17 +95,6 @@ function DashboardNav({ routes }) {
                     </Link>
                 ))}
             </List>
-            <Button
-                sx={{
-                    position: "absolute",
-                    bottom: "10px",
-                    color: "red",
-                }}
-                variant="text"
-                fullWidth
-            >
-                Logout
-            </Button>
         </Drawer>
     );
 }

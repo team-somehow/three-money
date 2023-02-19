@@ -71,10 +71,10 @@ function DashboardNav({ routes }) {
             sx={{
                 position: "relative",
                 // display: { xl: "initial", sm: "none", xs: "none" },
-                width: 300,
+                width: 340,
                 flexShrink: 0,
                 "& .MuiDrawer-paper": {
-                    width: 300,
+                    width: 340,
                     py: 4,
                     boxSizing: "border-box"
                 }
@@ -83,7 +83,20 @@ function DashboardNav({ routes }) {
             <Toolbar>
                 <img></img>
                 <Link to="/dashboard/details">
-                    <Typography variant="h3">3 Money</Typography>
+                    <Typography
+                        variant="h4"
+                        display={"flex"}
+                        alignItems={"center"}
+                    >
+                        <img
+                            src="/logo.png"
+                            width={"40px"}
+                            style={{
+                                marginRight: "16px"
+                            }}
+                        />
+                        3 Money
+                    </Typography>
                 </Link>
             </Toolbar>
             <Box
@@ -164,27 +177,21 @@ function DashboardNav({ routes }) {
                     />
                 </Box>
             </List>
-            <Button
-                sx={{
-                    position: "absolute",
-                    bottom: "10px",
-                    color: "red"
-                }}
-                variant="text"
-                fullWidth
-            >
-                Logout
-            </Button>
             <Box
                 sx={{
-                    position: "absolute",
+                    position: "fixed",
                     zIndex: "999999 !important",
                     bottom: 20,
-                    left: 0,
-                    width: "100%"
+                    left: 4,
+                    width: "300px"
                 }}
             >
-                <Button onClick={() => setOpen(prev => !prev)}>
+                <Button
+                    variant="contained"
+                    onClick={() => setOpen(prev => !prev)}
+                    fullWidth
+                    sx={{ py: 1 }}
+                >
                     Open Chatbot
                 </Button>
                 {open && (
