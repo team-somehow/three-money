@@ -108,16 +108,40 @@ function AdminApproval() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    mx: "auto",
-                    padding: 10
+                    mx: "auto"
                 }}
             >
-                <Typography my={4} variant="h4">
-                    Approve Accounts - Admin
-                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        direction: "column",
+                        justifyContent: "center",
+                        borderRadius: "1vh",
+                        px: 4,
+                        py: 2,
+                        my: 4,
+                        mt: 6,
+                        boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)"
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontSize: 40,
+                            textAlign: "center"
+                        }}
+                    >
+                        Approve Accounts | Admin
+                    </Typography>
+                </Box>
+
                 {data.map(item => (
                     <AdminApprovalListItem {...item} />
                 ))}
+                {data.length < 1 && (
+                    <Typography sx={{ marginTop: 10, fontSize: 24 }}>
+                        Whoops! No Accounts To Approve
+                    </Typography>
+                )}
             </Box>
         </Box>
     );

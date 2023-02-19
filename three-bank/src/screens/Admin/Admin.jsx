@@ -113,13 +113,31 @@ function AdminApproval() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    mx: "auto",
-                    my: 4
+                    mx: "auto"
                 }}
             >
-                <Typography mb={8} variant="h4">
-                    Approve Loans - Admin
-                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        direction: "column",
+                        justifyContent: "center",
+                        borderRadius: "1vh",
+                        px: 4,
+                        py: 2,
+                        my: 4,
+                        mt: 6,
+                        boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)"
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontSize: 40,
+                            textAlign: "center"
+                        }}
+                    >
+                        Approve Loans | Admin
+                    </Typography>
+                </Box>
                 {data.length > 0 &&
                     data.map(item => <AdminListItem {...item} />)}
                 {data.length < 1 && (

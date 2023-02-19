@@ -64,7 +64,7 @@ const AdminApprovalListItem = props => {
                         color="success"
                         startIcon={<ArrowOutwardIcon fontSize="large" />}
                     >
-                        Request Credit
+                        Approve Loan
                     </Button>
                 </Box>
             </Box>
