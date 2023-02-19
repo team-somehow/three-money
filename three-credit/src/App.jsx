@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { routes } from "./routes";
 import { useAuth } from "@arcana/auth-react";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography, Box } from "@mui/material";
 import CreditDataContextProvider from "./contexts/CreditDataContextProvider";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -11,8 +11,8 @@ import { useEffect } from "react";
 
 const darkTheme = createTheme({
     palette: {
-        primary: { main: "#977dde" },
-    },
+        primary: { main: "#977dde" }
+    }
 });
 
 function App() {
@@ -26,6 +26,25 @@ function App() {
     //             <CircularProgress />
     //         </div>
     //     );
+
+    if (window.innerWidth < 991) {
+        return (
+            <Box
+                sx={{
+                    width: "100vw",
+                    height: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection:"column"
+                }}
+            >
+                <Typography variant="h4" textAlign={"center"}>
+                    Please access on desktop for full viewing experience
+                </Typography>
+            </Box>
+        );
+    }
 
     return (
         <ThemeProvider theme={darkTheme}>
