@@ -153,7 +153,8 @@ function CreateAccount() {
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
-                position: "relative"
+                position: "relative",
+                height: "100vh"
             }}
         >
             <Box
