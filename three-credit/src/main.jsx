@@ -10,7 +10,7 @@ const appID = "f7a9ea5151cef4aae7ed480e2e8ca43d32b06d3d";
 export const arcanaProvider = new AuthProvider(appID, {
   network: "testnet", //defaults to 'testnet'
   position: "right", //defaults to right
-  theme: "dark", //defaults to dark
+  theme: "light", //defaults to dark
   alwaysVisible: true, //defaults to true which is Full UI mode
   chainConfig: {
     chainId: CHAIN.POLYGON_MUMBAI_TESTNET, //defaults to CHAIN.ETHEREUM_MAINNET

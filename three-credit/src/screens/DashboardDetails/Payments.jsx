@@ -19,6 +19,7 @@ const Payments = () => {
     const [paymentLefts, setPaymentLeft] = useState(0);
     const [paymentsPaid, setPaymentPaid] = useState(0);
     const [accounts, setAccounts] = useState([]);
+    const [pan, setPan] = useState("");
     const activateHistoryModal = () => {
         setIsPaymentHistoryModal(true);
     };
@@ -45,26 +46,51 @@ const Payments = () => {
             const snapshot2 = await getDocs(q2);
 
             snapshot2.forEach(doc => {
-                data=doc.data().loanRequest;
+                data = doc.data().loanRequest;
             });
-            setAccounts(data)
-            console.log(data)
-        })();   
+            setAccounts(data);
+            console.log(data);
+        })();
     }, [auth]);
 
     useEffect(() => {
         let temp1 = 0;
         let temp2 = 0;
         for (let i = 0; i < accounts.length; i++) {
-            if(accounts[i].approvedStatus==="approved")temp1+=1;
-            
+            if (accounts[i].approvedStatus === "approved") temp1 += 1;
         }
-        setPaymentLeft(accounts.length-temp1);
+
+        setPaymentLeft(accounts.length || 0 - temp1);
         setPaymentPaid(temp1);
     }, [accounts]);
+    useEffect(() => {
+        setPan(creditDataCtx.pan);
+    }, [creditDataCtx]);
 
     return (
         <Box width={"78%"} mx={"auto"}>
+            <Box
+                sx={{
+                    display: "flex",
+                    direction: "column",
+                    justifyContent: "center",
+                    borderRadius: "1vh",
+                    px: 4,
+                    py: 2,
+                    my: 4,
+                    mt: 6,
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)"
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: 40,
+                        textAlign: "center"
+                    }}
+                >
+                    Payments
+                </Typography>
+            </Box>
             <Dialog
                 onClose={() => setIsPaymentHistoryModal(false)}
                 open={isPaymentHistoryModal}
@@ -87,24 +113,29 @@ const Payments = () => {
             />
             <Box>
                 <Typography variant="h4">Your Loans</Typography>
-                {accounts.map(acc => (
-                    <AccountListItem
-                        key={acc.loanId + acc.icon}
-                        icon={acc.icon}
-                        bankName={acc.loanId}
-                        cardNumber={acc.cardNumber}
-                        isActive={acc.approvedStatus==="approved"}
-                        onClickHandle={acc.onClickHandle}
-                        status={acc.approvedStatus}
-                    />
-                ))}
+                {accounts.length > 0 &&
+                    accounts.map(acc => (
+                        <AccountListItem
+                            key={acc.loanId + acc.icon}
+                            icon={acc.icon}
+                            bankName={acc.loanId}
+                            cardNumber={acc.cardNumber}
+                            isActive={acc.approvedStatus === "approved"}
+                            onClickHandle={acc.onClickHandle}
+                            status={acc.approvedStatus}
+                        />
+                    ))}
             </Box>
-            <AppreciateCard
-                headingText={"On time payment in the month of December"}
-                subHeading={"Great! Keep on time paying"}
-                label={"Dec"}
-            />
-            <PaymentCalenderInfoLabel />
+            {pan !== "Vijaymalya" && (
+                <>
+                    <AppreciateCard
+                        headingText={"On time payment in the month of December"}
+                        subHeading={"Great! Keep on time paying"}
+                        label={"Dec"}
+                    />
+                    <PaymentCalenderInfoLabel />{" "}
+                </>
+            )}
         </Box>
     );
 };

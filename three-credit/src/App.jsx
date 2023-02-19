@@ -11,8 +11,14 @@ import { useEffect } from "react";
 
 const darkTheme = createTheme({
     palette: {
-        primary: { main: "#977dde" }
-    }
+        primary: { main: "#618ef8" },
+    },
+
+    typography: {
+        fontFamily: ["Poppins", "Nunito", "Roboto", "Arial", "sans-serif"].join(
+            ","
+        ),
+    },
 });
 
 function App() {
@@ -36,7 +42,7 @@ function App() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexDirection:"column"
+                    flexDirection: "column",
                 }}
             >
                 <Typography variant="h4" textAlign={"center"}>

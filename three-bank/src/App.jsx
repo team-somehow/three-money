@@ -3,12 +3,18 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { routes } from "./routes";
 import { useAuth } from "@arcana/auth-react";
-import { CircularProgress, Box,Typography } from "@mui/material";
+import { CircularProgress, Box, Typography } from "@mui/material";
 import AOS from "aos";
 import { useEffect } from "react";
 const darkTheme = createTheme({
     palette: {
-        primary: { main: "#977dde" }
+        primary: { main: "#618ef8" }
+    },
+
+    typography: {
+        fontFamily: ["Poppins", "Nunito", "Roboto", "Arial", "sans-serif"].join(
+            ","
+        )
     }
 });
 

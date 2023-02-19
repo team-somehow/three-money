@@ -92,6 +92,29 @@ const Age = () => {
 
     return (
         <Box width={"76%"} mx={"auto"}>
+            <Box
+                sx={{
+                    display: "flex",
+                    direction: "column",
+                    justifyContent: "center",
+                    borderRadius: "1vh",
+                    px: 4,
+                    py: 2,
+                    my: 4,
+                    mt: 6,
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: 40,
+                        textAlign: "center",
+                    }}
+                >
+                    Age
+                </Typography>
+            </Box>
+
             <DetailsCard
                 mainHeading={"Medium Impact"}
                 lastUpdated={JSON.stringify(

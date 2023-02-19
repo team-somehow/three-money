@@ -1,6 +1,7 @@
 import { Box, Typography, LinearProgress, Paper } from "@mui/material";
-import { useState } from "react";
+import { useState ,useContext,useEffect} from "react";
 import AccountListItem from "../../components/AccountListItem";
+import { CreditDataContext } from "../../contexts/CreditDataContextProvider";
 
 function LinearProgressWithLabel(props) {
     return (
@@ -19,6 +20,20 @@ function LinearProgressWithLabel(props) {
 
 const Age = () => {
     const [progress, setProgress] = useState(10);
+    const [accounts,setAccounts]=useState([])
+
+    const creditDataCtx=useContext(CreditDataContext);
+
+    useEffect(()=>{
+        const {pan}=creditDataCtx
+        console.log(pan)
+        if(pan==="Vijaymalya"){
+            setProgress(90)
+        }
+        setAccounts(creditDataCtx.accounts)
+        console.log(creditDataCtx)
+    },[creditDataCtx])
+
 
     return (
         <Box width={"76%"} mx={"auto"}>
@@ -30,12 +45,10 @@ const Age = () => {
                     borderRadius: "1vh",
                     px: 4,
                     py: 2,
-                    my: 2,
-                    "&:hover": {
-                        boxShadow: "10px 10px 20px rgba(0, 0, 0, 0.12)",
-                    },
+                    my: 4,
+                    mt: 6,
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
                 }}
-                component={Paper}
             >
                 <Typography
                     sx={{
@@ -43,7 +56,7 @@ const Age = () => {
                         textAlign: "center",
                     }}
                 >
-                    Credit Utilization
+                    Credit Use
                 </Typography>
             </Box>
 
