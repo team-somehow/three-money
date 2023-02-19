@@ -103,7 +103,7 @@ function DashboardDetails() {
         const getBalData = await contract.getBalance(pan);
 
         console.log(ethers.utils.formatEther(getBalData));
-        setBalance(ethers.utils.formatEther(getBalData))
+        setBalance(ethers.utils.formatEther(getBalData));
     };
 
     const deposit = async () => {
@@ -300,7 +300,7 @@ function DashboardDetails() {
                             {balance}
                         </Typography>
                         <Typography variant="h6">
-                            Last Updated: <b>12 Feb 2023</b>
+                            Last Updated: <b>19 Feb 2023</b>
                         </Typography>
                     </Box>
                     <IconButton
